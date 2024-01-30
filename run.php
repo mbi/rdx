@@ -41,7 +41,7 @@ $headhtml = '<!DOCTYPE html><html><head>
 
 $build_time = time();
 $headhtml = str_replace('functions.js', 'functions.js?v=' . $build_time, $headhtml);
-$headhtml = str_replace('styles.css', 'style.css?v=' . $build_time, $headhtml);
+$headhtml = str_replace('styles.css', 'styles.css?v=' . $build_time, $headhtml);
 
 
 $files = glob("html/*.html");
