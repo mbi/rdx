@@ -2,16 +2,16 @@
 $headhtml = '<!DOCTYPE html><html><head>
     <title>RDX for Reddit -  Apollo For Reddit Inspired Web Viewer</title>
     <meta name="description" content="rdx for reddit is a fast, lightweight mobile Web Viewer for Reddit based on Apollo. Mobile friendly reader for Reddit. Browse Reddit without Ads."/>
-    <link rel="shortcut icon" href="favicon.ico">   
-  <link rel="icon" href="favicon.png"> 
+    <link rel="shortcut icon" href="favicon.ico">
+  <link rel="icon" href="favicon.png">
 <link rel="manifest" href="/manifest.json" /> <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="rdx" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
      <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta charset="utf-8">
     <link rel="stylesheet" href="styles.css" type="text/css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dashjs/4.7.1/dash.all.min.js"></script>
-    </head>  
+    <script src="/r/dash.all.min.js"></script>
+    </head>
 <body>
     <header id="header">
         <div id="pagetitle">
@@ -35,8 +35,8 @@ $headhtml = '<!DOCTYPE html><html><head>
     </div>
     </header>
     <div id="body"></div>
-    <script src="functions.js"></script><!-- Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon=\'{"token": "5ce6e4ad5599462c8e3c36f2223a7184"}\'></script> 
-    <script src="https://cdn.jsdelivr.net/npm/ios-pwa-splash@1.0.0/cdn.min.js"></script>
+    <script src="functions.js"></script>
+    <script src="/r/ios-pwa-splash@1.0.0.js"></script>
 <script>iosPWASplash(\'5122.png\', \'#4e2a72\');</script> ';
 $files = glob("html/*.html");
 foreach($files as $file){
@@ -45,12 +45,12 @@ $data = file_get_contents($file);
 $data = str_replace('<!--headhtml-->',$headhtml,$data);
 
 
-$data = str_replace('</body>','<div class="footer"><a rel="nofollow" href="https://www.buymeacoffee.com/overdevsapps" class="bmac"><img src="bmac.png"  width="140" alt="donate"></a><br>If you use rdx for Reddit&reg; please provide <a href="contact.html">Feedback</a> and <a href="https://www.buymeacoffee.com/overdevsapps" rel="nofollow">Donate</a>.<br><br><small><a href="new.html">What\'s new?</a> | <a href="settings.html">Settings</a> | <a href="https://github.com/avadhesh18/rdx/">Star on Github</a></small></div> <div id="popitup" style="display:none;"> 
+$data = str_replace('</body>','<div class="footer"><a rel="nofollow" href="https://www.buymeacoffee.com/overdevsapps" class="bmac"><img src="bmac.png"  width="140" alt="donate"></a><br>If you use rdx for Reddit&reg; please provide <a href="contact.html">Feedback</a> and <a href="https://www.buymeacoffee.com/overdevsapps" rel="nofollow">Donate</a>.<br><br><small><a href="new.html">What\'s new?</a> | <a href="settings.html">Settings</a> | <a href="https://github.com/avadhesh18/rdx/">Star on Github</a></small></div> <div id="popitup" style="display:none;">
   <span onclick="document.getElementById(\'popitup\').style.display=\'none\'">Cancel</span>
-  <div id="helptext"></div><textarea class="cmntarea" id="commentText" placeholder="Write a reply!" required></textarea>      
-<input id="cmtid" value="" type="hidden"/> <input id="actype" value="" type="hidden"/> <button id="cmntbtn" onclick="apiAction();">Submit</button>    
+  <div id="helptext"></div><textarea class="cmntarea" id="commentText" placeholder="Write a reply!" required></textarea>
+<input id="cmtid" value="" type="hidden"/> <input id="actype" value="" type="hidden"/> <button id="cmntbtn" onclick="apiAction();">Submit</button>
 </div> <!-- rdx --></body>',$data);
-if($file == 'html/index.html') 
+if($file == 'html/index.html')
 {
 $data = str_replace('<!-- rdx -->','<div class="infotext">
 <h1>Explore RDX for Reddit: A Fast and Lightweight Web Viewer Inspired by Apollo</h1>
