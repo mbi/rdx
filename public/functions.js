@@ -3,7 +3,7 @@ var bmr = '';
 
 var nexturl = ''; var nextseturl = '';
 if(JSON.parse(localStorage.getItem("subs")) !== null){
-subslisted = ''; subslistedarray = JSON.parse(localStorage.getItem("subs")); 
+subslisted = ''; subslistedarray = JSON.parse(localStorage.getItem("subs"));
   subslistedarray.sort(function(a, b) {
     return a.toLowerCase().localeCompare(b.toLowerCase());
   });
@@ -93,7 +93,7 @@ fill += postbuilder(pid);
 fill += '<div class="navigate">';
 var curpage = window.location.href.replace(/\&after.*/,'');
 if(jsonResponse['data']['after'] != null) {
-if(curpage.indexOf("?") === -1) {curpage = curpage+'?a=b';} 
+if(curpage.indexOf("?") === -1) {curpage = curpage+'?a=b';}
 fill += '<a class="next" href="'+curpage+'&after='+jsonResponse['data']['after']+'">Next page</a><div id="sxpy"></div><div id="sentinel"> </div>';
 nextseturl   = curpage+'&after='+jsonResponse['data']['after'];
 nexturl  = url.split('&after')[0]+"&after="+jsonResponse['data']['after'];
@@ -127,7 +127,7 @@ fill += postbuilder(pid);
 }
 var curpage = window.location.href.replace(/\&after.*/,'');
 if(jsonResponse['data']['after'] != null) {
-if(curpage.indexOf("?") === -1) {curpage = curpage+'?a=b';} 
+if(curpage.indexOf("?") === -1) {curpage = curpage+'?a=b';}
 history.pushState("", "newtitle", nextseturl);
 nextseturl   = curpage+'&after='+jsonResponse['data']['after'];
 nexturl = url.split('&after')[0];
@@ -150,7 +150,7 @@ req.send(null);
 function observe() {
 const options = {
         root: null,
-        threshold: 1.0 
+        threshold: 1.0
     };
 cantload = false;
     function callback(entries, observer) {
@@ -171,7 +171,7 @@ cantload = false;
     const sentinel = document.getElementById('sentinel');
     if (sentinel) {
         observer.observe(sentinel);
-    } 
+    }
 }
 
 
@@ -211,7 +211,7 @@ xhr.onreadystatechange = function()
     {
         subslist = xhr.response;
 		fillsubs = '';
-		for (var singlesub in subslist['subreddits'] )   
+		for (var singlesub in subslist['subreddits'] )
 {
 //console.log(subslist[singlesub]);
 fillsubs += '<a href="subreddit.html?r=' + subslist['subreddits'][singlesub]['name']+'">'+subslist['subreddits'][singlesub]['name']+'</a>';
@@ -231,7 +231,7 @@ window.location = 'subreddit.html?r=' + subslist['subreddits'][0]['name']+'';}
 }}
 }
 
-function unsubscribe(sub){removelc('subs',sub); subbtn = document.getElementById('subbtn');  
+function unsubscribe(sub){removelc('subs',sub); subbtn = document.getElementById('subbtn');
  subbtn.setAttribute( "onclick",  'subscribe(\''+sub+'\')' ); subbtn.innerHTML = 'Subscribe';}
 function subscribe(sub){addlc('subs',sub);
 subbtn = document.getElementById('subbtn');
@@ -270,7 +270,7 @@ thumbnail = post["preview"]['images'][0]['resolutions'][0]['url'];
 }
 returnfpost +=  '<div class="compthumb"><img src="'+thumbnail+'" alt="thumbnail"/></div><div class="rop">';
 } else {
-thumbnail = thumbnail || "&bull;"; 
+thumbnail = thumbnail || "&bull;";
 	  const  mx = post?.preview?.images?.[0]?.resolutions?.[0]?.url || "none";
 if(mx != "none") {
 returnfpost +=  '<div class="compthumb"><img src="'+mx+'" alt="thumbnail"/></div><div class="rop">';
@@ -308,7 +308,7 @@ returnfpost += pollbuilder(post);
 }
 
 
-returnfpost += '<div class="post_meta">'+post['score']+' votes &bull; '+post['num_comments']+' comments';
+returnfpost += '<div class="post_meta">'+post['score']+' votes &bull; <a href="comments.html?url=https://www.reddit.com'+ post['permalink']+'">'+post['num_comments']+' comments</a>';
 if (localStorage.getItem('refreshToken') !== null && window.location.href.includes('comments.html')) {
   returnfpost += ' &bull; <span onclick="replyto(\'t3_' + post['id'] + '\')">Reply</span>';
 }
@@ -348,7 +348,7 @@ jdiv.innerHTML += '<div class="displayimg"><img src="'+el.getAttribute('data-msr
 });
 }
 function urlpreview(urli,postjson) {
-returnpost = '';	
+returnpost = '';
 	if (urli.match(/.(jpg|jpeg|png)$/i))
 	{
 		returnpost += '<div class="postc singleimage"><img src="'+ urli +'"/></div>';
@@ -365,7 +365,7 @@ else {
 			vidposter = postjson["thumbnail"];
 		}
 		else {
-			
+
 			vidposter = postjson["preview"]["images"]["0"]["source"]["url"];
 		}
 		returnpost += '<div class="postc video"><video src="'+ x +'#t=0.001" poster="'+vidposter+'" width="100%" height="240" preload="metadata" controls></video></div>';
@@ -415,16 +415,16 @@ let fakect = ' actv';
 	{
 	returnpost += '<div class="postc video">';
 		if(postjson['secure_media'] != null) {
-		vidurl =  postjson['secure_media']['reddit_video']['dash_url']; 
-		hlsurl =  postjson['secure_media']['reddit_video']['hls_url']; 
-		fallbackurl = postjson['secure_media']['reddit_video']['fallback_url']; 
+		vidurl =  postjson['secure_media']['reddit_video']['dash_url'];
+		hlsurl =  postjson['secure_media']['reddit_video']['hls_url'];
+		fallbackurl = postjson['secure_media']['reddit_video']['fallback_url'];
 		//returnpost +='<video id="v'+postjson['id']+'" src="'+vidurl+'" poster="'+postjson["thumbnail"]+'" width="100%" height="240" preload="metadata" onplay="playaud(\'a'+postjson['id']+'\')"  onpause="pauseaud(\'a'+postjson['id']+'\')"  onseeking="pauseaud(\'a'+postjson['id']+'\')"  onseeked="seeked(\''+postjson['id']+'\')"   controls> </video><audio src="'+urli+'/DASH_audio.mp4" id="a'+postjson['id']+'" controls></audio>	';
 		vidposter = postjson["preview"];
 		if(typeof vidposter == "undefined"){
 			vidposter = postjson["thumbnail"];
 		}
 		else {
-			
+
 			vidposter = postjson["preview"]["images"]["0"]["source"]["url"];
 		}
 		returnpost +='<video id="v'+postjson['id']+'" src="'+vidurl+'#t=0.001" data-fallback="'+fallbackurl+'" data-hls="'+hlsurl+'" poster="'+vidposter+'" width="100%" height="240" preload="metadata" class="reddit_hls"  controls> </video>';
@@ -436,7 +436,7 @@ let fakect = ' actv';
 	{
 	returnpost += '<div class="postc video">';
 	if(postjson['secure_media']) {
-	vidurl = postjson['secure_media']['oembed']['thumbnail_url']; 
+	vidurl = postjson['secure_media']['oembed']['thumbnail_url'];
 	if(typeof vidurl == "undefined"){
 		vidurl = urli.replace("redgifs.com/watch/", "redgifs.com/ifr/");
 		vidurl = '<iframe src="'+vidurl+'?autoplay=0" class="gifframe"></iframe>';
@@ -450,7 +450,7 @@ let fakect = ' actv';
 		vidurl = postjson['secure_media']['oembed']['thumbnail_url'];
 		}
 		vidurl = vidurl.replace("size_restricted.gif", "mobile.mp4")
-		
+
 		returnpost +='<video src="'+vidurl+'#t=0.001" poster="'+postjson["preview"]["images"]["0"]["source"]["url"]+'" width="100%" height="240" preload="metadata" controls> </video>';
 	}
 	}
@@ -459,7 +459,7 @@ let fakect = ' actv';
 	else if (urli.match(/gfycat.com/g)){
 	returnpost += '<div class="postc video">';
 	if(postjson['secure_media'] == null || typeof postjson['secure_media']['oembed']['thumbnail_url'] == "undefined" ){
-	
+
 
 		vidurl = urli.replace("gfycat.com/", "gfycat.com/ifr/");
 		vidurl = '<iframe src="'+vidurl+'?autoplay=0" class="gifframe"></iframe>';
@@ -480,7 +480,7 @@ let fakect = ' actv';
 	else if (urli.match(/i.imgur.com(.*?)gifv/g))
 	{
 	returnpost += '<div class="postc video">';
-	vidurl = urli.replace(".gifv", ".mp4") 
+	vidurl = urli.replace(".gifv", ".mp4")
 	returnpost +='<video src="'+vidurl+'" poster="'+postjson["thumbnail"]+'#t=0.001" width="100%" height="240" preload="metadata" controls> </video>';
 	returnpost += '</div>';
 	}
@@ -538,7 +538,7 @@ isop = comment['is_submitter'] == true ? "isop" : "";
 ismod = comment['distinguished'] == 	" moderator" ? "ismod" : "";
 
 
- 
+
 cret = '<div class="comment ccp'+comment['depth']+'" id="'+comment['id']+'"><div class="comment_author"><span class="authorttext '+isop+''+ismod+'"><a class="authorlink" href="user.html?u='+ comment['author'] +'">'+ comment['author'] +'</a></span>  <span class="comment_meta">'+ comment['score'] +' votes &bull; '+timeagoed+' </span></div><div class="comment_text">'+ replaceRedditLinks(htmlDecode(comment['body_html'])) +'</div>';
 if(localStorage.getItem('refreshToken') != null){
 cret += '<div class="comment-reply"><span onclick="replyto(\'t1_'+comment['id']+'\')">Reply</span>';
@@ -552,7 +552,7 @@ return cret;
 }
 function runhsl(){
  const videos = document.querySelectorAll('.reddit_hls:not(.goner)');
-                
+
 
         videos.forEach(video => {
         	const videoContainer = video.parentElement;
@@ -569,7 +569,7 @@ function runhsl(){
           //  } else {
                 // Provide a fallback for unsupported browsers
             //    video.src = video.getAttribute('data-fallback');
-                
+
            // }
            const isIOS = /iPhone|iPad/i.test(navigator.userAgent);
 if (isIOS) {
@@ -580,7 +580,7 @@ else {
 hls.initialize(video,video.src, false);
          }
         });
-        
+
         const gtumbs = document.querySelectorAll('.gtumb');
                 gtumbs.forEach(gtum => {
 gtum.addEventListener("click",function() {
@@ -588,21 +588,21 @@ const curod = this.getAttribute('data-id');
 document.getElementById("mi_"+curod).src= this.getAttribute('data-msrc');
 
   document.querySelectorAll('[data-id="'+curod+'"]').forEach(el => el.classList.remove('actv'));
-  
+
   this.classList.add('actv');
-document.getElementById("mi_"+curod).scrollIntoView(); 
+document.getElementById("mi_"+curod).scrollIntoView();
   });
   });
 
 
 }
-  
-  
+
+
   function shareit(){
   	if(navigator.share){const t=window.location.href;const n=document.title;const e={title:n,url:t};navigator.share(e).then(()=>{console.log("Shared successfully")}).catch(e=>{console.error("Error sharing:",e)})}
   	else{const t=window.location.href,n=document.createElement("textarea");n.value=t,document.body.appendChild(n),n.select(),document.execCommand("copy"),document.body.removeChild(n),alert("Link copied to clipboard: "+t)}
   }
-  
+
 function saveit(e) {
 
 if(e.innerHTML == 'Saved') {
@@ -634,7 +634,7 @@ return false;
     }
     function removeit(index) {
     const savedLinks = JSON.parse(localStorage.getItem('savedlinks')) || [];
-    
+
     // Ensure index is within bounds
     if (index >= 0 && index < savedLinks.length) {
         savedLinks.splice(index, 1); // Remove the element at the specified index
@@ -643,7 +643,7 @@ return false;
     }
 }
 
- 
+
 function replyto(cmtid){
 document.getElementById('popitup').style.display = 'block';
 document.getElementById('cmtid').value = cmtid;
@@ -651,11 +651,11 @@ document.getElementById('actype').value = "c";
     let ebId = cmtid.replace(/^(t1_|t3_)/, '');
     if(document.getElementById(ebId).className != "post"){
     	    	document.getElementById('helptext').textContent = 'Reply to: '+document.getElementById(ebId).querySelector('.comment_text').textContent;
-    	
+
     }
     else {
     	document.getElementById('helptext').textContent = 'Reply to:' +document.getElementById(ebId).querySelector('.post_link a').textContent;
-    	
+
     }
     document.getElementById('commentText').focus();
 }
@@ -688,10 +688,10 @@ function apiAction() {
     const refreshToken = localStorage.getItem('refreshToken');
     const clientId = localStorage.getItem('clientId');
     const clientSecret = localStorage.getItem('clientSecret');
-    const redirectUri = 'https://rdx.overdevs.com/login.html'; 
+    const redirectUri = 'https://rdx.overdevs.com/login.html';
     const actionType  = document.getElementById('actype').value;
- 
-  
+
+
     if (accessToken && expiresIn) {
         const currentTimestamp = Date.now();
         const expiresAt = parseInt(expiresIn);
@@ -752,7 +752,7 @@ function apiAction() {
     } else {
         window.location.href = 'login.html';
     }
-} 
+}
 
 function submitComment(accessToken) {
   document.getElementById('cmntbtn').disabled = true;
@@ -765,7 +765,7 @@ function submitComment(accessToken) {
         headers: {
             'Authorization': `bearer ${accessToken}`,
             'Content-Type': 'application/x-www-form-urlencoded',         },
-        body: `api_type=json&text=${encodeURIComponent(commentText)}&thing_id=${thingId}`, 
+        body: `api_type=json&text=${encodeURIComponent(commentText)}&thing_id=${thingId}`,
             })
     .then(response => response.json())
     .then(commentData => {
@@ -784,9 +784,9 @@ document.getElementById('commentText').value = '';
      let ccNumber = document.getElementById(ebId).className.match(/ccp\d+/)[0].replace("ccp", "");
      ccNumber = Math.floor(ccNumber)+1;
 ccclass = "ccp" + ccNumber;
-}  
+}
             document.getElementById(ebId).insertAdjacentHTML('afterEnd','<div class="comment '+ccclass+'"><div class="comment_author"><span class="authorttext ">You</span>  <span class="comment_meta">1 votes • Just now </span></div><div class="comment_text">'+commentText+'</div></div>');
-        } 
+        }
     })
     .catch(error => {
     	    document.getElementById('cmntbtn').disabled = false;
@@ -806,7 +806,7 @@ function editComment(accessToken) {
         headers: {
             'Authorization': `bearer ${accessToken}`,
             'Content-Type': 'application/x-www-form-urlencoded',         },
-        body: `api_type=json&text=${encodeURIComponent(commentText)}&thing_id=${thingId}`, 
+        body: `api_type=json&text=${encodeURIComponent(commentText)}&thing_id=${thingId}`,
             })
     .then(response => response.json())
     .then(commentData => {
@@ -821,7 +821,7 @@ function editComment(accessToken) {
 document.getElementById('commentText').value = '';
 let ebId = thingId.replace(/^(t1_|t3_)/, '');
         	    document.getElementById(ebId).querySelector('.comment_text').textContent = commentText;
-        } 
+        }
     })
     .catch(error => {
     	    document.getElementById('cmntbtn').disabled = false;
@@ -838,7 +838,7 @@ function delComment(accessToken) {
         headers: {
             'Authorization': `bearer ${accessToken}`,
             'Content-Type': 'application/x-www-form-urlencoded',         },
-        body: `id=${thingId}`, 
+        body: `id=${thingId}`,
             })
     .then(response => response.json())
     .then(commentData => {
@@ -846,10 +846,10 @@ function delComment(accessToken) {
 
             alert('Error deleting comment:'+ commentData.errors);
         } else {
-        	
+
 let ebId = thingId.replace(/^(t1_|t3_)/, '');
         	    document.getElementById(ebId).style.display = 'none';
-        } 
+        }
     })
     .catch(error => {
         alert('Error deleting comment:'+ error);
@@ -872,7 +872,7 @@ fetch(inboxUrl, {
     } else {
         const inboxMessages = inboxData.data.children;
 console.log(inboxMessages);
-      
+
     let html = '';
 
   inboxMessages.forEach((item) => {
@@ -913,7 +913,7 @@ window.onload = function(){
 		    if (window.location.href.indexOf("?u=") > -1 || window.location.href.indexOf("&u=") > -1) {
     html1 += '<input type="checkbox" id="chk1" name="u" value="'+getget('u')+'" checked><label for="chk1"> Only search u/'+getget('u')+'</label>';
     }
-	
+
 		    if (window.location.href.indexOf("/r/") > -1) {
 				ther = window.location.href.match(/r\/(.*?)\//s)[1];
     html1 += '<input type="checkbox" id="chk1" name="r" value="'+ther+'" checked><label for="chk1"> Only search r/'+ther+'</label>';
@@ -925,9 +925,9 @@ window.onload = function(){
 		html1 +=  '<a href="inbox.html" class="homelinks half">Inbox</a>';
 		html1 +=  '<a href="login.html" class="homelinks half">Logout</a>';
 	}
-	
+
 	document.getElementById("leftbar").insertAdjacentHTML("afterBegin",
           html1);
 
-	
+
 }
