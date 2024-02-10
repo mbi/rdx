@@ -308,11 +308,7 @@ returnfpost += pollbuilder(post);
 }
 
 
-<<<<<<< HEAD
 returnfpost += '<div class="post_meta">'+post['score']+' votes &bull; <a href="comments.html?url=https://www.reddit.com'+ post['permalink']+'">'+post['num_comments']+' comments</a>';
-=======
-returnfpost += '<div class="post_meta">'+post['score']+' votes &bull; <a href="comments.html?url=https://www.reddit.com'+ post['permalink']+'" >'+post['num_comments']+' comments</a>';
->>>>>>> 31b602ca47ba056d00997fa146d3badb8c28292a
 if (localStorage.getItem('refreshToken') !== null && window.location.href.includes('comments.html')) {
   returnfpost += ' &bull; <span onclick="replyto(\'t3_' + post['id'] + '\')">Reply</span>';
 }
