@@ -42,10 +42,10 @@ document.body.style.fontFamily = curfont+', sans-serif';
 }
 }
 
-var curinfi = localStorage.getItem('curinfi') || false;
+var curinfi = localStorage.getItem('curinfi') || true;
 if (window.location.href.indexOf("comments.html") == -1)
 {
-if(curinfi == "true") {
+if(curinfi) {
 var style = document.createElement('style');
 style.innerHTML = '.footer, .infotext, .next {display:none !important}';
 document.head.appendChild(style);
@@ -102,7 +102,7 @@ nexturl  = url.split('&after')[0]+"&after="+jsonResponse['data']['after'];
 fill += '</div>';
 document.getElementById('body').innerHTML = fill;
   runhsl();
-  if(curinfi == "true") {
+  if(curinfi) {
       observe();
   }
 };

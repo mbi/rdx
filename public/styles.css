@@ -335,7 +335,7 @@ iframe.gifframe {
 
 div#leftbar {
     position: absolute;
-    left: 0;
+    left: 6px;
     width: calc(100% - 30px);
 
     margin: 0 auto;
@@ -799,13 +799,15 @@ span#closegal {
     color: var(--textc);
     padding: 5px 10px;
     position: fixed;
-    top: 5px;
+    bottom: 5px;
     right: 0;
     border-radius: 10px;
     opacity: 0.95;
     font-size: 14px;
     cursor: pointer;
-    left: 0;
+    left: 5px;
+    right: auto;
+
     width: 50px;
     text-align: center;
     opacity: 0.6;
@@ -884,4 +886,12 @@ body > #header {
 }
 body > #body {
     padding-top: 40px;
+}
+
+@media (min-width: 480px) {
+    body > #header {
+        max-width: 480px;
+        left: calc(50vw - 240px);
+    }
+
 }

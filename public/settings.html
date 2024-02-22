@@ -2,7 +2,7 @@
 <!DOCTYPE html><html><head>
     <title>Settings - rdx for reddit </title>
     <meta name="description" content="settings page of rdx for Reddit."/>
-    <link rel="shortcut icon" href="favicon.ico"> 
+    <link rel="shortcut icon" href="favicon.ico">
   <link rel="icon" href="favicon.png">
       <link rel="manifest" href="/manifest.json" />
  <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -16,7 +16,7 @@
 }
 b,li{display:block;padding:5px;margin:5px;}
 </style>
-</head>   
+</head>
 
 <body>
     <header id="header">
@@ -25,7 +25,7 @@ b,li{display:block;padding:5px;margin:5px;}
         </div>
     </header>
     <div id="body">
-    
+
       <b>Change display mode</b>
       <li id="cthemew"><a href="themes.html" style="color:var(--linkc)">Change Theme</a></li>
       <b>Posts per page</b>
@@ -44,12 +44,12 @@ b,li{display:block;padding:5px;margin:5px;}
    <li> <input type="file" id="importInput" accept=".json"><br><br>
     <button onclick="importData()">Upload & Import</button>
     </li>
-    
+
 <b>How to import subscriptions from Reddit?</b>
 <li style="line-height:150%;">1. Go to <a href="https://old.reddit.com/subreddits">https://old.reddit.com/subreddits</a>. <br>2. Add this link (bookmarklet) <a href="javascript:(function(){const subnames=document.querySelector('.subscription-box a').href.split('/r/')[1].split('+');const jsonData=JSON.stringify(subnames,null,2);const blob=new Blob([jsonData],{type:'application/json'});const downloadLink=Object.assign(document.createElement('a'),{href:URL.createObjectURL(blob),download:'rdx_subs.json'});document.body.appendChild(downloadLink).click()&&document.body.removeChild(downloadLink);})();">rdx importer</a> to your bookmarks bar and press it while on you are on the reddit page mentioned above.<br>
 <small>If you are unable to add the bookmark through the link, go to Bookmarks on your web browser, Add new bookmark, in the title field fill "rdx importer" and in the url field copy and paste the below text:
 <textarea>javascript:(function(){const subnames=document.querySelector('.subscription-box a').href.split("/r/")[1].split("+");const jsonData=JSON.stringify(subnames,null,2);const blob=new Blob([jsonData],{type:'application/json'});const downloadLink=Object.assign(document.createElement('a'),{href:URL.createObjectURL(blob),download:'rdx_subs.json'});document.body.appendChild(downloadLink).click()&&document.body.removeChild(downloadLink);})();</textarea><br>
-Now go to the reddit <a href="https://old.reddit.com/subreddits">https://old.reddit.com/subreddits</a> and in the search filed of the browser search for "rdx import" and press the link that shows up in suggestions. 
+Now go to the reddit <a href="https://old.reddit.com/subreddits">https://old.reddit.com/subreddits</a> and in the search filed of the browser search for "rdx import" and press the link that shows up in suggestions.
 </small><br>
 3. It will download a file called rdx_subs.json, upload the file on this page to import your subs.
 </li>
@@ -84,7 +84,7 @@ localStorage.setItem('ppg',document.getElementById('ppg').value);
 document.getElementById('outppg').innerHTML = document.getElementById('ppg').value + " (saved)";
 }
 
-const curinfi = localStorage.getItem('curinfi') === "true";
+const curinfi = true; // localStorage.getItem('curinfi') === "true";
 document.getElementById("infibox").checked = curinfi;
 function checkinfi(){
 localStorage.setItem('curinfi',document.getElementById("infibox").checked);
@@ -129,7 +129,7 @@ localStorage.setItem('curinfi',document.getElementById("infibox").checked);
                 reader.onload = function (event) {
                     try {
                         const importedData = JSON.parse(event.target.result);
-                       
+
 
                         updateLocalStorage(importedData);
                        // displayStoredData();
@@ -144,7 +144,7 @@ localStorage.setItem('curinfi',document.getElementById("infibox").checked);
         }
 
 
-    
+
     </script>
     </body></html>
 
