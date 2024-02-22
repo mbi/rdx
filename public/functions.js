@@ -81,9 +81,10 @@ req.responseType = 'json';
 req.open('GET', url, true);
 req.onload  = function() {
 var jsonResponse = req.response;
+console.log(url);
 var titlesx = url.replace("https://www.reddit.com/r/", "");
 titlesx = titlesx.replace("/.json", "");
-document.title = titlesx;
+document.title = 'r/' + titlesx.split('?limit')[0];
 posts = jsonResponse['data']['children'];
 for(var item in posts) {
 console.log("xx" + item);
