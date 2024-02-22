@@ -387,6 +387,7 @@ pjgd.items.forEach((item, index) => {
 });
 }
 let g_timgs = '<div class="gallery_thumbs">';
+let g_mimg = '';
 let fakect = ' actv';
 	for(var singlept in pjmdsorted) {
 		if(pjmdsorted[singlept]['status'] != 'failed') {
