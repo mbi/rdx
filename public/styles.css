@@ -1067,3 +1067,13 @@ body>#body {
 .urlpreview + div[style] {
   display: none;
 }
+
+slide-show::part(prev-button),
+slide-show::part(next-button) {
+    top: auto;
+    bottom: -5px;
+}
+
+slide-show::part(pagination) {
+    padding: 4px;
+}

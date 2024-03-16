@@ -38,11 +38,16 @@ $headhtml = '<!DOCTYPE html><html><head>
     <div id="body"></div>
     <script src="functions.js"></script>
     <script src="/r/ios-pwa-splash@1.0.0.js"></script>
-<script>iosPWASplash(\'5122.png\', \'#4e2a72\');</script> ';
+
+    <link rel="stylesheet" href="/r/slide-show/slide-show.css" />
+    <script type="module" src="/r/slide-show/slide-show.js"></script>
+    <script>iosPWASplash(\'5122.png\', \'#4e2a72\');</script> ';
 
 $build_time = time();
 $headhtml = str_replace('functions.js', 'functions.js?v=' . $build_time, $headhtml);
 $headhtml = str_replace('styles.css', 'styles.css?v=' . $build_time, $headhtml);
+$headhtml = str_replace('slide-show.css', 'slide-show.css?v=' . $build_time, $headhtml);
+$headhtml = str_replace('slide-show.js', 'slide-show.js?v=' . $build_time, $headhtml);
 
 
 $files = glob("html/*.html");

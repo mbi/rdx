@@ -2,9 +2,6 @@
 <div id="paginate"></div>
 <script>
 
- 
- 
-
 function getget(name, url = window.location.href) {
     name = name.replace(/[\[\]]/g, '\\$&');
     var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
@@ -109,7 +106,7 @@ morejson = comments[item].data.children;
 document.getElementById('paginate').innerHTML =  '<button onclick="loadmore()" id="loadmore1">Load More</button>';
 }
 
-fill += cbuilder(comments[item]['data']); 
+fill += cbuilder(comments[item]['data']);
 replies  = comments[item]['data']['replies'];
  if(typeof replies === 'object' && replies !== null){
 handlereplies(replies);
@@ -227,9 +224,9 @@ else {
 htmltoc = '<div class="cmenu" id="'+cid+'cc"><a onclick="">Save</a></div>';
 	document.getElementById(cid).insertAdjacentHTML("afterBegin",
           htmltoc);
- document.getElementById(cid).setAttribute('menushown','yes');		 
+ document.getElementById(cid).setAttribute('menushown','yes');
 		 }
-		 
+
 
 }
 
@@ -255,7 +252,7 @@ htmltoc = '<div class="cmenu" id="'+cid+'cc"><a onclick="">Save</a></div>';
 .cmenu a {
     background: var(--bodyc);
     padding: 2px 10px;
-  
+
     box-shadow: 1px 1px 3px #00000055;
 }
 .cmenu a:nth-child(1)

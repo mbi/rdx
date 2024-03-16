@@ -428,9 +428,12 @@ function urlpreview(urli, postjson) {
                 }
             });
         }
-        let g_timgs = '<div class="gallery_thumbs">';
+        let g_timgs = '';
         let g_mimg = '';
         let fakect = ' actv';
+
+        returnpost += '<slide-show controls="pagination navigation">';
+
         for (var singlept in pjmdsorted) {
             if (pjmdsorted[singlept]['status'] != 'failed') {
                 singleptlink = pjmdsorted[singlept]['s']['u'];
@@ -440,21 +443,32 @@ function urlpreview(urli, postjson) {
                     singleptlink = singleptlink.replace("preivew.redd", "i.redd");
                 }
                 singletmlink = pjmdsorted[singlept]['p']['0']['u'];
-                if (fakect == ' actv') {
+
+                /*if (fakect == ' actv') {
                     g_mimg = '<img src="' + singleptlink + '" alt="main image" id="mi_' + postjson['id'] + '" onclick="galleryopen(\'' + postjson['id'] + '\')"/>';
                 }
                 g_timgs += '<img class="gtumb' + fakect + '" src="' + singletmlink + '" data-msrc="' + singleptlink + '" alt="thumbnail" data-id="' + postjson['id'] + '">';
                 preloadImage(singleptlink);
+                */
+                returnpost += '<img style="object-fit:contain" draggable="false" src="' + singleptlink + '" />';
 
                 //returnpost +='<img src="'+singleptlink+'" />';
             }
             fakect = '';
         }
+        returnpost += '</slide-show>';
+
+
+        /*
         returnpost += '<div class="gallery_main">';
         returnpost += g_mimg;
         returnpost += '</div>';
+        returnpost += '<div class="gallery_thumbs">';
         returnpost += g_timgs;
-        returnpost += '</div></div>';
+        returnpost += '</div>';
+        */
+
+        returnpost += '</div>';
     } else if (urli.match(/v.redd.it/g)) {
         returnpost += '<div class="postc video">';
         if (postjson['secure_media'] != null) {
