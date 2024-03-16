@@ -490,6 +490,12 @@ a.wholethumb {
     overflow: hidden;
 }
 
+.postc code {
+  max-width: 100%;
+  overflow-x: scroll;
+  display: block;
+}
+
 .thumb {
     width: 60px;
     height: 60px;
@@ -775,6 +781,8 @@ span#menu {
 
 div#subscribed {
     border-top: 3px solid var(--greyc);
+    max-height: 50vh;
+    overflow-y: scroll;
 }
 
 .md {
