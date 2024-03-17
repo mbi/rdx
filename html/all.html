@@ -16,13 +16,7 @@ url = url.replace(/m.reddit.com/g, 'www.reddit.com');
 url = url.replace(/i.reddit.com/g, 'www.reddit.com');
 */
 
-if(JSON.parse(localStorage.getItem("subs")) == null || JSON.parse(localStorage.getItem("subs")).length == 0){
 substoload = "all";
-}
-else {
-subsarray= JSON.parse(localStorage.getItem("subs"));
-substoload = subsarray.join("+");
-}
 document.getElementById('pagetitletext').innerHTML = 'rdx';
 
 
