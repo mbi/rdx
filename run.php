@@ -27,7 +27,7 @@ $headhtml = '<!DOCTYPE html><html><head>
         </div>
         <div id="leftbar" class="hidden">
             <div class="list">
-                <a href="index.html" class="homelinks halfit">Home</a><a href="all.html" class="homelinks halfit">/r/all</a><a href="saved.html" class="homelinks halfit">Saved</a><a href="subreddit.html?r=popular" class="homelinks halfit">Popular</a>
+                <a href="index.html" class="homelinks halfit">/r/all</a><a href="home.html" class="homelinks halfit">Home</a><a href="saved.html" class="homelinks halfit">Saved</a><a href="subreddit.html?r=popular" class="homelinks halfit">Popular</a>
                 <div id="subscribed">Subscribe to subreddits to view them here.</div>
                 <div id="cthemew">
                     <a href="themes.html" id="themebtn">Themes</a>

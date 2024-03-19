@@ -589,7 +589,7 @@ function cbuilder(comment) {
 
 
 
-    cret = '<div class="comment ccp' + comment['depth'] + '" id="' + comment['id'] + '"><div class="comment_author"><span class="authorttext ' + isop + '' + ismod + '"><a class="authorlink" href="user.html?u=' + comment['author'] + '">' + comment['author'] + '</a></span>  <span class="comment_meta">' + comment['score'] + ' votes &bull; ' + timeagoed + ' </span></div><div class="comment_text">' + replaceRedditLinks(htmlDecode(comment['body_html'])) + '</div>';
+    cret = '<div class="comment ccp' + comment['depth'] + (comment['author'] === 'AutoModerator' ? ' collapsed' : '') + '" id="' + comment['id'] + '"><div class="comment_author"><span class="authorttext ' + isop + '' + ismod + '"><a class="authorlink" href="user.html?u=' + comment['author'] + '">' + comment['author'] + '</a></span>  <span class="comment_meta">' + comment['score'] + ' votes &bull; ' + timeagoed + ' </span></div><div class="comment_text">' + replaceRedditLinks(htmlDecode(comment['body_html'])) + '</div>';
     if (localStorage.getItem('refreshToken') != null) {
         cret += '<div class="comment-reply"><span onclick="replyto(\'t1_' + comment['id'] + '\')">Reply</span>';
         if (localStorage.getItem('userName') == comment['author']) {
