@@ -322,7 +322,7 @@ function postbuilder(post) {
             }
         }
     }
-    returnfpost += '<div class="post_author"><a href="subreddit.html?r=' + post["subreddit"] + '">' + post["subreddit_name_prefixed"] + '</a> &bull;  <a href="user.html?u=' + post["author"] + '">' + post["author"] + '</a>  &bull; ' + timeagoed + '</div><div class="post_link' + sticky + ' ' + ismod + '"><a href="comments.html?url=https://www.reddit.com' + post['permalink'] + '">' + post['title'] + '</a></div>';
+    returnfpost += '<div class="post_link' + sticky + ' ' + ismod + '"><a href="comments.html?url=https://www.reddit.com' + post['permalink'] + '">' + post['title'] + '</a></div>';
 
     if (mode != "comp") {
         if (post["selftext_html"] != null) {
@@ -353,10 +353,14 @@ function postbuilder(post) {
 
 
     returnfpost =  returnfpost
-            + '<div class="post_meta">'
+            + '<div class="post_meta"><div class="flex-left">'
             +'<a class="comments-icon icon" href="comments.html?url=https://www.reddit.com' + post['permalink'] + '">'
             + post['num_comments'] + '</a>'
             + '<span class="upvotes-icon icon">' + post['score'] + '</span>';
+
+    returnfpost += '</div><div class="post_author flex-right"><a href="subreddit.html?r=' + post["subreddit"] + '">' + post["subreddit_name_prefixed"] + '</a> <a class="small-hidden" href="user.html?u=' + post["author"] + '">' + post["author"] + '</a> ' + timeagoed + '</div>';
+
+
     if (localStorage.getItem('refreshToken') !== null && window.location.href.includes('comments.html')) {
         returnfpost += ' &bull; <span onclick="replyto(\'t3_' + post['id'] + '\')">Reply</span>';
     }

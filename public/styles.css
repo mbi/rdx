@@ -2,9 +2,10 @@
     --bodyc: white;
     --textc: black;
     --linkc: black;
-    --greyc: #eee;
+    --greyc: #f1f0f6;
     --lightc: #444;
     --whitec: #fff;
+    --border-radius: 6px;
 }
 
 body {
@@ -147,7 +148,7 @@ a.viewmore {
     border-bottom: 4px solid #ddd;
     border-bottom: 4px solid var(--greyc);
     background: var(--whitec);
-    border-radius: 6px;
+    border-radius: var(--border-radius);
     margin-top: 0.25rem;
 
 }
@@ -171,7 +172,6 @@ a.viewmore {
 }
 
 .postc.selftext,
-.post_author,
 .post_link {
     padding: 4px 8px;
 
@@ -232,7 +232,7 @@ a.viewmore {
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
-    border-radius: 5px;
+    border-radius: var(--border-radius);
     font-size: 14px;
 }
 
@@ -250,6 +250,10 @@ div#pagetitle {
     background: #eee;
     background: var(--whitec);
     padding: 10px;
+    border-bottom: 3px solid var(--greyc);
+    border-bottom-right-radius: var(--border-radius);
+    border-bottom-left-radius: var(--border-radius);
+
 }
 
 .navigate {
@@ -275,7 +279,7 @@ a.next {
     text-align: center;
     padding: 5px;
     margin: 10px;
-    border-radius: 6px;
+    border-radius: var(--border-radius);
     background: var(--linkc);
     color: var(--bodyc);
 }
@@ -432,11 +436,13 @@ iframe.gifframe {
     color: #444;
     color: var(--lightc);
     padding: 5px 2px 0px;
+    display: flex;
+    justify-content: space-between;
 }
 .comments-block {
     background-color: var(--whitec);
     margin-top: 0.25rem;
-    border-radius: 6px;
+    border-radius: var(--border-radius);
 }
 
 
@@ -507,7 +513,7 @@ a.wholethumb {
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
-    border-radius: 5px;
+    border-radius: var(--border-radius);
     font-size: 14px;
 }
 
@@ -604,7 +610,7 @@ span.menubars:after {
     width: calc(100% - 76px);
     padding: 4px;
     border: 1px solid var(--lightc);
-    border-radius: 5px;
+    border-radius: var(--border-radius);
     font-size: 16px;
     outline: none;
     max-width: 600px;
@@ -639,7 +645,7 @@ a:active {
     font-size: 12px;
     background: var(--lightc);
     padding: 5px 10px;
-    border-radius: 5px;
+    border-radius: var(--border-radius);
     font-size: 14px;
     margin-left: 5px;
     color: var(--bodyc);
@@ -749,7 +755,7 @@ button#cmntbtn {
     text-align: center;
     padding: 5px;
     margin: 10px;
-    border-radius: 6px;
+    border-radius: var(--border-radius);
     width: 90%;
     margin: 0 auto 25px;
     max-width: 400px;
@@ -1096,11 +1102,32 @@ body>#body {
 slide-show::part(prev-button),
 slide-show::part(next-button) {
     top: auto;
+    width: 24px;
     bottom: -5px;
+    left: -4px;
+}
+slide-show::part(next-button) {
+    right: -4px;
+    left: auto;
 }
 
 slide-show::part(pagination) {
     padding: 4px;
+    max-width: 70vw;
+    overflow: hidden;
+}
+slide-show::part(page-button) {
+    padding: 0 0 0 1em;
+    height: 1em;
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"> <circle cx="10" cy="10" r="6" stroke="none" fill="lightgrey"></circle> </svg>');
+}
+
+slide-show::part(page-button-active) {
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"> <circle cx="10" cy="10" r="6" stroke="none" fill="grey"></circle> </svg>');
+}
+
+slide-show::part(controls) {
+    margin-top: 0.75rem;
 }
 .icon::before {
   content: '';
@@ -1119,5 +1146,10 @@ slide-show::part(pagination) {
   background-image: url('arrow-up.svg');
   width: 15px;
   background-position: top right;
-  margin-left: 1rem;
+  margin-left: 0.5rem;
+}
+
+.small-hidden {display:none}
+@media (min-width: 480px) {
+    .small-hidden {display:inline}
 }
