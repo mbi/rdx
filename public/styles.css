@@ -160,6 +160,7 @@ a.viewmore {
     overflow: auto;
     white-space: pre;
 }
+.post_author a { margin-right: 0.35rem }
 
 .post_link a {
     text-decoration: none;
@@ -171,10 +172,11 @@ a.viewmore {
     display: block;
 }
 
-.postc.selftext,
-.post_link {
+.postc.selftext{
     padding: 4px 8px;
-
+}
+.post_link {
+    padding: 0 8px 8px 8px
 }
 
 .postc.singleimage img {
@@ -432,7 +434,7 @@ iframe.gifframe {
 }
 
 .post_meta {
-    font-size: 15px;
+    font-size: 14px;
     color: #444;
     color: var(--lightc);
     padding: 5px 2px 0px;
@@ -581,17 +583,9 @@ span.menubars:before {
     font-size: 13px;
     padding: 5px;
     color: var(--lightc);
-    margin-right: 5px;
+    float: right;
 }
 
-.post_link.sticky:after {
-    content: "M";
-    background: var(--greyc);
-    font-size: 13px;
-    padding: 5px;
-    color: #47af47;
-    margin-left: 5px;
-}
 
 span.menubars:after {
     content: " ";
