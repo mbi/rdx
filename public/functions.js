@@ -55,7 +55,6 @@ if (window.location.href.indexOf("comments.html") == -1) {
         document.head.appendChild(style);
     }
 }
-toggletheme();
 togglefont();
 
 function toggle(id) {
@@ -283,9 +282,9 @@ function subscribe(sub) {
 function replaceRedditLinks(htmlContent) {
     var replacedText = htmlContent.replace(/href="\/u\/([^"]+)"/g, 'href="user.html?u=$1"').replace(/href="\/r\/([^"]+)"/g, 'href="subreddit.html?r=$1"')
         .replace(/(href=\"https:\/\/(old.|www.|)reddit\.com\/r\/[^\/]+\/comments\/[^"]+)(\?[^"]+)?/g, function(match, p1, p2) {
-            return 'href="comments.html?url=' + encodeURIComponent(p1).replace(/href%3D%22/g, '');
+            return 'class="comment-icon icon" href="comments.html?url=' + encodeURIComponent(p1).replace(/href%3D%22/g, '');
         }).replace(/(href=\"https:\/\/reddit\.com\/r\/[^\/]+\/comments\/[^"]+)(\?[^"]+)?/g, function(match, p1, p2) {
-            return 'comments.html?url=' + encodeURIComponent(p1 + (p2 || ""));
+            return 'class="comment-icon icon" comments.html?url=' + encodeURIComponent(p1 + (p2 || ""));
         });
     return replacedText;
 }
@@ -353,7 +352,11 @@ function postbuilder(post) {
     }
 
 
-    returnfpost += '<div class="post_meta">' + post['score'] + ' votes &bull; <a href="comments.html?url=https://www.reddit.com' + post['permalink'] + '">' + post['num_comments'] + ' comments</a>';
+    returnfpost =  returnfpost
+            + '<div class="post_meta">'
+            +'<a class="comments-icon icon" href="comments.html?url=https://www.reddit.com' + post['permalink'] + '">'
+            + post['num_comments'] + '</a>'
+            + '<span class="upvotes-icon icon">' + post['score'] + '</span>';
     if (localStorage.getItem('refreshToken') !== null && window.location.href.includes('comments.html')) {
         returnfpost += ' &bull; <span onclick="replyto(\'t3_' + post['id'] + '\')">Reply</span>';
     }
@@ -589,7 +592,7 @@ function cbuilder(comment) {
 
 
 
-    cret = '<div class="comment ccp' + comment['depth'] + (comment['author'] === 'AutoModerator' ? ' collapsed' : '') + '" id="' + comment['id'] + '"><div class="comment_author"><span class="authorttext ' + isop + '' + ismod + '"><a class="authorlink" href="user.html?u=' + comment['author'] + '">' + comment['author'] + '</a></span>  <span class="comment_meta">' + comment['score'] + ' votes &bull; ' + timeagoed + ' </span></div><div class="comment_text">' + replaceRedditLinks(htmlDecode(comment['body_html'])) + '</div>';
+    cret = '<div class="comment ccp' + comment['depth'] + (comment['author'] === 'AutoModerator' ? ' collapsed' : '') + '" id="' + comment['id'] + '"><div class="comment_author"><span class="authorttext ' + isop + '' + ismod + '"><a class="authorlink" href="user.html?u=' + comment['author'] + '">' + comment['author'] + '</a></span>  <span class="comment_meta comments-icon icon">' + comment['score'] + ' &bull; ' + timeagoed + ' </span></div><div class="comment_text">' + replaceRedditLinks(htmlDecode(comment['body_html'])) + '</div>';
     if (localStorage.getItem('refreshToken') != null) {
         cret += '<div class="comment-reply"><span onclick="replyto(\'t1_' + comment['id'] + '\')">Reply</span>';
         if (localStorage.getItem('userName') == comment['author']) {

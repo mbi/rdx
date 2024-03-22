@@ -51,35 +51,38 @@ req.send(null);
 }
 
 function handlerepliesmn(repliesca){
-replieslsa = repliesca['data']['children'];
-for( replyxy in replieslsa) {
-if(replieslsa[replyxy]['kind'] == "more"){
-fill += '<div class="comment ccp'+ replieslsa[replyxy]['data']['depth'] +'"><div class="comment_author"><a href="?url=https://www.reddit.com'+ repliesls[replyx]['data']['permalink'] +' " >View other replies</a></div></div>';
-}
-else {
-fill += cbuilder(replieslsa[replyxy]['data']);
-replieshha  = replieslsa[replyxy]['data']['replies'];
-if(typeof replieshha === 'object' && replieshha !== null){
-fill+= '<a class="viewmore" href="?url=https://www.reddit.com'+replieslsa[replyxy]['data']['permalink']+'" >view more replies</a>';
-}
-}}
+    replieslsa = repliesca['data']['children'];
+    for( replyxy in replieslsa) {
+        if(replieslsa[replyxy]['kind'] == "more"){
+            fill += '<div class="comment ccp'+ replieslsa[replyxy]['data']['depth'] +'"><div class="comment_author"><a href="?url=https://www.reddit.com'+ repliesls[replyx]['data']['permalink'] +' " >View other replies</a></div></div>';
+        } else {
+            fill += cbuilder(replieslsa[replyxy]['data']);
+            replieshha  = replieslsa[replyxy]['data']['replies'];
+            if(typeof replieshha === 'object' && replieshha !== null){
+                fill+= '<a class="viewmore" href="?url=https://www.reddit.com'+replieslsa[replyxy]['data']['permalink']+'" >view more replies</a>';
+            }
+        }
+    }
+
 }
 
 
 function handlerepliesm(repliesc){
-repliesls = repliesc['data']['children'];
+    repliesls = repliesc['data']['children'];
 
-for( replyx in repliesls) {
-if(repliesls[replyx]['kind'] == "more"){
-fill += '<div class="comment ccp'+ repliesls[replyx]['data']['depth'] +'"><div class="comment_author"><a href="?url=https://www.reddit.com'+ repliesl[reply]['data']['permalink'] +' " >View other replies</a></div></div>';
-}
-else {
-fill += cbuilder(repliesls[replyx]['data']);
-replieshh  = repliesls[replyx]['data']['replies'];
-if(typeof replieshh === 'object' && replieshh !== null){
-handlerepliesmn(replieshh);
-}
-}}
+    for( replyx in repliesls) {
+        if(repliesls[replyx]['kind'] == "more"){
+            fill += '<div class="comment ccp'+ repliesls[replyx]['data']['depth'] +'"><div class="comment_author"><a href="?url=https://www.reddit.com'+ repliesl[reply]['data']['permalink'] +' " >View other replies</a></div></div>';
+        }
+        else {
+            fill += cbuilder(repliesls[replyx]['data']);
+            replieshh  = repliesls[replyx]['data']['replies'];
+            if(typeof replieshh === 'object' && replieshh !== null){
+                handlerepliesmn(replieshh);
+            }
+        }
+    }
+
 }
 
 function handlereplies(replies){
@@ -99,23 +102,26 @@ handlerepliesm(repliesz);
 }
 
 function loadcomments(comments){
-for( item in comments) {
-console.log(comments[item].kind);
-if(comments[item].kind == 'more'){
-morejson = comments[item].data.children;
-document.getElementById('paginate').innerHTML =  '<button onclick="loadmore()" id="loadmore1">Load More</button>';
-}
+    fill += '<div class="comments-block">';
+    for( item in comments) {
+        console.log(comments[item].kind);
+        if(comments[item].kind == 'more'){
+            morejson = comments[item].data.children;
+            document.getElementById('paginate').innerHTML =  '<button onclick="loadmore()" id="loadmore1">Load More</button>';
+        }
 
-fill += cbuilder(comments[item]['data']);
-replies  = comments[item]['data']['replies'];
- if(typeof replies === 'object' && replies !== null){
-handlereplies(replies);
-}}
-document.getElementById('body').innerHTML += '<div class="clear"></div>'+fill;
-commentsdivs =   document.getElementById('body').getElementsByClassName('comment');
-for(i=0; i < commentsdivs.length; i++) {
-commentsdivs[i].addEventListener('dblclick', collapse);
-}
+        fill += cbuilder(comments[item]['data']);
+        replies  = comments[item]['data']['replies'];
+        if(typeof replies === 'object' && replies !== null){
+            handlereplies(replies);
+        }
+    }
+    document.getElementById('body').innerHTML += '<div class="clear"></div>'+fill;
+    commentsdivs =   document.getElementById('body').getElementsByClassName('comment');
+    for(i=0; i < commentsdivs.length; i++) {
+        commentsdivs[i].addEventListener('dblclick', collapse);
+    }
+    fill += '</div>';
 }
 
 //universal post functions

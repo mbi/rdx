@@ -1,9 +1,10 @@
 :root {
     --bodyc: white;
     --textc: black;
-    --linkc: #27598c;
+    --linkc: black;
     --greyc: #eee;
     --lightc: #444;
+    --whitec: #fff;
 }
 
 body {
@@ -11,7 +12,7 @@ body {
     font-family: segoe ui, arial, sans-serif;
     margin: 0 auto;
     background: #white;
-    background: var(--bodyc);
+    background: var(--greyc);
     color: var(--textc);
 }
 
@@ -22,13 +23,23 @@ a {
 }
 
 .comment {
-    background: #f2f2f2;
-    background: var(--greyc);
+    background: transparent;
     padding: 10px;
     margin-bottom: 5px;
     word-break: break-word;
     position: relative;
 }
+.comment  + .comment::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 3px;
+    left: 0;
+    background: var(--greyc);
+}
+
+.comment_text { margin-top: 4px }
 
 h1 {
     margin: 6px 0px;
@@ -112,7 +123,8 @@ a.viewmore {
     color: var(--lightc);
     font-size: 14px;
     margin-bottom: 3px;
-    margin-top: -10px
+    margin-top: -10px;
+    padding-right: 6px;
 }
 
 .ccp0 {
@@ -134,6 +146,10 @@ a.viewmore {
     padding: 10px;
     border-bottom: 4px solid #ddd;
     border-bottom: 4px solid var(--greyc);
+    background: var(--whitec);
+    border-radius: 6px;
+    margin-top: 0.25rem;
+
 }
 
 .post_author {
@@ -146,15 +162,19 @@ a.viewmore {
 
 .post_link a {
     text-decoration: none;
-    font-size: 18px;
+    font-size: 16px;
     color: #27598c;
-    color: var(--linkc);
+    color: black;
     word-break: break-word;
     font-weight: 600;
+    display: block;
 }
 
+.postc.selftext,
+.post_author,
 .post_link {
-    padding: 9px 0px 11px;
+    padding: 4px 8px;
+
 }
 
 .postc.singleimage img {
@@ -228,7 +248,7 @@ div#addsub {
 div#pagetitle {
     text-align: center;
     background: #eee;
-    background: var(--greyc);
+    background: var(--whitec);
     padding: 10px;
 }
 
@@ -264,7 +284,7 @@ div#subssearch {
     position: absolute;
     left: 0;
     right: 0;
-    width: 90%;
+    width: calc(100% - 20px);
     max-width: 500px;
     margin: 0 auto;
     background: white;
@@ -413,12 +433,17 @@ iframe.gifframe {
     color: var(--lightc);
     padding: 5px 2px 0px;
 }
+.comments-block {
+    background-color: var(--whitec);
+    margin-top: 0.25rem;
+    border-radius: 6px;
+}
 
 
 div#leftbar {
     position: absolute;
-    left: 6px;
-    width: calc(100% - 30px);
+    left: 0;
+    width: calc(100% - 20px);
 
     margin: 0 auto;
     background: white;
@@ -787,7 +812,7 @@ div#subscribed {
 
 .md {
     line-height: 1.2;
-    font-size: 17px;
+    font-size: 16px;
     text-align: justify;
 }
 
@@ -1049,10 +1074,10 @@ body>#body {
     padding-top: 40px;
 }
 
-@media (min-width: 480px) {
+@media (min-width: 500px) {
     body>#header {
-        max-width: 480px;
-        left: calc(50vw - 240px);
+        max-width: 500px;
+        left: calc(50vw - 250px);
     }
 
 }
@@ -1076,4 +1101,23 @@ slide-show::part(next-button) {
 
 slide-show::part(pagination) {
     padding: 4px;
+}
+.icon::before {
+  content: '';
+  width: 18px;
+  height: 14px;
+  display: inline-block;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.comments-icon::before {
+    vertical-align: -1px;
+    background-image:url('speech-bubble.svg');
+}
+.upvotes-icon::before {
+  vertical-align: -3px;
+  background-image: url('arrow-up.svg');
+  width: 15px;
+  background-position: top right;
+  margin-left: 1rem;
 }

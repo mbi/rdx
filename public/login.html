@@ -1,7 +1,7 @@
 <!DOCTYPE html><html><head>
     <title>Enable login - rdx for reddit </title>
     <meta name="description" content="Enable of rdx for Reddit."/>
-    <link rel="shortcut icon" href="favicon.ico"> 
+    <link rel="shortcut icon" href="favicon.ico">
   <link rel="icon" href="favicon.png">
       <link rel="manifest" href="/manifest.json" />
  <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@ input[type=text] {
 input[type=submit] {background: var(--linkc);color: var(--greyc);padding: 10px 30px;margin: 10px;border: 0px;cursor: pointer;border-radius: 10px;}
 
 </style>
-</head>   
+</head>
 <body>
     <header id="header">
         <div id="pagetitle">
@@ -43,7 +43,7 @@ input[type=submit] {background: var(--linkc);color: var(--greyc);padding: 10px 3
     <div id="body">
     <div id="authForm" style="display: none;">
     <li>If you want to log in to RDX to be able to reply to posts etc. (very limited functionality ) </li><li> 1. Go to <a href="https://www.reddit.com/prefs/apps">https://www.reddit.com/prefs/apps</a> then login and create an app. </li><li> 2. Name it anything, select script(personal use) under use </li><li> 3. In the redirect url enter https://rdx.overdevs.com/login.html</li><li>4. Copy the client id (displayed below your username), client secret here and then authorise.</li>
-    
+
  <form>
         <li >Client ID:</li>
         <input type="text" id="clientId" required><br>
@@ -57,7 +57,7 @@ input[type=submit] {background: var(--linkc);color: var(--greyc);padding: 10px 3
 Log in succesful! Redirecting you to homepage in 3 seconds!
 </div>
 <div id="logout" style="display: none;">You are currently logged in! <br><br><span onclick="logoutme();">Log out!</span></div>
-    
+
 
 </div>
     <script>
@@ -75,7 +75,7 @@ document.documentElement.style.setProperty('--linkc', '#d9d983');
 document.documentElement.style.setProperty('--greyc', '#222233');
 document.documentElement.style.setProperty('--lightc', '#ddd');
 }}
- 
+
     const authorizeUrl = 'https://www.reddit.com/api/v1/authorize';
     const tokenUrl = 'https://www.reddit.com/api/v1/access_token';
     const commentUrl = 'https://oauth.reddit.com/api/comment';
@@ -84,8 +84,8 @@ document.documentElement.style.setProperty('--lightc', '#ddd');
     function redirectToAuth() {
         const clientId = localStorage.getItem('clientId');
         const clientSecret = localStorage.getItem('clientSecret');
-        const redirectUri = 'https://rdx.overdevs.com/login.html'; 
-        
+        const redirectUri = 'https://rdx.overdevs.com/login.html';
+
         if (!clientId || !clientSecret) {
             document.getElementById('authForm').style.display = 'block';
 
@@ -97,18 +97,18 @@ document.documentElement.style.setProperty('--lightc', '#ddd');
                 localStorage.setItem('clientId', inputClientId);
                 localStorage.setItem('clientSecret', inputClientSecret);
 
-               
+
                 const authUrl = `${authorizeUrl}?client_id=${inputClientId}&response_type=code&state=random_state&redirect_uri=${encodeURIComponent(redirectUri)}&duration=permanent&scope=submit,edit,identity,vote,privatemessages`;
                 window.location.href = authUrl;
             });
-        } 
+        }
         else if(localStorage.getItem('userName')) {
         	   document.getElementById('logout').style.display = 'block';
 
-        	
+
         }
         else {
-      
+
             const urlParams = new URLSearchParams(window.location.search);
             const code = urlParams.get('code');
             if (code) {
@@ -161,6 +161,6 @@ localStorage.removeItem('expiresIn');
 localStorage.removeItem('refreshToken');
 window.location.href = 'index.html';
 }
-    
+
     </script>
     </body></html>
