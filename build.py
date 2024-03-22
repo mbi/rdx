@@ -21,9 +21,9 @@ def get_random_string(length):
     return "".join(secrets.choice(RANDOM_STRING_CHARS) for i in range(length))
 
 
-head_html = open("fragments/header.html", "r").read()
-footer_html = open("fragments/footer.html", "r").read()
-infotext_html = open("fragments/infotext.html", "r").read()
+head_html = open("html/fragments/header.html", "r").read()
+footer_html = open("html/fragments/footer.html", "r").read()
+infotext_html = open("html/fragments/infotext.html", "r").read()
 
 cache_buster = get_random_string(8)
 for f in ["functions.js", "styles.css", "slide-show.css", "slide-show.js"]:
