@@ -534,9 +534,9 @@ function urlpreview(urli, postjson) {
     } else {
         thumbnailforit = '';
         if (postjson["thumbnail"].length > 9) {
-            returnpost += '<a href="' + urli + '" target="_blank" class="wholethumb"><div class="postc thumblink"><div class="thumb"><img src="' + postjson["thumbnail"] + '"/></div><div class="thumblinklink">' + urli + '</div></div></a>';
+            returnpost += '<a href="' + urli + '"  class="wholethumb"><div class="postc thumblink"><div class="thumb"><img src="' + postjson["thumbnail"] + '"/></div><div class="thumblinklink">' + urli + '</div></div></a>';
         } else {
-            returnpost += '<div class="postc link"><a href="' + urli + '" target="_blank">' + thumbnailforit + '' + urli + '</a></div>';
+            returnpost += '<div class="postc link"><a href="' + urli + '" >' + thumbnailforit + '' + urli + '</a></div>';
         }
         returnpost = replaceRedditLinks(returnpost);
     }

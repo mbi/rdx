@@ -158,6 +158,7 @@ a.viewmore {
 }
 
 .postc.singleimage img {
+    width: 100%;
     max-width: 100%;
 }
 
@@ -446,14 +447,13 @@ a.homelinks {
 
 a.homelinks.half {
     display: inline-block;
-    width: calc(50% - 11px);
+    width: calc(25% - 11px);
     border-bottom: 8px solid var(--greyc);
     border-right: 1px solid var(--greyc);
 }
 
 a.homelinks.halfit {
-    width: 50%;
-    width: calc(50% - 11px);
+    width: calc(25% - 11px);
     display: inline-block;
     padding: 0px;
     padding: 10px 5px;

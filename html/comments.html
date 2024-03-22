@@ -54,13 +54,13 @@ function handlerepliesmn(repliesca){
 replieslsa = repliesca['data']['children'];
 for( replyxy in replieslsa) {
 if(replieslsa[replyxy]['kind'] == "more"){
-fill += '<div class="comment ccp'+ replieslsa[replyxy]['data']['depth'] +'"><div class="comment_author"><a href="?url=https://www.reddit.com'+ repliesls[replyx]['data']['permalink'] +' " target="_blank">View other replies</a></div></div>';
+fill += '<div class="comment ccp'+ replieslsa[replyxy]['data']['depth'] +'"><div class="comment_author"><a href="?url=https://www.reddit.com'+ repliesls[replyx]['data']['permalink'] +' " >View other replies</a></div></div>';
 }
 else {
 fill += cbuilder(replieslsa[replyxy]['data']);
 replieshha  = replieslsa[replyxy]['data']['replies'];
 if(typeof replieshha === 'object' && replieshha !== null){
-fill+= '<a class="viewmore" href="?url=https://www.reddit.com'+replieslsa[replyxy]['data']['permalink']+'" target="_blank">view more replies</a>';
+fill+= '<a class="viewmore" href="?url=https://www.reddit.com'+replieslsa[replyxy]['data']['permalink']+'" >view more replies</a>';
 }
 }}
 }
@@ -71,7 +71,7 @@ repliesls = repliesc['data']['children'];
 
 for( replyx in repliesls) {
 if(repliesls[replyx]['kind'] == "more"){
-fill += '<div class="comment ccp'+ repliesls[replyx]['data']['depth'] +'"><div class="comment_author"><a href="?url=https://www.reddit.com'+ repliesl[reply]['data']['permalink'] +' " target="_blank">View other replies</a></div></div>';
+fill += '<div class="comment ccp'+ repliesls[replyx]['data']['depth'] +'"><div class="comment_author"><a href="?url=https://www.reddit.com'+ repliesl[reply]['data']['permalink'] +' " >View other replies</a></div></div>';
 }
 else {
 fill += cbuilder(repliesls[replyx]['data']);
@@ -87,7 +87,7 @@ repliesl = replies['data']['children'];
 for( reply in repliesl) {
 //console.log("yy" + reply);
 if(repliesl[reply]['kind'] == "more"){
-fill += '<div class="comment ccp'+ repliesl[reply]['data']['depth'] +'"><div class="comment_author"><a href="?url=https://www.reddit.com'+ comments[item]['data']['permalink'] +' " target="_blank">View other replies</a></div></div>';
+fill += '<div class="comment ccp'+ repliesl[reply]['data']['depth'] +'"><div class="comment_author"><a href="?url=https://www.reddit.com'+ comments[item]['data']['permalink'] +' " >View other replies</a></div></div>';
 }
 else {
 fill += cbuilder(repliesl[reply]['data']);

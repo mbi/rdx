@@ -3,11 +3,11 @@
     <meta name="description" content="rdx is a fast, lightweight mobile Web Viewer for Reddit. Reader for reddit."/>
     <link rel="shortcut icon" href="/favicon.ico">
   <link rel="icon" href="/favicon.png">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0, 
+     <meta name="viewport" content="width=device-width, initial-scale=1.0,
 minimum-scale=1.0">
     <meta charset="utf-8">
     <link rel="stylesheet" href="styles.css" type="text/css">
-</head>   
+</head>
 
 <body>
     <header id="header">
@@ -27,9 +27,9 @@ minimum-scale=1.0">
                 <a rel="nofollow" href="/index.html" class="homelinks">Home</a>
                 <a rel="nofollow" href="/subreddit.html?r=all" class="homelinks">All</a>
                 <a rel="nofollow" href="/subreddit.html?r=popular" class="homelinks">Popular</a>
-                <div id="subscribed">Subscribe to subreddits to view them here.</div>
+                <div id="subscribed"></div>
                 <div id="cthemew"><a onclick="toggletheme('dark')" id="themebtn">Dark mode</a>
-                
+
                 </div>
                 <a href="https://github.com/avadhesh18/rdx/" style="display: block;
     color: #999;color:var(--lightc);padding:5px;
@@ -38,13 +38,13 @@ minimum-scale=1.0">
         <div id="rightbar" class="hidden"></div>
     </div>
     <div id="body"></div>
-    <script src="functions.js"></script><!-- Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "5ce6e4ad5599462c8e3c36f2223a7184"}'></script> 
+    <script src="functions.js"></script><!-- Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "5ce6e4ad5599462c8e3c36f2223a7184"}'></script>
 <script>
 
- 
+
  var getsrname = getget('r');
 
- 
+
 function doit(){
 links = '<a rel="nofollow" href="/subreddit.html?r='+getsrname+'&sort=new">New</a><a rel="nofollow" href="/subreddit.html?r='+getsrname+'&sort=best">Best</a><a rel="nofollow" href="/subreddit.html?r='+getsrname+'&sort=rising">Rising</a><a rel="nofollow" href="/subreddit.html?r='+getsrname+'&sort=top">Top</a><a rel="nofollow" href="/subreddit.html?r='+getsrname+'&sort=top&t=month">Top (month)</a><a rel="nofollow" href="/subreddit.html?r='+getsrname+'&sort=top&t=year">Top (year)</a><a rel="nofollow" href="/subreddit.html?r='+getsrname+'&sort=top&t=all">Top (all)</a>';
 if(checklc('subs',getsrname)){
@@ -86,7 +86,7 @@ req.responseType = 'json';
 req.open('GET', url, true);
 req.onload  = function() {
 var jsonResponse = req.response;
- 
+
 
 var titlesx = url.replace("https://www.reddit.com/r/", "");
 titlesx = getsrname;
@@ -108,7 +108,7 @@ fill += '<a rel="nofollow" class="next" href="'+curpage+'&after='+jsonResponse['
 }
 fill += '</div>';
 document.getElementById('body').innerHTML = fill;
-  
+
 };
 req.send(null);
 }
