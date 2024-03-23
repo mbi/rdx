@@ -100,7 +100,6 @@ function makereq(url) {
             fill += postbuilder(post_data);
             seenPostIds.push(post_data.id);
         }
-        console.log('makereq: seen post ids', seenPostIds);
 
         fill += '<div class="navigate">';
         var curpage = window.location.href.replace(/\&after.*/, '');
@@ -148,7 +147,6 @@ function scorllmore() {
             fill += postbuilder(post_data);
             seenPostIds.push(post_data.id);
         }
-        console.log('Scroll more: seen post ids', seenPostIds);
         var curpage = window.location.href.replace(/\&after.*/, '');
         if (jsonResponse['data']['after'] != null) {
             if (curpage.indexOf("?") === -1) {
@@ -1044,7 +1042,21 @@ function getInbox(accessToken) {
         .catch(error => {
             console.error('Error fetching inbox messages:', error);
         });
+}
 
+function setupUnloadVideo(vid) {
+    const intersectionObserver = new IntersectionObserver((entries) => {
+      // If intersectionRatio is 0, the target is out of view
+      // and we do not need to do anything.
+      if (entries[0].intersectionRatio <= 0) {
+            let a = vid.parentNode.querySelector('.lazy-video.hidden');
+            if(a) {
+                a.classList.remove('hidden');
+                vid.remove();
+            };
+      };
+    });
+    intersectionObserver.observe(document.querySelector("#" + vid.id));
 }
 
 window.onload = function() {
@@ -1077,11 +1089,14 @@ window.onload = function() {
         if(e.target.closest('a.lazy-video') && e.target.closest('a').dataset.target) {
             let a = e.target.closest('a');
             let id = a.dataset.target;
-            let vid_frag = document.getElementById('vt-' + id).content;
-            a.parentNode.replaceChild(vid_frag, a);
-
+            let vid_frag = document.getElementById('vt-' + id).content.cloneNode(true);;
+            a.parentNode.insertBefore(vid_frag, a);
+            a.classList.add('hidden');
             setTimeout(() => {
-                document.getElementById('v' + id).play();
+                let vid = document.getElementById('v' + id);
+                vid.play();
+
+                setupUnloadVideo(vid);
             }, 100);
 
             e.preventDefault();

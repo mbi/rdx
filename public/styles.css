@@ -1158,6 +1158,7 @@ slide-show::part(controls) {
     height: auto;
     color: white;
 }
+.lazy-video.hidden {display:none}
 
 .lazy-video::before {
     content: '';
