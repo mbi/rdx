@@ -528,11 +528,11 @@ function urlpreview(urli, postjson) {
                 returnpost += '</a>';
 
                 returnpost += '<template id="vt-' + postjson['id'] + '">';
-                returnpost += '<video id="v' + postjson['id'] + '" src="' + vidurl + '#t=0.001" data-fallback="' + fallbackurl + '" data-hls="' + hlsurl + '" poster="' + vidposter + '" width="100%" height="240" preload="metadata" class="reddit_hls"  controls>';
+                returnpost += '<video id="v' + postjson['id'] + '" src="' + vidurl + '#t=0.001" data-fallback="' + fallbackurl + '" data-hls="' + hlsurl + '" poster="' + vidposter + '" width="100%" preload="metadata" class="reddit_hls"  controls>';
                 returnpost += '</video>';
                 returnpost += '</template>';
             } else {
-                returnpost += '<video id="v' + postjson['id'] + '" src="' + vidurl + '#t=0.001" data-fallback="' + fallbackurl + '" data-hls="' + hlsurl + '" poster="' + vidposter + '" width="100%" height="240" preload="metadata" class="reddit_hls"  controls>';
+                returnpost += '<video id="v' + postjson['id'] + '" src="' + vidurl + '#t=0.001" data-fallback="' + fallbackurl + '" data-hls="' + hlsurl + '" poster="' + vidposter + '" width="100%" preload="metadata" class="reddit_hls"  controls>';
                 returnpost += '</video>';
             }
 
@@ -694,10 +694,8 @@ function runhsl_on_vid(video) {
         video.src = video.getAttribute('data-hls');
     } else {
         const hls = dashjs.MediaPlayer().create();
-        hls.initialize(video, video.src, false);
+        console.log('hls.initialize', hls.initialize(video, video.src, true));
     }
-
-    video.play();
 }
 
 function runhsl() {
@@ -1079,10 +1077,12 @@ function getInbox(accessToken) {
 }
 
 function setupUnloadVideo(vid) {
+
     const intersectionObserver = new IntersectionObserver((entries) => {
-      // If intersectionRatio is 0, the target is out of view
-      // and we do not need to do anything.
+      console.log(vid.id, entries[0].intersectionRatio)
       if (entries[0].intersectionRatio <= 0) {
+            console.log('Unloading', vid.id, vid);
+
             let a = vid.parentNode.querySelector('.lazy-video.hidden');
             if(a) {
                 a.classList.remove('hidden');
@@ -1090,7 +1090,10 @@ function setupUnloadVideo(vid) {
             };
       };
     });
-    intersectionObserver.observe(document.querySelector("#" + vid.id));
+    setTimeout(() => {
+        console.log('setupUnloadVideo', vid.id);
+        intersectionObserver.observe(document.querySelector("#" + vid.id));
+    }, 1000);
 }
 
 window.onload = function() {
@@ -1124,21 +1127,27 @@ window.onload = function() {
             let a = e.target.closest('a');
             let id = a.dataset.target;
             let vid_frag = document.getElementById('vt-' + id).content.cloneNode(true);;
-            a.parentNode.insertBefore(vid_frag, a);
+            a.parentNode.appendChild(vid_frag);
             let vid = document.getElementById('v' + id);
 
             runhsl_on_vid(vid);
 
+            vid.addEventListener('play', (pe) => {
+                a.classList.add('hidden');
+            });
+
             window.setTimeout(() => {
                 vid.play();
+                vid.addEventListener('pause', (pe) => {
+                    setupUnloadVideo(vid);
+                });
+
             }, 400)
-            setupUnloadVideo(vid);
-            a.classList.add('hidden');
 
             e.preventDefault();
             return false;
         }
-    })
+    });
 
 
 }
