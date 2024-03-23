@@ -1096,6 +1096,11 @@ body>#body {
   display: none;
 }
 
+body.comments .urlpreview + div[style] {
+  display: block;
+}
+
+
 slide-show::part(prev-button),
 slide-show::part(next-button) {
     top: auto;
