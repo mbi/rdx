@@ -1092,12 +1092,10 @@ window.onload = function() {
             let vid_frag = document.getElementById('vt-' + id).content.cloneNode(true);;
             a.parentNode.insertBefore(vid_frag, a);
             a.classList.add('hidden');
-            setTimeout(() => {
-                let vid = document.getElementById('v' + id);
-                vid.play();
 
-                setupUnloadVideo(vid);
-            }, 100);
+            let vid = document.getElementById('v' + id);
+            vid.play();
+            setupUnloadVideo(vid);
 
             e.preventDefault();
             return false;
