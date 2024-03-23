@@ -402,6 +402,24 @@ function galleryopen(theid) {
     });
 }
 
+function previewImage(postjson) {
+    var ret_url;
+    try {
+        var ret = postjson.preview.images[0].resolutions[0];
+        postjson.preview.images[0].resolutions.forEach( (obj) => {
+            if (obj.width && obj.width >= ret.width && obj.width <= 640) {
+                ret = obj;
+            }
+        })
+        ret_url = ret.url;
+    } catch(err) {
+        console.log(err);
+        ret_url  = postjson["thumbnail"];
+    }
+
+    return ret_url;
+}
+
 function urlpreview(urli, postjson) {
     returnpost = '';
     if (urli.match(/.(jpg|jpeg|png)$/i)) {
@@ -419,7 +437,19 @@ function urlpreview(urli, postjson) {
 
                 vidposter = postjson["preview"]["images"]["0"]["source"]["url"];
             }
-            returnpost += '<div class="postc video"><video src="' + x + '#t=0.001" poster="' + vidposter + '" width="100%" height="240" preload="metadata" controls></video></div>';
+
+            var posterurl = previewImage(postjson);
+
+            returnpost += '<div class="postc video generic-gif">'
+
+            returnpost += '<a href="#" data-target="' + postjson['id'] + '" class="lazy-video imgur-com">';
+            returnpost += '<img  loading="lazy" src="' + posterurl + '#t=0.001"/>';
+            returnpost += '</a>';
+            returnpost += '<template id="vt-' + postjson['id'] + '">';
+            returnpost += '<video id="v' + postjson['id'] + '" src="' + x + '#t=0.001" poster="' + posterurl + '" width="100%" preload="none" loop controls>';
+            returnpost += '</video>';
+            returnpost += '</template>';
+            returnpost += '</div>';
 
         }
     } else if (urli.match(/www.reddit.com\/gallery/g)) {
@@ -477,7 +507,7 @@ function urlpreview(urli, postjson) {
 
         returnpost += '</div>';
     } else if (urli.match(/v.redd.it/g)) {
-        returnpost += '<div class="postc video">';
+        returnpost += '<div class="postc video vreddit">';
         if (postjson['secure_media'] != null) {
             vidurl = postjson['secure_media']['reddit_video']['dash_url'];
             hlsurl = postjson['secure_media']['reddit_video']['hls_url'];
@@ -490,13 +520,25 @@ function urlpreview(urli, postjson) {
 
                 vidposter = postjson["preview"]["images"]["0"]["source"]["url"];
             }
-            returnpost += '<video id="v' + postjson['id'] + '" src="' + vidurl + '#t=0.001" data-fallback="' + fallbackurl + '" data-hls="' + hlsurl + '" poster="' + vidposter + '" width="100%" height="240" preload="metadata" class="reddit_hls"  controls> </video>';
+
+            var posterurl = previewImage(postjson);
+
+
+            returnpost += '<a href="#" data-target="' + postjson['id'] + '" class="lazy-video">';
+            returnpost += '<img loading="lazy" src="' + posterurl + '#t=0.001"/>';
+            returnpost += '</a>';
+
+            returnpost += '<template id="vt-' + postjson['id'] + '">';
+            returnpost += '<video id="v' + postjson['id'] + '" src="' + fallbackurl + '" data-hls="' + hlsurl + '" poster="' + posterurl + '" width="100%" preload="none"  controls>';
+            returnpost += '</video>';
+            returnpost += '</template>';
+
         } else {
             returnpost += 'crosspost';
         }
         returnpost += '</div>';
     } else if (urli.match(/redgifs/g) && postjson.preview) {
-        returnpost += '<div class="postc video">';
+        returnpost += '<div class="postc video redgifs">';
         if (postjson['secure_media']) {
             vidurl = postjson['secure_media']['oembed']['thumbnail_url'];
             if (typeof vidurl == "undefined") {
@@ -510,13 +552,22 @@ function urlpreview(urli, postjson) {
                     vidurl = postjson['secure_media']['oembed']['thumbnail_url'];
                 }
                 vidurl = vidurl.replace("size_restricted.gif", "mobile.mp4")
+                var posterurl = previewImage(postjson);
 
-                returnpost += '<video src="' + vidurl + '#t=0.001" poster="' + postjson["preview"]["images"]["0"]["source"]["url"] + '" width="100%" height="240" preload="metadata" controls> </video>';
+                returnpost += '<a href="#" data-target="' + postjson['id'] + '" class="lazy-video">';
+                returnpost += '<img  loading="lazy" src="' + posterurl + '#t=0.001"/>';
+                returnpost += '</a>';
+
+                returnpost += '<template id="vt-' + postjson['id'] + '">';
+                returnpost += '<video id="v' + postjson['id'] + '" src="' + vidurl + '" poster="' + posterurl + '" width="100%" preload="none"  controls>';
+                returnpost += '</video>';
+                returnpost += '</template>';
+
             }
         }
         returnpost += '</div>';
     } else if (urli.match(/gfycat.com/g)) {
-        returnpost += '<div class="postc video">';
+        returnpost += '<div class="postc video gyfcat">';
         if (postjson['secure_media'] == null || typeof postjson['secure_media']['oembed']['thumbnail_url'] == "undefined") {
 
 
@@ -534,9 +585,16 @@ function urlpreview(urli, postjson) {
         }
         returnpost += '</div>';
     } else if (urli.match(/i.imgur.com(.*?)gifv/g)) {
-        returnpost += '<div class="postc video">';
-        vidurl = urli.replace(".gifv", ".mp4")
-        returnpost += '<video src="' + vidurl + '" poster="' + postjson["thumbnail"] + '#t=0.001" width="100%" height="240" preload="metadata" controls> </video>';
+        returnpost += '<div class="postc video imgur">';
+        let vidurl = urli.replace(".gifv", ".mp4");
+        var posterurl = previewImage(postjson);
+        returnpost += '<a href="#" data-target="' + postjson['id'] + '" class="lazy-video">';
+        returnpost += '<img  loading="lazy" src="' + posterurl + '#t=0.001"/>';
+        returnpost += '</a>';
+        returnpost += '<template id="vt-' + postjson['id'] + '">';
+        returnpost += '<video  id="v' + postjson['id'] + '" src="' + vidurl + '" poster="' + posterurl + '#t=0.001" width="100%" preload="none" controls class="lazy">';
+        returnpost += '</video>';
+        returnpost += '</template>';
         returnpost += '</div>';
     } else {
         thumbnailforit = '';
@@ -549,6 +607,8 @@ function urlpreview(urli, postjson) {
     }
     return returnpost;
 }
+
+
 
 
 function pollbuilder(postjson) {
@@ -1011,6 +1071,23 @@ window.onload = function() {
     }
 
     document.getElementById("leftbar").insertAdjacentHTML("afterBegin", html1);
+
+    /* lazy video */
+    document.addEventListener('click', (e) => {
+        if(e.target.closest('a.lazy-video') && e.target.closest('a').dataset.target) {
+            let a = e.target.closest('a');
+            let id = a.dataset.target;
+            let vid_frag = document.getElementById('vt-' + id).content;
+            a.parentNode.replaceChild(vid_frag, a);
+
+            setTimeout(() => {
+                document.getElementById('v' + id).play();
+            }, 100);
+
+            e.preventDefault();
+            return false;
+        }
+    })
 
 
 }

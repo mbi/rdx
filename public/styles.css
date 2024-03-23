@@ -625,6 +625,10 @@ a:active {
     opacity: 0.8;
 }
 
+a.lazy-video:hover {
+    opacity: 1;
+}
+
 .comment_text img {
     max-width: 99%;
 }
@@ -1145,4 +1149,35 @@ slide-show::part(controls) {
 .small-hidden {display:none}
 @media (min-width: 480px) {
     .small-hidden {display:inline}
+}
+
+.lazy-video {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: auto;
+    color: white;
+}
+
+.lazy-video::before {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    top: calc(50% - 50px);
+    left: calc(50% - 50px);
+    background-image:url('play-button.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    transition: opacity 0.25s;
+}
+
+a.lazy-video:hover::before {
+    opacity: 0.7;
+}
+
+.lazy-video > img {
+    width:100%;
+    height:auto;
+    border:none;
 }
