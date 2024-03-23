@@ -412,6 +412,7 @@ function previewImage(postjson) {
         ret_url = ret.url;
     } catch(err) {
         console.log(err);
+        console.log(postjson)
         ret_url  = postjson["thumbnail"];
     }
 
@@ -521,15 +522,19 @@ function urlpreview(urli, postjson) {
 
             var posterurl = previewImage(postjson);
 
+            if(posterurl) {
+                returnpost += '<a href="#" data-target="' + postjson['id'] + '" class="lazy-video">';
+                returnpost += '<img loading="lazy" src="' + posterurl + '#t=0.001"/>';
+                returnpost += '</a>';
 
-            returnpost += '<a href="#" data-target="' + postjson['id'] + '" class="lazy-video">';
-            returnpost += '<img loading="lazy" src="' + posterurl + '#t=0.001"/>';
-            returnpost += '</a>';
-
-            returnpost += '<template id="vt-' + postjson['id'] + '">';
-            returnpost += '<video id="v' + postjson['id'] + '" src="' + fallbackurl + '" data-hls="' + hlsurl + '" poster="' + posterurl + '" width="100%" preload="none"  controls>';
-            returnpost += '</video>';
-            returnpost += '</template>';
+                returnpost += '<template id="vt-' + postjson['id'] + '">';
+                returnpost += '<video id="v' + postjson['id'] + '" src="' + vidurl + '#t=0.001" data-fallback="' + fallbackurl + '" data-hls="' + hlsurl + '" poster="' + vidposter + '" width="100%" height="240" preload="metadata" class="reddit_hls"  controls>';
+                returnpost += '</video>';
+                returnpost += '</template>';
+            } else {
+                returnpost += '<video id="v' + postjson['id'] + '" src="' + vidurl + '#t=0.001" data-fallback="' + fallbackurl + '" data-hls="' + hlsurl + '" poster="' + vidposter + '" width="100%" height="240" preload="metadata" class="reddit_hls"  controls>';
+                returnpost += '</video>';
+            }
 
         } else {
             returnpost += 'crosspost';
@@ -664,6 +669,35 @@ function cbuilder(comment) {
     }
     cret += '</div>';
     return cret;
+}
+
+
+function runhsl_on_vid(video) {
+    const videoContainer = video.parentElement;
+    video.classList.add('goner');
+    //  if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    // Browser natively supports HLS
+    //     video.src = video.src;
+    //     } else if (Hls.isSupported()) {
+    // Use hls.js for HLS playback
+    //         const hls = new Hls();
+    //        hls.loadSource(video.src);
+    //       hls.attachMedia(video);
+
+    //  } else {
+    // Provide a fallback for unsupported browsers
+    //    video.src = video.getAttribute('data-fallback');
+
+    // }
+    const isIOS = /iPhone|iPad/i.test(navigator.userAgent);
+    if (isIOS) {
+        video.src = video.getAttribute('data-hls');
+    } else {
+        const hls = dashjs.MediaPlayer().create();
+        hls.initialize(video, video.src, false);
+    }
+
+    video.play();
 }
 
 function runhsl() {
@@ -1091,11 +1125,15 @@ window.onload = function() {
             let id = a.dataset.target;
             let vid_frag = document.getElementById('vt-' + id).content.cloneNode(true);;
             a.parentNode.insertBefore(vid_frag, a);
-            a.classList.add('hidden');
-
             let vid = document.getElementById('v' + id);
-            vid.play();
+
+            runhsl_on_vid(vid);
+
+            window.setTimeout(() => {
+                vid.play();
+            }, 400)
             setupUnloadVideo(vid);
+            a.classList.add('hidden');
 
             e.preventDefault();
             return false;
