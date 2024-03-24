@@ -1077,12 +1077,10 @@ function getInbox(accessToken) {
 }
 
 function setupUnloadVideo(vid) {
-
     const intersectionObserver = new IntersectionObserver((entries) => {
-      console.log(vid.id, entries[0].intersectionRatio)
+      console.log('setupUnloadVideo', vid.id, entries[0].intersectionRatio)
       if (entries[0].intersectionRatio <= 0) {
             console.log('Unloading', vid.id, vid);
-
             let a = vid.parentNode.querySelector('.lazy-video.hidden');
             if(a) {
                 a.classList.remove('hidden');
@@ -1096,6 +1094,19 @@ function setupUnloadVideo(vid) {
     }, 1000);
 }
 
+
+
+function setupPauseVideo(vid) {
+
+    const intersectionObserver = new IntersectionObserver((entries) => {
+      console.log('setupPauseVideo', vid.id, entries[0].intersectionRatio)
+      if (entries[0].intersectionRatio <= 0) {
+            console.log('Pausing', vid.id, vid);
+            vid.pause();
+      };
+    });
+    intersectionObserver.observe(document.querySelector("#" + vid.id));
+}
 window.onload = function() {
     curq = getget('q') ? getget('q') : '';
     html1 = '<form class="search" action="search.html"><input type="search" name="q" value="' + curq + '"/>';
@@ -1134,6 +1145,10 @@ window.onload = function() {
 
             vid.addEventListener('play', (pe) => {
                 a.classList.add('hidden');
+
+                window.setTimeout(() => {
+                    setupPauseVideo(vid);
+                }, 2000)
             });
 
             window.setTimeout(() => {
@@ -1143,6 +1158,7 @@ window.onload = function() {
                 });
 
             }, 400)
+
 
             e.preventDefault();
             return false;
