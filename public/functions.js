@@ -541,6 +541,27 @@ function urlpreview(urli, postjson) {
         }
         returnpost += '</div>';
     } else if (urli.match(/redgifs/g) && postjson.preview) {
+        /*
+        returnpost += '<div class="postc video">';
+        if (postjson['secure_media']) {
+            vidurl = postjson['secure_media']['oembed']['thumbnail_url'];
+            if (typeof vidurl == "undefined") {
+                vidurl = urli.replace("redgifs.com/watch/", "redgifs.com/ifr/");
+                vidurl = '<iframe src="' + vidurl + '?autoplay=0" class="gifframe"></iframe>';
+                returnpost += vidurl;
+            } else {
+                if (postjson['preview'] && typeof postjson['preview']['reddit_video_preview'] != "undefined") {
+                    vidurl = postjson['preview']['reddit_video_preview']['fallback_url'];
+                } else if (postjson['secure_media']['oembed']['thumbnail_url']) {
+                    vidurl = postjson['secure_media']['oembed']['thumbnail_url'];
+                }
+                vidurl = vidurl.replace("size_restricted.gif", "mobile.mp4")
+
+                returnpost += '<video src="' + vidurl + '#t=0.001" poster="' + postjson["preview"]["images"]["0"]["source"]["url"] + '" width="100%" height="240" preload="metadata" controls> </video>';
+            }
+        }
+        returnpost += '</div>';
+        */
         returnpost += '<div class="postc video redgifs">';
         if (postjson['secure_media']) {
             vidurl = postjson['secure_media']['oembed']['thumbnail_url'];
@@ -562,7 +583,7 @@ function urlpreview(urli, postjson) {
                 returnpost += '</a>';
 
                 returnpost += '<template id="vt-' + postjson['id'] + '">';
-                returnpost += '<video id="v' + postjson['id'] + '" src="' + vidurl + '" poster="' + posterurl + '" width="100%" preload="none"  controls>';
+                returnpost += '<video id="v' + postjson['id'] + '" src="' + vidurl + '" poster="' + posterurl + '" width="100%" preload="metadata" controls>';
                 returnpost += '</video>';
                 returnpost += '</template>';
 
@@ -694,7 +715,7 @@ function runhsl_on_vid(video) {
         video.src = video.getAttribute('data-hls');
     } else {
         const hls = dashjs.MediaPlayer().create();
-        console.log('hls.initialize', hls.initialize(video, video.src, true));
+        hls.initialize(video, video.src, true);
     }
 }
 
@@ -1080,7 +1101,7 @@ function setupUnloadVideo(vid) {
     const intersectionObserver = new IntersectionObserver((entries) => {
       console.log('setupUnloadVideo', vid.id, entries[0].intersectionRatio)
       if (entries[0].intersectionRatio <= 0) {
-            console.log('Unloading', vid.id, vid);
+            console.log('Unloading', vid.id);
             let a = vid.parentNode.querySelector('.lazy-video.hidden');
             if(a) {
                 a.classList.remove('hidden');
@@ -1090,7 +1111,7 @@ function setupUnloadVideo(vid) {
     });
     setTimeout(() => {
         console.log('setupUnloadVideo', vid.id);
-        intersectionObserver.observe(document.querySelector("#" + vid.id));
+        intersectionObserver.observe(vid);
     }, 1000);
 }
 
@@ -1105,7 +1126,7 @@ function setupPauseVideo(vid) {
             vid.pause();
       };
     });
-    intersectionObserver.observe(document.querySelector("#" + vid.id));
+    intersectionObserver.observe(vid);
 }
 window.onload = function() {
     curq = getget('q') ? getget('q') : '';
@@ -1141,7 +1162,11 @@ window.onload = function() {
             a.parentNode.appendChild(vid_frag);
             let vid = document.getElementById('v' + id);
 
-            runhsl_on_vid(vid);
+            if (vid.classList.contains('reddit_hls')) {
+                runhsl_on_vid(vid);
+            } else {
+                vid.play();
+            }
 
             vid.addEventListener('play', (pe) => {
                 a.classList.add('hidden');
