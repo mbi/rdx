@@ -621,9 +621,11 @@ function urlpreview(urli, postjson) {
         returnpost += '</template>';
         returnpost += '</div>';
     } else {
-        thumbnailforit = '';
-        if (postjson["thumbnail"].length > 9) {
-            returnpost += '<a href="' + urli + '"  class="wholethumb"><div class="postc thumblink"><div class="thumb"><img src="' + postjson["thumbnail"] + '"/></div><div class="thumblinklink">' + urli + '</div></div></a>';
+        thumbnailforit = previewImage(postjson) || '';
+        if (thumbnailforit) {
+            returnpost += '<a href="' + urli + '" class="postc singleimage">';
+            returnpost += '<img src="' + thumbnailforit + '"/>';
+            returnpost += '</a>';
         } else {
             returnpost += '<div class="postc link"><a href="' + urli + '" >' + thumbnailforit + '' + urli + '</a></div>';
         }
