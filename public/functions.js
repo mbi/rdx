@@ -326,7 +326,7 @@ function postbuilder(post) {
         if (post["selftext_html"] != null) {
             var replacedText = replaceRedditLinks(post["selftext_html"]);
 
-            returnfpost += '<div class="postc selftext"><overflow-toggle show="+" hide="-">' + htmlDecode(replacedText) + '</overflow-toggle></div>';
+            returnfpost += '<div class="postc selftext"><overflow-toggle show="+" hide="">' + htmlDecode(replacedText) + '</overflow-toggle></div>';
         }
         urli = post['url_overridden_by_dest'];
 

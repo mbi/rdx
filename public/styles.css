@@ -1139,6 +1139,13 @@ overflow-toggle::part(button) {
     line-height: 0;
     padding: 0;
     margin-bottom: 0.5rem;
+    border: none;
+    background: var(--greyc);
+    color: var(--lightc);
+}
+
+overflow-toggle::part(button):hover {
+    opacity: 0.8;
 }
 overflow-toggle::part(content) {
     position: relative;
@@ -1154,6 +1161,9 @@ overflow-toggle::part(content)::after {
 }
 overflow-toggle[open]::part(content)::after {
     content: unset;
+}
+overflow-toggle[open]::part(button) {
+    display: none;
 }
 
 .icon::before {
