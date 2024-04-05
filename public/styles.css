@@ -1131,6 +1131,31 @@ slide-show::part(page-button-active) {
 slide-show::part(controls) {
     margin-top: 0.75rem;
 }
+
+overflow-toggle::part(button) {
+    font-size: 14px;
+    height: 25px;
+    width: 25px;
+    line-height: 0;
+    padding: 0;
+    margin-bottom: 0.5rem;
+}
+overflow-toggle::part(content) {
+    position: relative;
+}
+overflow-toggle::part(content)::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    display: block;
+    width: calc(100% - 2rem);
+    height: 1.75rem;
+    background: linear-gradient(180deg, rgba(255,255,255, 0) 0%, rgba(255,255,255,1) 100%);
+}
+overflow-toggle[open]::part(content)::after {
+    content: unset;
+}
+
 .icon::before {
   content: '';
   width: 18px;
