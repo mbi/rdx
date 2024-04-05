@@ -354,7 +354,8 @@ function postbuilder(post) {
             + '<div class="post_meta"><div class="flex-left">'
             +'<a class="comments-icon icon" href="comments.html?url=https://www.reddit.com' + post['permalink'] + '">'
             + post['num_comments'] + '</a>'
-            + '<span class="upvotes-icon icon">' + post['score'] + '</span>';
+            + '<span class="upvotes-icon icon">' + post['score'] + '</span>'
+            + '<a class="ext-url-icon icon" href="' +  post['url'] +'"></a>';
 
     returnfpost += '</div><div class="post_author flex-right"><a href="subreddit.html?r=' + post["subreddit"] + '">' + post["subreddit_name_prefixed"] + '</a> <a class="small-hidden" href="user.html?u=' + post["author"] + '">' + post["author"] + '</a> ' + timeagoed + '</div>';
 

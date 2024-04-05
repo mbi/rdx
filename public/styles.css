@@ -1178,12 +1178,19 @@ overflow-toggle[open]::part(button) {
     vertical-align: -1px;
     background-image:url('speech-bubble.svg');
 }
+
 .upvotes-icon::before {
   vertical-align: -3px;
   background-image: url('arrow-up.svg');
   width: 15px;
   background-position: top right;
   margin-left: 0.5rem;
+}
+
+.ext-url-icon::before {
+    margin-left: 0.5rem;
+    background-image:url('external-url.svg');
+    background-size: cover;
 }
 
 .small-hidden {display:none}
