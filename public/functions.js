@@ -412,8 +412,6 @@ function previewImage(postjson) {
         })
         ret_url = ret.url;
     } catch(err) {
-        console.log(err);
-        console.log(postjson)
         ret_url  = postjson["thumbnail"];
     }
 
@@ -1160,9 +1158,14 @@ window.onload = function() {
     document.addEventListener('click', (e) => {
         if(e.target.closest('a.lazy-video') && e.target.closest('a').dataset.target) {
             let a = e.target.closest('a');
+            a.parentNode.style.height = a.offsetHeight + 'px';
             let id = a.dataset.target;
-            let vid_frag = document.getElementById('vt-' + id).content.cloneNode(true);;
+            let vid_frag = document.getElementById('vt-' + id).content.cloneNode(true);
+            a.classList.add('hidden');
             a.parentNode.appendChild(vid_frag);
+
+
+
             let vid = document.getElementById('v' + id);
 
             if (vid.classList.contains('reddit_hls')) {
@@ -1172,7 +1175,7 @@ window.onload = function() {
             }
 
             vid.addEventListener('play', (pe) => {
-                a.classList.add('hidden');
+
 
                 window.setTimeout(() => {
                     setupPauseVideo(vid);

@@ -184,6 +184,11 @@ a.viewmore {
     max-width: 100%;
 }
 
+.postc.video {
+    display: block;
+    width: 100%;
+}
+
 
 .postc.selftext {
     word-break: break-word;
