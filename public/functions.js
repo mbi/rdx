@@ -1130,6 +1130,7 @@ function setupPauseVideo(vid) {
     intersectionObserver.observe(vid);
 }
 window.onload = function() {
+
     curq = getget('q') ? getget('q') : '';
     html1 = '<form class="search" action="search.html"><input type="search" name="q" value="' + curq + '"/>';
     html1 += '<input type="submit" value="Search"/><br style="clear:both;">';
@@ -1195,6 +1196,32 @@ window.onload = function() {
             return false;
         }
     });
+
+    document.addEventListener('keyup', (e) => {
+        if (document.querySelector('input:focus')) {
+            return;
+        }
+
+        switch(e.key) {
+            case 'j':
+            case 'J':
+                e.preventDefault();
+                console.log('next')
+            break;
+
+            case 'k':
+            case 'K':
+                e.preventDefault();
+                console.log('prev');
+                break;
+
+            case 'Enter':
+                e.preventDefault();
+                console.log('Open');
+                break;
+
+        }
+    })
 
 
 }
