@@ -1196,6 +1196,10 @@ function activateItem(scrollTo=false) {
 }
 
 function postModal(post) {
+    if (document.body.offsetWidth < 480) {
+        return;
+    }
+
     let dialog = document.getElementById('dialog');
     if (post.querySelector('.singleimage img')) {
         var img = post.querySelector('.singleimage img');
@@ -1326,9 +1330,8 @@ window.onload = function() {
                 closeModal();
                 break;
 
-            default:
-                console.log(e.key)
-
+            // default:
+            //     console.log(e.key);
 
         }
     });
