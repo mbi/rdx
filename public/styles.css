@@ -6,6 +6,7 @@
     --lightc: #444;
     --whitec: #fff;
     --border-radius: 6px;
+    --current-item-marker: #f1f0f6;
 }
 
 body {
@@ -150,7 +151,18 @@ a.viewmore {
     background: var(--whitec);
     border-radius: var(--border-radius);
     margin-top: 0.25rem;
-
+    position: relative;
+}
+.current-post::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background-color: var(--current-item-marker);
 }
 
 .post_author {
@@ -1233,4 +1245,65 @@ a.lazy-video:hover::before {
     width:100%;
     height:auto;
     border:none;
+}
+
+
+
+/* MODAL STYLES
+-------------------------------*/
+.jw-modal {
+    /* modals are hidden by default */
+    display: none;
+
+    /* modal container fixed across whole screen */
+    position: fixed;
+    inset: 0;
+
+    /* z-index must be higher than everything else on the page */
+    z-index: 10000;
+
+    /* semi-transparent black background exposed by padding */
+    background-color: rgba(0, 0, 0, .75);
+    padding: 40px;
+
+    /* enables scrolling for tall modals */
+    overflow: auto;
+}
+
+.jw-modal.open {
+    display: block;
+}
+
+.jw-modal-body {
+    padding: 20px;
+    background: #fff;
+
+    width: calc(96vw - 80px);
+    max-height: calc(96vh - 80px);
+    position: relative;
+}
+.jw-modal-body > button {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+}
+
+.jw-dialog-innner {
+    text-align: center;
+    max-height: calc(96vh - 80px);
+
+
+ }
+.jw-dialog-innner img {
+    object-fit: contain;
+    max-height: calc(96vh - 80px);
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+  height: auto;
+}
+
+body.jw-modal-open {
+    /* body overflow is hidden to hide main scrollbar when modal window is open */
+    overflow: hidden;
 }

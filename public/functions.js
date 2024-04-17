@@ -2,6 +2,7 @@ var bmr = '';
 // Utility functions [UNIVERSAL]
 
 var seenPostIds = [];
+var activePostIdx = 0;
 
 var nexturl = '';
 var nextseturl = '';
@@ -622,7 +623,7 @@ function urlpreview(urli, postjson) {
     } else {
         thumbnailforit = previewImage(postjson) || '';
         if (thumbnailforit) {
-            returnpost += '<a href="' + urli + '" class="postc singleimage">';
+            returnpost += '<a href="' + urli + '" class="postc singleimage url">';
             returnpost += '<img src="' + thumbnailforit + '"/>';
             returnpost += '</a>';
         } else {
@@ -1129,6 +1130,92 @@ function setupPauseVideo(vid) {
     });
     intersectionObserver.observe(vid);
 }
+
+function nextItem(scrollTo=false) {
+    if (++activePostIdx  > document.querySelectorAll('.post').length - 1) {
+        activePostIdx = document.querySelectorAll('.post').length - 1;
+    }
+
+    activateItem(scrollTo);
+}
+
+function prevItem(scrollTo=false) {
+    if (--activePostIdx < 0) {
+        activePostIdx = 0;
+    }
+
+    activateItem(scrollTo);
+}
+
+function openItem() {
+    var currentPost = document.querySelector('.current-post');
+    if (!currentPost) {
+        return;
+    }
+
+    if (currentPost.querySelector('a.lazy-video')) {
+        currentPost.querySelector('a.lazy-video').click();
+        return;
+    }
+
+    if (currentPost.querySelector('.singleimage.url')) {
+        window.location.href = currentPost.querySelector('.singleimage.url').href;
+        return;
+    }
+
+    if (currentPost.querySelector('.singleimage img')) {
+        if (document.body.classList.contains('jw-modal-open')) {
+            closeModal();
+        } else {
+            postModal(currentPost);
+
+        }
+        return;
+    }
+}
+
+
+function activateItem(scrollTo=false) {
+    var currentPost = document.querySelector('.current-post');
+    if ( currentPost ) {
+        currentPost.classList.remove('current-post');
+    }
+
+    if (document.querySelector('.post')) {
+        currentPost = document.querySelectorAll('.post')[activePostIdx];
+        currentPost.classList.add('current-post');
+    }
+
+    if (scrollTo && currentPost) {
+        window.scrollTo({
+          top: currentPost.offsetTop - 46,
+          behavior: "smooth",
+        })
+    }
+
+}
+
+function postModal(post) {
+    let dialog = document.getElementById('dialog');
+    if (post.querySelector('.singleimage img')) {
+        var img = post.querySelector('.singleimage img');
+        dialog.querySelector('.jw-dialog-innner').appendChild(img.cloneNode(true));
+        dialog.classList.add('open');
+        document.body.classList.add('jw-modal-open');
+
+
+    }
+}
+
+function closeModal() {
+    let dialog = document.getElementById('dialog');
+    dialog.classList.remove('open');
+    document.body.classList.remove('jw-modal-open');
+
+    dialog.querySelector('.jw-dialog-innner').childNodes.forEach((e) => e.remove())
+}
+
+
 window.onload = function() {
 
     curq = getget('q') ? getget('q') : '';
@@ -1194,10 +1281,20 @@ window.onload = function() {
 
             e.preventDefault();
             return false;
+        } else if (e.target.closest('.postc.singleimage')) {
+            var post = e.target.closest('.post');
+            postModal(post);
+
         }
     });
 
-    document.addEventListener('keyup', (e) => {
+    document.addEventListener('click', event => {
+        if (event.target.classList.contains('jw-modal')) {
+            closeModal();
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
         if (document.querySelector('input:focus')) {
             return;
         }
@@ -1206,22 +1303,25 @@ window.onload = function() {
             case 'j':
             case 'J':
                 e.preventDefault();
-                console.log('next')
+                nextItem(true);
             break;
 
             case 'k':
             case 'K':
                 e.preventDefault();
-                console.log('prev');
+                prevItem(true);
                 break;
 
             case 'Enter':
                 e.preventDefault();
-                console.log('Open');
+                openItem();
                 break;
 
+            case 'Escape':
+                closeModal();
+
         }
-    })
+    });
 
-
+    activateItem(false);
 }

@@ -1,6 +1,12 @@
 <div class="footer">
     <small><a href="settings.html">Settings</a> | <a href="https://github.com/avadhesh18/rdx/">Star on Github</a></small>
 </div>
+<div id="dialog" class="jw-modal">
+  <div class="jw-modal-body">
+    <div class="jw-dialog-innner"></div>
+    <button onclick="closeModal()">Close</button>
+  </div>
+</div>
   <div id="popitup" style="display:none;">
     <span onclick="document.getElementById('popitup').style.display='none'">Cancel</span>
     <div id="helptext"></div>
@@ -9,4 +15,5 @@
     <input id="actype" value="" type="hidden"/>
     <button id="cmntbtn" onclick="apiAction();">Submit</button>
   </div> <!-- rdx -->
+
 </body>
