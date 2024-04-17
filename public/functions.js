@@ -1302,23 +1302,33 @@ window.onload = function() {
         switch(e.key) {
             case 'j':
             case 'J':
+            case 'ArrowDown':
                 e.preventDefault();
                 nextItem(true);
             break;
 
             case 'k':
             case 'K':
+            case 'ArrowUp':
                 e.preventDefault();
                 prevItem(true);
                 break;
 
             case 'Enter':
+            case 'ArrowRight':
                 e.preventDefault();
                 openItem();
                 break;
 
             case 'Escape':
+            case 'ArrowLeft':
+                e.preventDefault();
                 closeModal();
+                break;
+
+            default:
+                console.log(e.key)
+
 
         }
     });
