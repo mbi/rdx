@@ -288,7 +288,7 @@ div#pagetitle {
 }
 
 .footer:after {
-    content: "rdx.overdevs.com - Not affiliated with Reddit";
+    content: "";
     color: #999;
     text-align: center;
     display: block;
