@@ -81,7 +81,7 @@ function toggle(id) {
 
 
 
-function makereq(url) {
+function  makereq(url) {
     var fill = '';
     var req = new XMLHttpRequest();
     var post_data;
@@ -118,6 +118,8 @@ function makereq(url) {
         if (curinfi) {
             observe();
         }
+
+        postsLoadedCallback(true);
     };
     req.onerror = function() {
         document.getElementById('body').innerHTML = '<center style="padding:15px;">Can\'t load content!<br><small>There can be multiple reasons for this, your browser\'s aggresive privacy settings may be blocking the one call to reddit.com RDX makes. This happens usually when you use a VPM/Proxy and/or a privacy focused browser like Firefox.<br> Play around with privacy/tracking options or change your browser. If it still doesn\'t work click the feedback link and send me some info.</small></center>';
@@ -125,7 +127,13 @@ function makereq(url) {
     req.send(null);
 }
 
+var _is_requesting = false;
 function scorllmore() {
+    if (_is_requesting) {
+        return;
+    }
+    _is_requesting = true;
+
     var post_data;
 
     const url = nexturl;
@@ -163,10 +171,14 @@ function scorllmore() {
         document.getElementById('sxpy').insertAdjacentHTML('beforeend', fill);
         document.getElementById('sentinel').innerHTML = ' ';
         runhsl();
+
+        postsLoadedCallback(false);
+        _is_requesting = false;
     };
     req.onerror = function() {
         document.getElementById('sxpy').innerHTML += '<center style="padding:15px;">Can\'t load content! Refresh the page or try again later.</center>';
         nexturl = '';
+        _is_requesting = false;
     };
     req.send(null);
 }
@@ -1220,6 +1232,37 @@ function closeModal() {
 }
 
 
+function postsLoadedCallback(is_initial=true) {
+    console.log('postsLoadedCallback', is_initial);
+    activateItem(false);
+}
+
+function updateCurrentPostIdxOnScroll() {
+    var m = false;
+    document.querySelectorAll('.post').forEach((post, idx) => {
+        if (!m && post.offsetTop > window.scrollY) {
+            activePostIdx = idx;
+            activateItem(false);
+            m = true;
+        }
+    });
+}
+
+let ticking = false;
+document.addEventListener("scroll", (event) => {
+  lastKnownScrollPosition = window.scrollY;
+
+  if (!ticking) {
+    window.requestAnimationFrame(() => {
+      updateCurrentPostIdxOnScroll();
+      ticking = false;
+    });
+
+    ticking = true;
+  }
+});
+
+
 window.onload = function() {
 
     curq = getget('q') ? getget('q') : '';
@@ -1336,5 +1379,4 @@ window.onload = function() {
         }
     });
 
-    activateItem(false);
 }
