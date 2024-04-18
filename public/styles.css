@@ -153,6 +153,8 @@ a.viewmore {
     margin-top: 0.25rem;
     position: relative;
 }
+
+.current-comment::after,
 .current-post::after {
     content: '';
     position: absolute;
@@ -163,6 +165,10 @@ a.viewmore {
     height: 8px;
     border-radius: 4px;
     background-color: var(--current-item-marker);
+}
+
+.current-comment::after {
+    top: 8px;
 }
 
 .post_author {

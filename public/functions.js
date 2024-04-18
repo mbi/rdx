@@ -3,6 +3,7 @@ var bmr = '';
 
 var seenPostIds = [];
 var activePostIdx = 0;
+var activeCommentIdx = 0;
 
 var nexturl = '';
 var nextseturl = '';
@@ -1148,7 +1149,20 @@ function nextItem(scrollTo=false) {
         activePostIdx = document.querySelectorAll('.post').length - 1;
     }
 
-    activateItem(scrollTo);
+    activatePost(scrollTo);
+}
+
+function nextComment() {
+
+    var comments = document.querySelectorAll('.comment');
+    for(var i = activeCommentIdx + 1; i<comments.length; i++) {
+        if(! comments[i].classList.contains('collapsed-hidden')) {
+            activeCommentIdx = i;
+            break;
+        }
+    }
+
+    activateComment(true);
 }
 
 function prevItem(scrollTo=false) {
@@ -1156,7 +1170,36 @@ function prevItem(scrollTo=false) {
         activePostIdx = 0;
     }
 
-    activateItem(scrollTo);
+    activatePost(scrollTo);
+}
+
+function prevComment() {
+    var comments = document.querySelectorAll('.comment');
+    for(var i = activeCommentIdx - 1; i>=0;  i--) {
+        if(! comments[i].classList.contains('collapsed-hidden')) {
+            activeCommentIdx = i;
+            break;
+        }
+    }
+    activateComment(true);
+}
+
+function openComment() {
+    var currentComment = document.querySelector('.current-comment');
+    if (!currentComment) {
+        return;
+    }
+
+    collapse(currentComment); // this actually toggles
+}
+
+function collapseComment() {
+    var currentComment = document.querySelector('.current-comment');
+    if (!currentComment) {
+        return;
+    }
+
+    collapse(currentComment);
 }
 
 function openItem() {
@@ -1186,8 +1229,22 @@ function openItem() {
     }
 }
 
+function activateComment(scrollTo=false) {
+    var currentComment = document.querySelector('.current-comment');
+    if ( currentComment ) {
+        currentComment.classList.remove('current-comment');
+    }
 
-function activateItem(scrollTo=false) {
+    if (document.querySelector('.comment')) {
+        currentComment = document.querySelectorAll('.comment')[activeCommentIdx];
+        currentComment.classList.add('current-comment');
+    }
+
+
+
+}
+
+function activatePost(scrollTo=false) {
     var currentPost = document.querySelector('.current-post');
     if ( currentPost ) {
         currentPost.classList.remove('current-post');
@@ -1234,7 +1291,12 @@ function closeModal() {
 
 function postsLoadedCallback(is_initial=true) {
     console.log('postsLoadedCallback', is_initial);
-    activateItem(false);
+    activatePost(false);
+
+    if (document.body.classList.contains('comments')) {
+    activateComment();
+
+    }
 }
 
 function updateCurrentPostIdxOnScroll() {
@@ -1242,7 +1304,7 @@ function updateCurrentPostIdxOnScroll() {
     document.querySelectorAll('.post').forEach((post, idx) => {
         if (!m && post.offsetTop > window.scrollY) {
             activePostIdx = idx;
-            activateItem(false);
+            activatePost(false);
             m = true;
         }
     });
@@ -1351,26 +1413,26 @@ window.onload = function() {
             case 'J':
             case 'ArrowDown':
                 e.preventDefault();
-                nextItem(true);
+                document.body.classList.contains('comments') ? nextComment() : nextItem(true);
             break;
 
             case 'k':
             case 'K':
             case 'ArrowUp':
                 e.preventDefault();
-                prevItem(true);
+                document.body.classList.contains('comments') ? prevComment() : prevItem(true);
                 break;
 
             case 'Enter':
             case 'ArrowRight':
                 e.preventDefault();
-                openItem();
+                document.body.classList.contains('comments') ? openComment() : openItem();
                 break;
 
             case 'Escape':
             case 'ArrowLeft':
                 e.preventDefault();
-                closeModal();
+                document.body.classList.contains('comments') ? collapseComment() : closeModal();
                 break;
 
             // default:
