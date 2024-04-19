@@ -428,7 +428,9 @@ function previewImage(postjson) {
     } catch(err) {
         ret_url  = postjson["thumbnail"];
     }
-
+    if (ret_url === 'default') {
+        ret_url = '';
+    }
     return ret_url;
 }
 
@@ -634,6 +636,7 @@ function urlpreview(urli, postjson) {
         returnpost += '</template>';
         returnpost += '</div>';
     } else {
+
         thumbnailforit = previewImage(postjson) || '';
         if (thumbnailforit) {
             returnpost += '<a href="' + urli + '" class="postc singleimage url">';
