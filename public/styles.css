@@ -649,6 +649,7 @@ a:active {
     opacity: 0.8;
 }
 
+.urlpreview a:hover,
 a.lazy-video:hover {
     opacity: 1;
 }
@@ -1289,10 +1290,19 @@ a.lazy-video:hover::before {
     max-height: calc(96vh - 80px);
     position: relative;
 }
-.jw-modal-body > button {
+.jw-modal-body > .close-modal-button {
     position: absolute;
     top: 6px;
     right: 6px;
+    text-indent: -100%;
+    overflow: hidden;
+    background-image:url('close-button.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 32px;
+    height: 32px;
+    background-color: white;
+    border-radius: 50%;
 }
 
 .jw-dialog-innner {
