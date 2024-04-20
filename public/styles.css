@@ -81,9 +81,39 @@ p {
     margin-bottom: 5px
 }
 
+.comment.ccp0 {
+    border-left: 2px solid transparent;
+}
+
+
 .comment.ccp1 {
-    border-left: 2px solid #d82c2b;
+    border-left: 2px solid #d82c2b11;
     margin-left: 15px
+}
+
+
+.comment.ccp2 {
+    margin-left: 35px;
+    font-size: 17px;
+    border-left: 2px solid #d82c2b33;
+}
+
+.comment.ccp3 {
+    margin-left: 59px;
+    font-size: 16px;
+    border-left: 2px solid #d82c2b77;
+}
+
+.comment.ccp4 {
+    margin-left: 75px;
+    font-size: 15px;
+    border-left: 2px solid #d82c2b99;
+}
+
+.comment.ccp5 {
+    margin-left: 89px;
+    font-size: 14px;
+    border-left: 2px solid #a662c9aa;
 }
 
 div#body {
@@ -91,31 +121,6 @@ div#body {
     max-width: 500px;
     min-height: 100vh;
 }
-
-.comment.ccp2 {
-    margin-left: 35px;
-    font-size: 17px;
-    border-left: 2px solid #2fd01d
-}
-
-.comment.ccp3 {
-    margin-left: 59px;
-    font-size: 16px;
-    border-left: 2px solid #d0ba17
-}
-
-.comment.ccp4 {
-    margin-left: 75px;
-    font-size: 15px;
-    border-left: 2px solid #ea8c42;
-}
-
-.comment.ccp5 {
-    margin-left: 89px;
-    font-size: 14px;
-    border-left: 2px solid #a662c9;
-}
-
 
 a.viewmore {
     clear: both;
@@ -127,10 +132,6 @@ a.viewmore {
     margin-bottom: 3px;
     margin-top: -10px;
     padding-right: 6px;
-}
-
-.ccp0 {
-    border-left: 2px solid #0095ff
 }
 
 
