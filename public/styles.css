@@ -3,6 +3,7 @@
     --textc: black;
     --linkc: black;
     --greyc: #f1f0f6;
+    --mid-grey: #aaa;
     --lightc: #444;
     --whitec: #fff;
     --border-radius: 6px;
@@ -58,10 +59,24 @@ h2 {
 
 blockquote {
     font-size: 16px;
-    border-left: 2px solid grey;
-    border-left: 2px solid var(--lightc);
     padding-left: 10px;
-    margin-left: 10px;
+    margin-left: 4px;
+    margin-right: 10px;
+    border-left: 1px solid var(--mid-grey);
+    position: relative;
+    min-height: 1.8em;
+}
+
+blockquote::before {
+  content: '“';
+  position: absolute;
+  left: -11px;
+  font-size: 2.5em;
+  color: var(--mid-grey);
+  font-style: italic;
+  background: white;
+  height: 30px;
+  line-height: 1;
 }
 
 p {
