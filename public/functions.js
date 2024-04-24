@@ -483,7 +483,7 @@ function urlpreview(urli, postjson) {
         let g_mimg = '';
         let fakect = ' actv';
 
-        returnpost += '<slide-show controls="pagination navigation">';
+        returnpost += '<slide-show controls="pagination navigation" loop>';
 
         for (var singlept in pjmdsorted) {
             if (pjmdsorted[singlept]['status'] != 'failed') {
@@ -501,7 +501,7 @@ function urlpreview(urli, postjson) {
                 g_timgs += '<img class="gtumb' + fakect + '" src="' + singletmlink + '" data-msrc="' + singleptlink + '" alt="thumbnail" data-id="' + postjson['id'] + '">';
                 preloadImage(singleptlink);
                 */
-                returnpost += '<img style="object-fit:contain" draggable="false" src="' + singleptlink + '" />';
+                returnpost += '<img style="width:100%;height:auto" draggable="false" src="' + singleptlink + '" />';
 
                 //returnpost +='<img src="'+singleptlink+'" />';
             }
