@@ -1221,11 +1221,11 @@ overflow-toggle[open]::part(button) {
 }
 
 .upvotes-icon::before {
-  vertical-align: -3px;
-  background-image: url('arrow-up.svg');
+  vertical-align: -2px;
+  background-image: url('upvote.svg');
   width: 15px;
   background-position: top right;
-  margin-left: 0.5rem;
+  margin-left: 0.35rem;
 }
 
 .ext-url-icon::before {
