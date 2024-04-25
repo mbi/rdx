@@ -32,7 +32,7 @@ function doit(){
     }
 
 
-    console.log(url);
+
     limit = localStorage.getItem('ppg') || 20;
     url = url+'.json?limit='+limit;
     if(getget('t') != null){
@@ -46,6 +46,9 @@ function doit(){
     if(getget('before') != null){
         url = url+'&before='+getget('before');
     }
+
+    document.getElementById('pagetitletext').innerHTML = 'Home';
+    setTitle('Home');
 
     makereq(url);
 }

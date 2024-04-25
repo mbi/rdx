@@ -8,7 +8,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
      <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta charset="utf-8">
-    <link rel="stylesheet" href="styles.css?v=2OHMi8f6" type="text/css">
+    <link rel="stylesheet" href="styles.css?v=pV7KTCES" type="text/css">
     <script src="/r/dash.all.min.js"></script>
     </head>
 <body>
@@ -34,10 +34,10 @@
     </div>
     </header>
     <div id="body"></div>
-    <script src="functions.js?v=2OHMi8f6"></script>
+    <script src="functions.js?v=pV7KTCES"></script>
 
-    <link rel="stylesheet" href="/r/slide-show/slide-show.css?v=2OHMi8f6" />
-    <script type="module" src="/r/slide-show/slide-show.js?v=2OHMi8f6"></script>
+    <link rel="stylesheet" href="/r/slide-show/slide-show.css?v=pV7KTCES" />
+    <script type="module" src="/r/slide-show/slide-show.js?v=pV7KTCES"></script>
 
     <link rel="stylesheet" href="/r/overflow-toggle/overflow-toggle.css" />
     <script type="module" src="/r/overflow-toggle/overflow-toggle.js"></script>
@@ -86,7 +86,7 @@ function doit(){
         thisthread = jsonResponse[0]['data']['children'][0]['data'];
         fill += postbuilder(thisthread);
         document.getElementById('pagetitletext').innerHTML = thisthread['subreddit'];
-        document.title= thisthread['title'];
+        setTitle(thisthread['title']);
         sr = thisthread['subreddit'];
         comments = jsonResponse[1]['data']['children'];
         loadcomments(comments);

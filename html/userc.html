@@ -1,9 +1,9 @@
 <!--headhtml-->
 <script>
 
- 
+
 //Loading of posts
- 
+
 function doit(){
 username = getget('u')
 links = '<a href="user.html?u='+username+'&sort=new">New</a><a href="usecr.html?u='+username+'&sort=hot">Hot</a><a href="userc.html?u='+username+'&sort=top">Top</a><a href="userc.html?u='+username+'&sort=top&t=month">Top (month)</a><a href="userc.html?u='+username+'&sort=top&t=all">Top (all)</a>';
@@ -53,11 +53,11 @@ req.responseType = 'json';
 req.open('GET', url, true);
 req.onload  = function() {
 var jsonResponse = req.response;
- 
+
 
 var titlesx = url.replace("https://www.reddit.com/r/", "");
 titlesx = titlesx.replace("/.json", "");
-document.title = titlesx;
+setTitle(titlesx);
 posts = jsonResponse['data']['children'];
 
 
@@ -73,12 +73,12 @@ fill += '<a class="next" href="'+curpage+'&after='+jsonResponse['data']['after']
 }
 fill += '</div>';
 document.getElementById('body').innerHTML = fill;
-  
+
 };
 req.send(null);
 }
 
-function cpostbuilder(id){ 
+function cpostbuilder(id){
 
 returncfpost = '';
 post = id;

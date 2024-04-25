@@ -7,6 +7,7 @@ var activeCommentIdx = 0;
 
 var nexturl = '';
 var nextseturl = '';
+
 if (JSON.parse(localStorage.getItem("subs")) !== null) {
     subslisted = '';
     subslistedarray = JSON.parse(localStorage.getItem("subs"));
@@ -93,7 +94,7 @@ function  makereq(url) {
         console.log(url);
         var titlesx = url.replace("https://www.reddit.com/r/", "");
         titlesx = titlesx.replace("/.json", "");
-        document.title = 'r/' + titlesx.split('?limit')[0];
+        // setTitle('r/' + titlesx.split('?limit')[0]);
         posts = jsonResponse['data']['children'].filter(
             (post) => seenPostIds.indexOf(post.id) === -1
         );
@@ -1325,6 +1326,10 @@ function updateCurrentPostIdxOnScroll() {
             m = true;
         }
     });
+}
+
+function setTitle(title) {
+    document.title = title + ' • RDX'
 }
 
 let ticking = false;

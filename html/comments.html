@@ -43,7 +43,7 @@ function doit(){
         thisthread = jsonResponse[0]['data']['children'][0]['data'];
         fill += postbuilder(thisthread);
         document.getElementById('pagetitletext').innerHTML = thisthread['subreddit'];
-        document.title= thisthread['title'];
+        setTitle(thisthread['title']);
         sr = thisthread['subreddit'];
         comments = jsonResponse[1]['data']['children'];
         loadcomments(comments);
