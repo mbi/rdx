@@ -14,7 +14,7 @@ function handlerepliesmn(repliesca){
     let replieslsa = repliesca['data']['children'];
     for(let replyxy in replieslsa) {
         if(replieslsa[replyxy]['kind'] == "more"){
-            fill += '<div class="comment ccp'+ replieslsa[replyxy]['data']['depth'] +'"><div class="comment_author"><a href="?url=https://www.reddit.com'+ repliesls[replyx]['data']['permalink'] +' " >View other replies</a></div></div>';
+            fill += '<div class="comment ccp'+ replieslsa[replyxy]['data']['depth'] +'"><div class="comment_author"><a href="?url=https://www.reddit.com'+ replieslsa[replyxy]['data']['permalink'] +' " >View other replies</a></div></div>';
         } else {
             fill += cbuilder(replieslsa[replyxy]['data']);
             var replieshha  = replieslsa[replyxy]['data']['replies'];
@@ -32,7 +32,7 @@ function handlerepliesm(repliesc){
 
     for(let replyx in repliesls) {
         if(repliesls[replyx]['kind'] == "more"){
-            fill += '<div class="comment ccp'+ repliesls[replyx]['data']['depth'] +'"><div class="comment_author"><a href="?url=https://www.reddit.com'+ repliesl[reply]['data']['permalink'] +' " >View other replies</a></div></div>';
+            fill += '<div class="comment ccp'+ repliesls[replyx]['data']['depth'] +'"><div class="comment_author"><a href="?url=https://www.reddit.com'+ repliesls[replyx]['data']['permalink'] +' " >View other replies</a></div></div>';
         }
         else {
             fill += cbuilder(repliesls[replyx]['data']);
@@ -50,7 +50,7 @@ function handlereplies(replies){
     for(let reply in repliesl) {
         //console.log("yy" + reply);
         if(repliesl[reply]['kind'] == "more"){
-            fill += '<div class="comment ccp'+ repliesl[reply]['data']['depth'] +'"><div class="comment_author"><a href="?url=https://www.reddit.com'+ comments[item]['data']['permalink'] +' " >View other replies</a></div></div>';
+            fill += '<div class="comment ccp'+ repliesl[reply]['data']['depth'] +'"><div class="comment_author"><a href="?url=https://www.reddit.com'+ repliesl[reply]['data']['permalink'] +' " >View other replies</a></div></div>';
         } else {
             fill += cbuilder(repliesl[reply]['data']);
             var repliesz  = repliesl[reply]['data']['replies'];
@@ -68,7 +68,7 @@ function loadcomments(comments){
     for(let item in comments) {
         console.log(comments[item].kind);
         if(comments[item].kind == 'more'){
-            morejson = comments[item].data.children;
+            let morejson = comments[item].data.children;
             document.getElementById('paginate').innerHTML =  '<button class="load-more-comments">Load More</button>';
         }
 
