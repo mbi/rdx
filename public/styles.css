@@ -883,7 +883,7 @@ div#pagetitle span svg {
     fill: var(--textc) !important;
 }
 
-button#loadmore1 {
+button.load-more-comments {
     background: var(--greyc);
     color: var(--textc);
     border: none;

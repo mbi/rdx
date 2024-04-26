@@ -26,5 +26,9 @@ commit: compress
 	git commit -am 'Autobuild'
 	git push
 
+build-deps:
+	npm install clean-css-cli -g
+	npm install terser -g
+
 deploy: build-min commit
 	 ssh -A ${DEPLOY_HOST} ${DEPLOY_CMD}

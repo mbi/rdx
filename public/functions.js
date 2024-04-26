@@ -1208,7 +1208,7 @@ function openComment() {
         return;
     }
 
-    collapse(currentComment); // this actually toggles
+    collapseComment(currentComment); // this actually toggles
 }
 
 function collapseComment() {
@@ -1217,7 +1217,7 @@ function collapseComment() {
         return;
     }
 
-    collapse(currentComment);
+    collapseComment(currentComment);
 }
 
 function openItem() {
@@ -1339,6 +1339,58 @@ function updateCurrentPostIdxOnScroll() {
 function setTitle(title) {
     document.title = title + ' • RDX'
 }
+
+
+function collapseComment(c){
+    thisp = c;
+    curx = thisp; curindex = Math.abs(thisp.classList[1].replace('ccp',''));
+
+    if(thisp.getAttribute('iscollasped') == '1'){
+        while(nxsb = curx.nextSibling) {
+        if(nxsb.classList.contains('comment')) {
+            thisindex = Math.abs(nxsb.classList[1].replace('ccp',''));
+
+            if(thisindex > curindex) {
+                nxsb.style.display = 'block';
+                nxsb.classList.remove('collapsed-hidden');
+            } else {break;}
+        } else {
+            nxsb.style.display = 'block';
+            nxsb.classList.remove('collapsed-hidden');
+        }
+
+        console.log(nxsb);
+        curx = nxsb;
+    }
+
+    thisp.classList.toggle('collapsed');
+    thisp.setAttribute('iscollasped','0');
+
+
+    } else {
+        while(nxsb = curx.nextSibling) {
+            if(nxsb.classList.contains('comment')) {
+                thisindex = Math.abs(nxsb.classList[1].replace('ccp',''));
+
+                if(thisindex > curindex) {
+                    nxsb.style.display = 'none';
+                    nxsb.classList.add('collapsed-hidden');
+                } else {break;}
+            } else {
+                nxsb.style.display = 'none';
+                nxsb.classList.add('collapsed-hidden');
+            }
+
+            console.log(nxsb);
+            curx = nxsb;
+        }
+
+        thisp.classList.toggle('collapsed');
+        thisp.setAttribute('iscollasped','1');
+
+    }
+}
+
 
 let ticking = false;
 document.addEventListener("scroll", (event) => {
