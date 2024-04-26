@@ -18,7 +18,7 @@ build:
 build-min: compress
 	python build.py --minify
 
-serve:
+serve: build
 	cd public && python -m http.server 8000
 
 
