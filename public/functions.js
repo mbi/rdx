@@ -298,7 +298,7 @@ function replaceRedditLinks(htmlContent) {
 }
 
 
-function postbuilder(post) {
+export function postbuilder(post) {
     var returnfpost = '';
     let mode = localStorage.getItem('curmode') || "original";
     if (window.location.href.indexOf("comments.html") != -1) {
@@ -678,14 +678,12 @@ export function getget(name, url = window.location.href) {
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
-function cbuilder(comment) {
-    timeagoed = timeago(comment['created_utc'] * 1000);
-    isop = comment['is_submitter'] == true ? "isop" : "";
-    ismod = comment['distinguished'] == " moderator" ? "ismod" : "";
+export function cbuilder(comment) {
+    let timeagoed = timeago(comment['created_utc'] * 1000);
+    let isop = comment['is_submitter'] == true ? "isop" : "";
+    let ismod = comment['distinguished'] == " moderator" ? "ismod" : "";
 
-
-
-    cret = '<div class="comment ccp'
+    let cret = '<div class="comment ccp'
         + comment['depth'] + (comment['author'] === 'AutoModerator' ? ' collapsed' : '')
         + '" id="' + comment['id']
         + '"><div class="comment_author"><span class="authorttext '
@@ -1118,10 +1116,8 @@ function getInbox(accessToken) {
 
 function setupUnloadVideo(vid) {
     const intersectionObserver = new IntersectionObserver((entries) => {
-      console.log('setupUnloadVideo', vid.id, entries[0].intersectionRatio)
       if (entries[0].intersectionRatio <= 0) {
-            console.log('Unloading', vid.id);
-            let a = vid.parentNode.querySelector('.lazy-video.hidden');
+            let a = vid.parentNode && vid.parentNode.querySelector('.lazy-video.hidden');
             if(a) {
                 a.classList.remove('hidden');
                 vid.remove();
@@ -1139,10 +1135,8 @@ function setupUnloadVideo(vid) {
 function setupPauseVideo(vid) {
 
     const intersectionObserver = new IntersectionObserver((entries) => {
-      console.log('setupPauseVideo', vid.id, entries[0].intersectionRatio)
       if (entries[0].intersectionRatio <= 0) {
-            console.log('Pausing', vid.id, vid);
-            vid.pause();
+        vid.pause();
       };
     });
     intersectionObserver.observe(vid);
@@ -1301,7 +1295,7 @@ function closeModal() {
 }
 
 
-function postsLoadedCallback(is_initial=true) {
+export function postsLoadedCallback(is_initial=true) {
     console.log('postsLoadedCallback', is_initial);
     activatePost(false);
 
@@ -1327,30 +1321,34 @@ export function setTitle(title) {
 }
 
 
-function collapseComment(c){
-    thisp = c;
-    curx = thisp; curindex = Math.abs(thisp.classList[1].replace('ccp',''));
+export function collapseComment(c){
+    let thisp = c;
+    let curx = thisp;
+
+    let nxsb;
+    let thisindex;
+
+    let curindex = Math.abs(thisp.classList[1].replace('ccp',''));
 
     if(thisp.getAttribute('iscollasped') == '1'){
         while(nxsb = curx.nextSibling) {
-        if(nxsb.classList.contains('comment')) {
-            thisindex = Math.abs(nxsb.classList[1].replace('ccp',''));
+            if(nxsb.classList.contains('comment')) {
+                thisindex = Math.abs(nxsb.classList[1].replace('ccp',''));
 
-            if(thisindex > curindex) {
+                if(thisindex > curindex) {
+                    nxsb.style.display = 'block';
+                    nxsb.classList.remove('collapsed-hidden');
+                } else {break;}
+            } else {
                 nxsb.style.display = 'block';
                 nxsb.classList.remove('collapsed-hidden');
-            } else {break;}
-        } else {
-            nxsb.style.display = 'block';
-            nxsb.classList.remove('collapsed-hidden');
+            }
+
+            curx = nxsb;
         }
 
-        console.log(nxsb);
-        curx = nxsb;
-    }
-
-    thisp.classList.toggle('collapsed');
-    thisp.setAttribute('iscollasped','0');
+        thisp.classList.toggle('collapsed');
+        thisp.setAttribute('iscollasped','0');
 
 
     } else {
@@ -1367,7 +1365,6 @@ function collapseComment(c){
                 nxsb.classList.add('collapsed-hidden');
             }
 
-            console.log(nxsb);
             curx = nxsb;
         }
 
@@ -1405,7 +1402,7 @@ addEventListener("DOMContentLoaded", (event) => {
     }
 
     if (window.location.href.indexOf("/r/") > -1) {
-        ther = window.location.href.match(/r\/(.*?)\//s)[1];
+        var ther = window.location.href.match(/r\/(.*?)\//s)[1];
         html1 += '<input type="checkbox" id="chk1" name="r" value="' + ther + '" checked><label for="chk1"> Only search r/' + ther + '</label>';
     }
     html1 += '</form>';
@@ -1529,16 +1526,18 @@ addEventListener("DOMContentLoaded", (event) => {
     });
 
 
-    document.getElementById('subbtn').addEventListener('click', (e) => {
-        e.preventDefault();
-        var sub = getget('r');
-        if(checklc('subs', sub)) {
-            unsubscribe(sub)
-        } else {
-            subscribe(sub)
-        }
-
-    });
+    const subbtn = document.getElementById('subbtn');
+    if(subbtn) {
+        subbtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            var sub = getget('r');
+            if(checklc('subs', sub)) {
+                unsubscribe(sub)
+            } else {
+                subscribe(sub)
+            }
+        });
+    }
 
 
 

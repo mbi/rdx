@@ -8,7 +8,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
      <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta charset="utf-8">
-    <link rel="stylesheet" href="styles.css?v=X5RznHHK" type="text/css">
+    <link rel="stylesheet" href="styles.css?v=hlCz6ls9" type="text/css">
     <script src="/r/dash.all.min.js"></script>
     </head>
 <body>
@@ -34,193 +34,192 @@
     </div>
     </header>
     <div id="body"></div>
-    <!-- script src="functions.js?v=X5RznHHK" type="module"></script -->
+    <!-- script src="functions.js?v=hlCz6ls9" type="module"></script -->
 
-    <link rel="stylesheet" href="/r/slide-show/slide-show.css?v=X5RznHHK" />
-    <script type="module" src="/r/slide-show/slide-show.js?v=X5RznHHK"></script>
+    <link rel="stylesheet" href="/r/slide-show/slide-show.css?v=hlCz6ls9" />
+    <script type="module" src="/r/slide-show/slide-show.js?v=hlCz6ls9"></script>
 
-    <link rel="stylesheet" href="/r/overflow-toggle/overflow-toggle.css?v=X5RznHHK" />
-    <script type="module" src="/r/overflow-toggle/overflow-toggle.js?v=X5RznHHK"></script>
+    <link rel="stylesheet" href="/r/overflow-toggle/overflow-toggle.css?v=hlCz6ls9" />
+    <script type="module" src="/r/overflow-toggle/overflow-toggle.js?v=hlCz6ls9"></script>
 
 <div id="paginate"></div>
-<script>
-(() => {
-    var fill = '';
-    var sr = '';
-    var thisthread;
-    var defaultsort;
-    var pagenum = 0;
 
-    function handlerepliesmn(repliesca){
-        replieslsa = repliesca['data']['children'];
-        for( replyxy in replieslsa) {
-            if(replieslsa[replyxy]['kind'] == "more"){
-                fill += '<div class="comment ccp'+ replieslsa[replyxy]['data']['depth'] +'"><div class="comment_author"><a href="?url=https://www.reddit.com'+ repliesls[replyx]['data']['permalink'] +' " >View other replies</a></div></div>';
-            } else {
-                fill += cbuilder(replieslsa[replyxy]['data']);
-                replieshha  = replieslsa[replyxy]['data']['replies'];
-                if(typeof replieshha === 'object' && replieshha !== null){
-                    fill+= '<a class="viewmore" href="?url=https://www.reddit.com'+replieslsa[replyxy]['data']['permalink']+'" >view more replies</a>';
-                }
-            }
-        }
+<script type="module">
+import { getget, setTitle, makereq, postbuilder, cbuilder, postsLoadedCallback, collapseComment } from "./functions.js";
 
-    }
+var fill = '';
+var sr = '';
+var thisthread;
+var defaultsort;
+var pagenum = 0;
 
-
-    function handlerepliesm(repliesc){
-        repliesls = repliesc['data']['children'];
-
-        for( replyx in repliesls) {
-            if(repliesls[replyx]['kind'] == "more"){
-                fill += '<div class="comment ccp'+ repliesls[replyx]['data']['depth'] +'"><div class="comment_author"><a href="?url=https://www.reddit.com'+ repliesl[reply]['data']['permalink'] +' " >View other replies</a></div></div>';
-            }
-            else {
-                fill += cbuilder(repliesls[replyx]['data']);
-                replieshh  = repliesls[replyx]['data']['replies'];
-                if(typeof replieshh === 'object' && replieshh !== null){
-                    handlerepliesmn(replieshh);
-                }
-            }
-        }
-
-    }
-
-    function handlereplies(replies){
-        repliesl = replies['data']['children'];
-        for( reply in repliesl) {
-            //console.log("yy" + reply);
-            if(repliesl[reply]['kind'] == "more"){
-                fill += '<div class="comment ccp'+ repliesl[reply]['data']['depth'] +'"><div class="comment_author"><a href="?url=https://www.reddit.com'+ comments[item]['data']['permalink'] +' " >View other replies</a></div></div>';
-            } else {
-                fill += cbuilder(repliesl[reply]['data']);
-                repliesz  = repliesl[reply]['data']['replies'];
-
-                if(typeof repliesz === 'object' && repliesz !== null){
-                    handlerepliesm(repliesz);
-                }
-            }
-        }
-    }
-
-
-    function loadcomments(comments){
-        fill += '<div class="comments-block">';
-        for( item in comments) {
-            console.log(comments[item].kind);
-            if(comments[item].kind == 'more'){
-                morejson = comments[item].data.children;
-                document.getElementById('paginate').innerHTML =  '<button class="load-more-comments">Load More</button>';
-            }
-
-            fill += cbuilder(comments[item]['data']);
-            replies  = comments[item]['data']['replies'];
-            if(typeof replies === 'object' && replies !== null){
-                handlereplies(replies);
-            }
-        }
-        document.getElementById('body').innerHTML += '<div class="clear"></div>'+fill;
-        commentsdivs =   document.getElementById('body').getElementsByClassName('comment');
-
-        for(i=0; i < commentsdivs.length; i++) {
-            commentsdivs[i].addEventListener('dblclick', (e) => { collapseComment(e.target.closest('.comment')) }  );
-        }
-        fill += '</div>';
-    }
-
-    document.addEventListener('click', (e) => {
-        if (e.target.classList.contains('load-more-comments')) {
-            e.preventDefault();
-            loadmore();
-        }
-    })
-
-
-    function loadmore(){
-        urljson = '';
-
-        for (var i = pagenum*60; i < morejson.length; i++){
-            urljson += morejson[i]+',';
-
-            if(i > 60*(pagenum+1)) {
-                pagenum = pagenum + 1;
-                break;
-            }
-        }
-
-        var req = new XMLHttpRequest();
-        req.responseType = 'json';
-        urljson = urljson.replace(/,\s*$/, "");
-
-        req.open('GET','https://www.reddit.com/r/'+thisthread['subreddit']+'/api/morechildren.json?api_type=json&&link_id='+thisthread['name']+'&limit=500&r=AskReddit&children='+urljson, true);
-        req.onload  = function() {
-            var jsonResponse = req.response;
-            //thisthread = jsonResponse[0]['data']['children'][0]['data'];
-            fill = '';
-            //document.getElementById('pagetitletext').innerHTML = thisthread['subreddit']
-            comments = jsonResponse['json']['data']['things'];
-            loadcomments(comments);
-
-        };
-        req.send(null);
-    }
-
-    function opencmenu(cid){
-        cidi = document.getElementById(cid).getAttribute('menushown');
-
-        if(cidi == 'yes'){
-           document.getElementById(cid+'cc').remove();
-           document.getElementById(cid).setAttribute('menushown','no');
-           console.log('yy');
+function handlerepliesmn(repliesca){
+    let replieslsa = repliesca['data']['children'];
+    for(let replyxy in replieslsa) {
+        if(replieslsa[replyxy]['kind'] == "more"){
+            fill += '<div class="comment ccp'+ replieslsa[replyxy]['data']['depth'] +'"><div class="comment_author"><a href="?url=https://www.reddit.com'+ repliesls[replyx]['data']['permalink'] +' " >View other replies</a></div></div>';
         } else {
-            htmltoc = '<div class="cmenu" id="'+cid+'cc"><a onclick="">Save</a></div>';
-            document.getElementById(cid).insertAdjacentHTML("afterBegin", htmltoc);
-            document.getElementById(cid).setAttribute('menushown','yes');
+            fill += cbuilder(replieslsa[replyxy]['data']);
+            var replieshha  = replieslsa[replyxy]['data']['replies'];
+            if(typeof replieshha === 'object' && replieshha !== null){
+                fill+= '<a class="viewmore" href="?url=https://www.reddit.com'+replieslsa[replyxy]['data']['permalink']+'" >view more replies</a>';
+            }
         }
     }
 
-    document.body.classList.add('comments')
+}
 
 
+function handlerepliesm(repliesc){
+    let  repliesls = repliesc['data']['children'];
 
-    var url = getget('url'), roqs = url.split('?');
-    url = roqs[0];
-    roqs = roqs[1];
-    url = url.replace(/https:\/\/reddit.com/g, 'https://www.reddit.com');
-    url = url.replace(/amp.reddit.com/g, 'www.reddit.com');
-    url = url.replace(/m.reddit.com/g, 'www.reddit.com');
-    url = url.replace(/i.reddit.com/g, 'www.reddit.com');
-    var links = '<a href="comments.html?url='+url+'&sort=new">New</a><a href="comments.html?url='+url+'&sort=best">Best</a><a href="comments.html?url='+url+'&sort=top">Top</a><a href="comments.html?url='+url+'&sort=controversial">Controversial</a><a href="comments.html?url='+url+'&sort=old">Old</a><a href="comments.html?url='+url+'&sort=qa">QnA</a><a onclick="saveit(this)" id="sharebutton" style="border-top: 5px solid var(--greyc);">Save</a><a onclick="shareit();" id="sharebutton">Share</a>';
-    document.getElementById('rightbar').innerHTML = links;
-    url = url+'.json?limit=500';
-
-    if(getget('sort') != null){
-        url = url+'&sort='+getget('sort');
-
+    for(let replyx in repliesls) {
+        if(repliesls[replyx]['kind'] == "more"){
+            fill += '<div class="comment ccp'+ repliesls[replyx]['data']['depth'] +'"><div class="comment_author"><a href="?url=https://www.reddit.com'+ repliesl[reply]['data']['permalink'] +' " >View other replies</a></div></div>';
+        }
+        else {
+            fill += cbuilder(repliesls[replyx]['data']);
+            var replieshh  = repliesls[replyx]['data']['replies'];
+            if(typeof replieshh === 'object' && replieshh !== null){
+                handlerepliesmn(replieshh);
+            }
+        }
     }
-    url = url+'&'+roqs;
+
+}
+
+function handlereplies(replies){
+    let repliesl = replies['data']['children'];
+    for(let reply in repliesl) {
+        //console.log("yy" + reply);
+        if(repliesl[reply]['kind'] == "more"){
+            fill += '<div class="comment ccp'+ repliesl[reply]['data']['depth'] +'"><div class="comment_author"><a href="?url=https://www.reddit.com'+ comments[item]['data']['permalink'] +' " >View other replies</a></div></div>';
+        } else {
+            fill += cbuilder(repliesl[reply]['data']);
+            var repliesz  = repliesl[reply]['data']['replies'];
+
+            if(typeof repliesz === 'object' && repliesz !== null){
+                handlerepliesm(repliesz);
+            }
+        }
+    }
+}
+
+
+function loadcomments(comments){
+    fill += '<div class="comments-block">';
+    for(let item in comments) {
+        console.log(comments[item].kind);
+        if(comments[item].kind == 'more'){
+            morejson = comments[item].data.children;
+            document.getElementById('paginate').innerHTML =  '<button class="load-more-comments">Load More</button>';
+        }
+
+        fill += cbuilder(comments[item]['data']);
+        let replies  = comments[item]['data']['replies'];
+        if(typeof replies === 'object' && replies !== null){
+            handlereplies(replies);
+        }
+    }
+    document.getElementById('body').innerHTML += '<div class="clear"></div>'+fill;
+    let commentsdivs =   document.getElementById('body').getElementsByClassName('comment');
+    for(let i=0; i < commentsdivs.length; i++) {
+        commentsdivs[i].addEventListener('dblclick', (e) => { collapseComment(e.target.closest('.comment')) }  );
+    }
+    fill += '</div>';
+}
+
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('load-more-comments')) {
+        e.preventDefault();
+        loadmore();
+    }
+})
+
+
+function loadmore(){
+    urljson = '';
+
+    for (var i = pagenum*60; i < morejson.length; i++){
+        urljson += morejson[i]+',';
+
+        if(i > 60*(pagenum+1)) {
+            pagenum = pagenum + 1;
+            break;
+        }
+    }
 
     var req = new XMLHttpRequest();
     req.responseType = 'json';
-    req.open('GET', url, true);
+    urljson = urljson.replace(/,\s*$/, "");
+
+    req.open('GET','https://www.reddit.com/r/'+thisthread['subreddit']+'/api/morechildren.json?api_type=json&&link_id='+thisthread['name']+'&limit=500&r=AskReddit&children='+urljson, true);
     req.onload  = function() {
         var jsonResponse = req.response;
-        thisthread = jsonResponse[0]['data']['children'][0]['data'];
-        fill += postbuilder(thisthread);
-        document.getElementById('pagetitletext').innerHTML = thisthread['subreddit'];
-        setTitle(thisthread['title']);
-        sr = thisthread['subreddit'];
-        comments = jsonResponse[1]['data']['children'];
+        //thisthread = jsonResponse[0]['data']['children'][0]['data'];
+        fill = '';
+        //document.getElementById('pagetitletext').innerHTML = thisthread['subreddit']
+        var comments = jsonResponse['json']['data']['things'];
         loadcomments(comments);
-        runhsl();
-        postsLoadedCallback(true);
+
     };
     req.send(null);
+}
+
+function opencmenu(cid){
+    cidi = document.getElementById(cid).getAttribute('menushown');
+
+    if(cidi == 'yes'){
+       document.getElementById(cid+'cc').remove();
+       document.getElementById(cid).setAttribute('menushown','no');
+       console.log('yy');
+    } else {
+        htmltoc = '<div class="cmenu" id="'+cid+'cc"><a onclick="">Save</a></div>';
+        document.getElementById(cid).insertAdjacentHTML("afterBegin", htmltoc);
+        document.getElementById(cid).setAttribute('menushown','yes');
+    }
+}
+
+document.body.classList.add('comments')
 
 
 
-})();
+var url = getget('url'), roqs = url.split('?');
+url = roqs[0];
+roqs = roqs[1];
+url = url.replace(/https:\/\/reddit.com/g, 'https://www.reddit.com');
+url = url.replace(/amp.reddit.com/g, 'www.reddit.com');
+url = url.replace(/m.reddit.com/g, 'www.reddit.com');
+url = url.replace(/i.reddit.com/g, 'www.reddit.com');
+var links = '<a href="comments.html?url='+url+'&sort=new">New</a><a href="comments.html?url='+url+'&sort=best">Best</a><a href="comments.html?url='+url+'&sort=top">Top</a><a href="comments.html?url='+url+'&sort=controversial">Controversial</a><a href="comments.html?url='+url+'&sort=old">Old</a><a href="comments.html?url='+url+'&sort=qa">QnA</a><a onclick="saveit(this)" id="sharebutton" style="border-top: 5px solid var(--greyc);">Save</a><a onclick="shareit();" id="sharebutton">Share</a>';
+document.getElementById('rightbar').innerHTML = links;
+url = url+'.json?limit=500';
+
+if(getget('sort') != null){
+    url = url+'&sort='+getget('sort');
+
+}
+url = url+'&'+roqs;
+
+var req = new XMLHttpRequest();
+req.responseType = 'json';
+req.open('GET', url, true);
+req.onload  = function() {
+    var jsonResponse = req.response;
+    thisthread = jsonResponse[0]['data']['children'][0]['data'];
+    fill += postbuilder(thisthread);
+    document.getElementById('pagetitletext').innerHTML = thisthread['subreddit'];
+    setTitle(thisthread['title']);
+    sr = thisthread['subreddit'];
+    var comments = jsonResponse[1]['data']['children'];
+    loadcomments(comments);
+    //runhsl();
+    postsLoadedCallback(true);
+};
+req.send(null);
 </script>
+
+
 <style>
 .postc.selftext {
     word-break: break-word;
