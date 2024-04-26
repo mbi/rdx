@@ -60,9 +60,9 @@ if (window.location.href.indexOf("comments.html") == -1) {
 }
 togglefont();
 
-function toggle(id) {
+export function toggle(id) {
     var x = document.getElementsByClassName("show");
-    for (k = 0; k < x.length; k++) {
+    for (var k = 0; k < x.length; k++) {
         if (x[k].id != id) {
             x[k].classList.toggle("hidden");
             x[k].classList.toggle("show");
@@ -70,16 +70,11 @@ function toggle(id) {
     }
     document.getElementById(id).classList.toggle("hidden");
     document.getElementById(id).classList.toggle("show");
-    if (id == "subssearch") {
+    if (id === "subssearch") {
         document.getElementById("subssearchi").focus();
     }
 }
-//function htmlDecode(input){
-// var e = document.createElement('textarea');
-// e.innerHTML = input;
-// handle case of empty input
-// return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
-//}
+
 
 
 
@@ -1397,8 +1392,7 @@ document.addEventListener("scroll", (event) => {
   }
 });
 
-
-window.onload = function() {
+addEventListener("DOMContentLoaded", (event) => {
 
     var curq = getget('q') ? getget('q') : '';
     var html1 = '<form class="search" action="search.html"><input type="search" name="q" value="' + curq + '"/>';
@@ -1514,4 +1508,19 @@ window.onload = function() {
         }
     });
 
-}
+    document.getElementById('plus').addEventListener('click', (e) => {
+        e.preventDefault();
+        toggle('leftbar');
+    });
+
+    document.getElementById('taptoopenmenu').addEventListener('click', (e) => {
+        e.preventDefault();
+        toggle('subssearch');
+    });
+
+    document.getElementById('menu').addEventListener('click', (e) => {
+        e.preventDefault();
+        toggle('rightbar');
+    });
+
+});
