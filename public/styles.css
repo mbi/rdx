@@ -216,6 +216,7 @@ a.viewmore {
 .postc.singleimage img {
     width: 100%;
     max-width: 100%;
+    cursor: pointer;
 }
 
 .postc.video {
@@ -1300,7 +1301,7 @@ a.lazy-video:hover::before {
 
 .jw-modal-body {
     padding: 20px;
-    background: #fff;
+    background: transparent;
 
     width: calc(96vw - 80px);
     max-height: calc(96vh - 80px);

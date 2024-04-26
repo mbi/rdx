@@ -1279,7 +1279,14 @@ function activatePost(scrollTo=false) {
           behavior: "smooth",
         })
     }
+}
 
+const _closeModalHandler = function(e) {
+    if (document.body.classList.contains('jw-modal-open')) {
+        closeModal();
+        e.preventDefault();
+        return false;
+    }
 }
 
 function postModal(post) {
@@ -1293,8 +1300,7 @@ function postModal(post) {
         dialog.querySelector('.jw-dialog-innner').appendChild(img.cloneNode(true));
         dialog.classList.add('open');
         document.body.classList.add('jw-modal-open');
-
-
+        document.addEventListener('click', _closeModalHandler);
     }
 }
 
@@ -1303,7 +1309,9 @@ function closeModal() {
     dialog.classList.remove('open');
     document.body.classList.remove('jw-modal-open');
 
-    dialog.querySelector('.jw-dialog-innner').childNodes.forEach((e) => e.remove())
+    dialog.querySelector('.jw-dialog-innner').childNodes.forEach((e) => e.remove());
+
+    document.removeEventListener('click', _closeModalHandler);
 }
 
 
@@ -1413,17 +1421,17 @@ window.onload = function() {
             e.preventDefault();
             return false;
         } else if (e.target.closest('.postc.singleimage')) {
+            var a = e.target.closest('.postc.singleimage');
             var post = e.target.closest('.post');
-            postModal(post);
+            if (a.classList.contains('url')) {
+                return
+            } else {
+                postModal(post);
+            }
 
         }
     });
 
-    document.addEventListener('click', event => {
-        if (event.target.classList.contains('jw-modal')) {
-            closeModal();
-        }
-    });
 
     document.addEventListener('keydown', (e) => {
         if (document.querySelector('input:focus')) {
