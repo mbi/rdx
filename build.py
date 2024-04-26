@@ -22,7 +22,7 @@ def get_random_string(length):
     return "".join(secrets.choice(RANDOM_STRING_CHARS) for i in range(length))
 
 
-def build(compress=False):
+def build(minify=False):
     head_html = open("html/fragments/header.html", "r").read()
     footer_html = open("html/fragments/footer.html", "r").read()
 
@@ -36,7 +36,7 @@ def build(compress=False):
         "overflow-toggle.js",
     ]:
         cf = f
-        if compress:
+        if minify:
             cf = f.replace(".css", ".min.css").replace(".js", ".min.js")
         head_html = head_html.replace(f, f"{cf}?v={cache_buster}")
 
@@ -53,4 +53,4 @@ def build(compress=False):
 
 
 if __name__ == "__main__":
-    build(compress="--compress" in sys.argv)
+    build(minify="--minify" in sys.argv)

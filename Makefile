@@ -12,11 +12,11 @@ compress:
 	cleancss -o public/r/slide-show/slide-show.min.css public/r/slide-show/slide-show.css
 	cleancss -o public/r/overflow-toggle/overflow-toggle.min.css public/r/overflow-toggle/overflow-toggle.css
 
-build: compress
+build:
 	python build.py
 
 build-min: compress
-	python build.py --compress
+	python build.py --minify
 
 serve:
 	cd public && python -m http.server 8000
@@ -28,5 +28,3 @@ commit: compress
 
 deploy: build-min commit
 	 ssh -A ${DEPLOY_HOST} ${DEPLOY_CMD}
-
-all: build commit deploy
