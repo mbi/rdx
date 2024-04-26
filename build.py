@@ -1,5 +1,6 @@
 import glob
 import secrets
+import sys
 
 
 # From https://github.com/django/django/blob/8dbfef469582128c9d8487bf3f45d861b2ecfcb9/django/utils/crypto.py#L51
@@ -21,21 +22,35 @@ def get_random_string(length):
     return "".join(secrets.choice(RANDOM_STRING_CHARS) for i in range(length))
 
 
-head_html = open("html/fragments/header.html", "r").read()
-footer_html = open("html/fragments/footer.html", "r").read()
+def build(compress=False):
+    head_html = open("html/fragments/header.html", "r").read()
+    footer_html = open("html/fragments/footer.html", "r").read()
 
-cache_buster = get_random_string(8)
-for f in ["functions.js", "styles.css", "slide-show.css", "slide-show.js"]:
-    head_html = head_html.replace(f, f"{f}?v={cache_buster}")
+    cache_buster = get_random_string(8)
+    for f in [
+        "functions.js",
+        "styles.css",
+        "slide-show.css",
+        "slide-show.js",
+        "overflow-toggle.css",
+        "overflow-toggle.js",
+    ]:
+        cf = f
+        if compress:
+            cf = f.replace(".css", ".min.css").replace(".js", ".min.js")
+        head_html = head_html.replace(f, f"{cf}?v={cache_buster}")
+
+    for f in glob.glob("html/*.html"):
+        print(f"Processing {f}")
+        with open(f, "r") as source:
+            html = source.read()
+            html = html.replace("<!--headhtml-->", head_html).replace(
+                "</body>", footer_html
+            )
+
+            with open(f.replace("html/", "public/"), "w") as dest:
+                dest.write(html)
 
 
-for f in glob.glob("html/*.html"):
-    print(f"Processing {f}")
-    with open(f, "r") as source:
-        html = source.read()
-        html = html.replace("<!--headhtml-->", head_html).replace(
-            "</body>", footer_html
-        )
-
-        with open(f.replace("html/", "public/"), "w") as dest:
-            dest.write(html)
+if __name__ == "__main__":
+    build(compress="--compress" in sys.argv)
