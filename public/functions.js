@@ -83,7 +83,7 @@ function toggle(id) {
 
 
 
-function  makereq(url) {
+export function  makereq(url) {
     var fill = '';
     var req = new XMLHttpRequest();
     var post_data;
@@ -95,7 +95,7 @@ function  makereq(url) {
         var titlesx = url.replace("https://www.reddit.com/r/", "");
         titlesx = titlesx.replace("/.json", "");
         // setTitle('r/' + titlesx.split('?limit')[0]);
-        posts = jsonResponse['data']['children'].filter(
+        var posts = jsonResponse['data']['children'].filter(
             (post) => seenPostIds.indexOf(post.id) === -1
         );
         for (var item in posts) {
@@ -150,7 +150,7 @@ function scorllmore() {
     req.open('GET', url, true);
     req.onload = function() {
         var jsonResponse = req.response;
-        posts = jsonResponse['data']['children'].filter(
+        var posts = jsonResponse['data']['children'].filter(
             (post) => seenPostIds.indexOf(post.id) === -1
         );
         for (var item in posts) {
@@ -190,7 +190,7 @@ function observe() {
         root: null,
         threshold: 1.0
     };
-    cantload = false;
+    var cantload = false;
 
     function callback(entries, observer) {
         entries.forEach(entry => {
@@ -233,13 +233,13 @@ function addlc(to, data) {
 }
 
 function checklc(to, cfor) {
-    chkarr = JSON.parse(localStorage.getItem(to) || '[]');
+    var chkarr = JSON.parse(localStorage.getItem(to) || '[]');
     return chkarr.includes(cfor);
 
 }
 
 function removelc(to, cfor) {
-    addarr = JSON.parse(localStorage.getItem(to) || '[]');
+    var addarr = JSON.parse(localStorage.getItem(to) || '[]');
     addarr = addarr.filter(function(item) {
         return item !== cfor
     })
@@ -304,18 +304,18 @@ function replaceRedditLinks(htmlContent) {
 
 
 function postbuilder(post) {
-    returnfpost = '';
+    var returnfpost = '';
     let mode = localStorage.getItem('curmode') || "original";
     if (window.location.href.indexOf("comments.html") != -1) {
         mode = "original";
     }
-    timeagoed = timeago(post['created_utc'] * 1000);
-    sticky = post['stickied'] ? " sticky" : " ";
-    over18 = '';
+    var timeagoed = timeago(post['created_utc'] * 1000);
+    var sticky = post['stickied'] ? " sticky" : " ";
+    var over18 = '';
     if (checklc('a18', 'yes') != true) {
         over18 = post['over_18'] ? "over18" : " ";
     }
-    ismod = (post['distinguished'] == "moderator") ? " moderator" : " ";
+    var ismod = (post['distinguished'] == "moderator") ? " moderator" : " ";
     returnfpost += '<div class="post ' + mode + '" id="' + post['id'] + '">';
     if (mode == "comp") {
         thumbnail = post['thumbnail'];
@@ -343,7 +343,7 @@ function postbuilder(post) {
 
             returnfpost += '<div class="postc selftext"><overflow-toggle show="+" hide="">' + htmlDecode(replacedText) + '</overflow-toggle></div>';
         }
-        urli = post['url_overridden_by_dest'];
+        var urli = post['url_overridden_by_dest'];
 
 
         if ((post['crosspost_parent_list'] != null && post['crosspost_parent_list'].length > 0) || (typeof post['crosspost_parent_list'] !== 'undefined' && post['crosspost_parent_list'].length > 0)) {
@@ -436,7 +436,7 @@ function previewImage(postjson) {
 }
 
 function urlpreview(urli, postjson) {
-    returnpost = '';
+    var returnpost = '';
     if (urli.match(/.(jpg|jpeg|png)$/i)) {
         returnpost += '<div class="postc singleimage"><img src="' + urli + '"/></div>';
     } else if (urli.match(/.(gif)$/i)) {
@@ -469,8 +469,8 @@ function urlpreview(urli, postjson) {
         }
     } else if (urli.match(/www.reddit.com\/gallery/g)) {
         returnpost += '<div class="postc gallery">';
-        pjmd = postjson['media_metadata'];
-        pjgd = postjson['gallery_data'];
+        let pjmd = postjson['media_metadata'];
+        let pjgd = postjson['gallery_data'];
         const pjmdsorted = {};
         if (pjgd) {
             pjgd.items.forEach((item, index) => {
@@ -482,31 +482,22 @@ function urlpreview(urli, postjson) {
         }
         let g_timgs = '';
         let g_mimg = '';
-        let fakect = ' actv';
 
         returnpost += '<slide-show controls="pagination navigation" loop>';
 
         for (var singlept in pjmdsorted) {
             if (pjmdsorted[singlept]['status'] != 'failed') {
-                singleptlink = pjmdsorted[singlept]['s']['u'];
+                var singleptlink = pjmdsorted[singlept]['s']['u'];
                 if (typeof singleptlink == "undefined") {
                     singleptlink = pjmdsorted[singlept]['s']['gif'];
                 } else {
                     singleptlink = singleptlink.replace("preivew.redd", "i.redd");
                 }
-                singletmlink = pjmdsorted[singlept]['p']['0']['u'];
+                var singletmlink = pjmdsorted[singlept]['p']['0']['u'];
 
-                /*if (fakect == ' actv') {
-                    g_mimg = '<img src="' + singleptlink + '" alt="main image" id="mi_' + postjson['id'] + '" onclick="galleryopen(\'' + postjson['id'] + '\')"/>';
-                }
-                g_timgs += '<img class="gtumb' + fakect + '" src="' + singletmlink + '" data-msrc="' + singleptlink + '" alt="thumbnail" data-id="' + postjson['id'] + '">';
-                preloadImage(singleptlink);
-                */
                 returnpost += '<img style="width:100%;height:auto" draggable="false" src="' + singleptlink + '" />';
 
-                //returnpost +='<img src="'+singleptlink+'" />';
             }
-            fakect = '';
         }
         returnpost += '</slide-show>';
 
@@ -524,11 +515,11 @@ function urlpreview(urli, postjson) {
     } else if (urli.match(/v.redd.it/g)) {
         returnpost += '<div class="postc video vreddit">';
         if (postjson['secure_media'] != null) {
-            vidurl = postjson['secure_media']['reddit_video']['dash_url'];
-            hlsurl = postjson['secure_media']['reddit_video']['hls_url'];
-            fallbackurl = postjson['secure_media']['reddit_video']['fallback_url'];
+            var vidurl = postjson['secure_media']['reddit_video']['dash_url'];
+            var hlsurl = postjson['secure_media']['reddit_video']['hls_url'];
+            var fallbackurl = postjson['secure_media']['reddit_video']['fallback_url'];
             //returnpost +='<video id="v'+postjson['id']+'" src="'+vidurl+'" poster="'+postjson["thumbnail"]+'" width="100%" height="240" preload="metadata" onplay="playaud(\'a'+postjson['id']+'\')"  onpause="pauseaud(\'a'+postjson['id']+'\')"  onseeking="pauseaud(\'a'+postjson['id']+'\')"  onseeked="seeked(\''+postjson['id']+'\')"   controls> </video><audio src="'+urli+'/DASH_audio.mp4" id="a'+postjson['id']+'" controls></audio> ';
-            vidposter = postjson["preview"];
+            var vidposter = postjson["preview"];
             if (typeof vidposter == "undefined") {
                 vidposter = postjson["thumbnail"];
             } else {
@@ -638,7 +629,7 @@ function urlpreview(urli, postjson) {
         returnpost += '</div>';
     } else {
 
-        thumbnailforit = previewImage(postjson) || '';
+        var thumbnailforit = previewImage(postjson) || '';
         if (thumbnailforit) {
             returnpost += '<a href="' + urli + '" class="postc singleimage url">';
             returnpost += '<img src="' + thumbnailforit + '"/>';
@@ -683,7 +674,7 @@ function seeked(id) {
     document.getElementById('a' + id).currentTime = document.getElementById('v' + id).currentTime;
 }
 
-function getget(name, url = window.location.href) {
+export function getget(name, url = window.location.href) {
     name = name.replace(/[\[\]]/g, '\\$&');
     var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
         results = regex.exec(url);
@@ -1211,7 +1202,7 @@ function openComment() {
     collapseComment(currentComment); // this actually toggles
 }
 
-function collapseComment() {
+function collapseCurrentComment() {
     var currentComment = document.querySelector('.current-comment');
     if (!currentComment) {
         return;
@@ -1336,7 +1327,7 @@ function updateCurrentPostIdxOnScroll() {
     });
 }
 
-function setTitle(title) {
+export function setTitle(title) {
     document.title = title + ' • RDX'
 }
 
@@ -1394,7 +1385,7 @@ function collapseComment(c){
 
 let ticking = false;
 document.addEventListener("scroll", (event) => {
-  lastKnownScrollPosition = window.scrollY;
+  var lastKnownScrollPosition = window.scrollY;
 
   if (!ticking) {
     window.requestAnimationFrame(() => {
@@ -1409,8 +1400,8 @@ document.addEventListener("scroll", (event) => {
 
 window.onload = function() {
 
-    curq = getget('q') ? getget('q') : '';
-    html1 = '<form class="search" action="search.html"><input type="search" name="q" value="' + curq + '"/>';
+    var curq = getget('q') ? getget('q') : '';
+    var html1 = '<form class="search" action="search.html"><input type="search" name="q" value="' + curq + '"/>';
     html1 += '<input type="submit" value="Search"/><br style="clear:both;">';
     if (window.location.href.indexOf("?r=") > -1 || window.location.href.indexOf("&r=") > -1) {
         html1 += '<input type="checkbox" id="chk1" name="r" value="' + getget('r') + '" checked><label for="chk1"> Only search r/' + getget('r') + '</label>';
@@ -1514,7 +1505,7 @@ window.onload = function() {
             case 'Escape':
             case 'ArrowLeft':
                 e.preventDefault();
-                document.body.classList.contains('comments') ? collapseComment() : closeModal();
+                document.body.classList.contains('comments') ? collapseCurrentComment() : closeModal();
                 break;
 
             // default:
