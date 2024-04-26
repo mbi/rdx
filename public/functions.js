@@ -9,13 +9,13 @@ var nexturl = '';
 var nextseturl = '';
 
 if (JSON.parse(localStorage.getItem("subs")) !== null) {
-    subslisted = '';
-    subslistedarray = JSON.parse(localStorage.getItem("subs"));
+    var subslisted = '';
+    var subslistedarray = JSON.parse(localStorage.getItem("subs"));
     subslistedarray.sort(function(a, b) {
         return a.toLowerCase().localeCompare(b.toLowerCase());
     });
 
-    for (x in subslistedarray) {
+    for (var x in subslistedarray) {
         subslisted += '<a href="subreddit.html?r=' + subslistedarray[x] + '" class="homelinks">' + subslistedarray[x] + '</a>';
     }
     document.getElementById('subscribed').innerHTML = subslisted;
@@ -222,12 +222,12 @@ function timeago(o) {
 }
 
 function addlc(to, data) {
-    addarr = JSON.parse(localStorage.getItem(to) || '[]');
+    var addarr = JSON.parse(localStorage.getItem(to) || '[]');
     addarr.push(data);
     localStorage.setItem(to, JSON.stringify(addarr));
 }
 
-function checklc(to, cfor) {
+export function checklc(to, cfor) {
     var chkarr = JSON.parse(localStorage.getItem(to) || '[]');
     return chkarr.includes(cfor);
 
@@ -251,7 +251,7 @@ function searchsubs(q, event) {
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status == 200) {
             subslist = xhr.response;
-            fillsubs = '';
+            var fillsubs = '';
             for (var singlesub in subslist['subreddits']) {
                 //console.log(subslist[singlesub]);
                 fillsubs += '<a href="subreddit.html?r=' + subslist['subreddits'][singlesub]['name'] + '">' + subslist['subreddits'][singlesub]['name'] + '</a>';
@@ -1522,5 +1522,24 @@ addEventListener("DOMContentLoaded", (event) => {
         e.preventDefault();
         toggle('rightbar');
     });
+
+    document.getElementById('subssearchi').addEventListener('keyup', (e) => {
+        searchsubs(e.target.value, e);
+
+    });
+
+
+    document.getElementById('subbtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        var sub = getget('r');
+        if(checklc('subs', sub)) {
+            unsubscribe(sub)
+        } else {
+            subscribe(sub)
+        }
+
+    });
+
+
 
 });

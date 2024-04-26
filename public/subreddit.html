@@ -8,7 +8,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
      <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta charset="utf-8">
-    <link rel="stylesheet" href="styles.css?v=SaUaIyEN" type="text/css">
+    <link rel="stylesheet" href="styles.css?v=X5RznHHK" type="text/css">
     <script src="/r/dash.all.min.js"></script>
     </head>
 <body>
@@ -21,7 +21,7 @@
         </div>
     <div id="menus">
         <div id="subssearch" class="hidden">
-            <input type="text" id="subssearchi" name="qury" onkeyup="searchsubs(this.value,event)" autocomplete="off">
+            <input type="text" id="subssearchi" name="qury" autocomplete="off">
             <div id="subslist"></div>
         </div>
         <div id="leftbar" class="hidden">
@@ -34,57 +34,58 @@
     </div>
     </header>
     <div id="body"></div>
-    <!-- script src="functions.js?v=SaUaIyEN" type="module"></script -->
+    <!-- script src="functions.js?v=X5RznHHK" type="module"></script -->
 
-    <link rel="stylesheet" href="/r/slide-show/slide-show.css?v=SaUaIyEN" />
-    <script type="module" src="/r/slide-show/slide-show.js?v=SaUaIyEN"></script>
+    <link rel="stylesheet" href="/r/slide-show/slide-show.css?v=X5RznHHK" />
+    <script type="module" src="/r/slide-show/slide-show.js?v=X5RznHHK"></script>
 
-    <link rel="stylesheet" href="/r/overflow-toggle/overflow-toggle.css?v=SaUaIyEN" />
-    <script type="module" src="/r/overflow-toggle/overflow-toggle.js?v=SaUaIyEN"></script>
+    <link rel="stylesheet" href="/r/overflow-toggle/overflow-toggle.css?v=X5RznHHK" />
+    <script type="module" src="/r/overflow-toggle/overflow-toggle.js?v=X5RznHHK"></script>
 
-<script>
-(() => {
+<script type="module">
 
-    var links = '<a href="subreddit.html?r='+getget('r')+'&sort=new">New</a><a href="subreddit.html?r='+getget('r')+'&sort=best">Best</a><a href="subreddit.html?r='+getget('r')+'&sort=rising">Rising</a><a href="subreddit.html?r='+getget('r')+'&sort=top">Top</a><a href="subreddit.html?r='+getget('r')+'&sort=top&t=week">Top (week)</a><a href="subreddit.html?r='+getget('r')+'&sort=top&t=month">Top (month)</a><a href="subreddit.html?r='+getget('r')+'&sort=top&t=year">Top (year)</a><a href="subreddit.html?r='+getget('r')+'&sort=top&t=all">Top (all)</a><a onclick="shareit();" id="sharebutton">Share</a>';
+import { getget, setTitle, makereq, checklc } from "./functions.js";
 
-    if(checklc('subs',getget('r'))){
-        links += '<a onclick="unsubscribe(\''+getget('r')+'\')" id="subbtn">Unsubscribe</a>';
-    } else {
-        links += '<a onclick="subscribe(\''+getget('r')+'\')" id="subbtn">Subscribe</a>';
-    }
+var links = '<a href="subreddit.html?r='+getget('r')+'&sort=new">New</a><a href="subreddit.html?r='+getget('r')+'&sort=best">Best</a><a href="subreddit.html?r='+getget('r')+'&sort=rising">Rising</a><a href="subreddit.html?r='+getget('r')+'&sort=top">Top</a><a href="subreddit.html?r='+getget('r')+'&sort=top&t=week">Top (week)</a><a href="subreddit.html?r='+getget('r')+'&sort=top&t=month">Top (month)</a><a href="subreddit.html?r='+getget('r')+'&sort=top&t=year">Top (year)</a><a href="subreddit.html?r='+getget('r')+'&sort=top&t=all">Top (all)</a><a onclick="shareit();" id="sharebutton">Share</a>';
+var substoload = getget('r');
 
-    document.getElementById('rightbar').innerHTML = links;
-    var fill = '';
+if(checklc('subs', substoload)){
+    links += '<a id="subbtn">Unsubscribe</a>';
+} else {
+    links += '<a id="subbtn">Subscribe</a>';
+}
 
-    substoload = getget('r');
-    document.getElementById('pagetitletext').innerHTML = getget('r');
+var fill = '';
 
 
-    url='https://www.reddit.com/r/'+substoload+'/';
-    if(getget('sort') != null){
-        url = url+''+getget('sort')+'';
-    }
 
 
-    limit = localStorage.getItem('ppg') || 20;
-    url = url+'.json?limit='+limit;
+var url='https://www.reddit.com/r/'+substoload+'/';
+if(getget('sort') != null){
+    url = url+''+getget('sort')+'';
+}
 
-    if(getget('t') != null){
-        url = url+'&t='+getget('t');
-    }
 
-    if(getget('after') != null){
-        url = url+'&after='+getget('after');
-    }
-    if(getget('before') != null){
-        url = url+'&before='+getget('before');
-    }
+var limit = localStorage.getItem('ppg') || 20;
+url = url+'.json?limit='+limit;
 
-    setTitle('/r/' + substoload);
+if(getget('t') != null){
+    url = url+'&t='+getget('t');
+}
 
-    makereq(url);
+if(getget('after') != null){
+    url = url+'&after='+getget('after');
+}
+if(getget('before') != null){
+    url = url+'&before='+getget('before');
+}
 
-})();
+document.getElementById('pagetitletext').innerHTML = getget('r');
+document.getElementById('rightbar').innerHTML = links;
+setTitle('/r/' + substoload);
+
+makereq(url);
+
 </script>
 
 <div class="footer">

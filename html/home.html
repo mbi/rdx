@@ -1,55 +1,47 @@
 <!--headhtml-->
-<script>
-(() => {
+<script type="module">
+import { getget, setTitle, makereq } from "./functions.js";
 
-    var links = '<a href="/?x=y&sort=new">New</a><a href="/?x=y&sort=best">Best</a><a href="/?x=y&sort=rising">Rising</a><a href="/?x=y&sort=top">Top</a><a onclick="shareit();" id="sharebutton">Share</a>';
+var fill = '';
 
+var substoload;
 
-    document.getElementById('rightbar').innerHTML = links;
-    var fill = '';
-    /*
-    url = getget('url');
-    url = url.replace(/amp.reddit.com/g, 'www.reddit.com');
-    url = url.replace(/m.reddit.com/g, 'www.reddit.com');
-    url = url.replace(/i.reddit.com/g, 'www.reddit.com');
-    */
+if(JSON.parse(localStorage.getItem("subs")) == null || JSON.parse(localStorage.getItem("subs")).length == 0){
+    substoload = "all";
+} else {
+    var subsarray= JSON.parse(localStorage.getItem("subs"));
+    substoload = subsarray.join("+");
+}
 
-    if(JSON.parse(localStorage.getItem("subs")) == null || JSON.parse(localStorage.getItem("subs")).length == 0){
-        substoload = "all";
-    } else {
-        subsarray= JSON.parse(localStorage.getItem("subs"));
-        substoload = subsarray.join("+");
-    }
-
-    document.getElementById('pagetitletext').innerHTML = 'rdx';
+document.getElementById('pagetitletext').innerHTML = 'rdx';
 
 
-    url='https://www.reddit.com/r/'+substoload+'/';
-    if(getget('sort') != null){
-        url = url+''+getget('sort')+'';
-    }
+var url='https://www.reddit.com/r/'+substoload+'/';
+if(getget('sort') != null){
+    url = url+''+getget('sort')+'';
+}
 
 
 
-    limit = localStorage.getItem('ppg') || 20;
-    url = url+'.json?limit='+limit;
-    if(getget('t') != null){
-        console.log(getget('t'));
-        url = url+'&t='+getget('t');
-    }
+var limit = localStorage.getItem('ppg') || 20;
+url = url+'.json?limit='+limit;
+if(getget('t') != null){
+    console.log(getget('t'));
+    url = url+'&t='+getget('t');
+}
 
-    if(getget('after') != null){
-        url = url+'&after='+getget('after');
-    }
-    if(getget('before') != null){
-        url = url+'&before='+getget('before');
-    }
+if(getget('after') != null){
+    url = url+'&after='+getget('after');
+}
+if(getget('before') != null){
+    url = url+'&before='+getget('before');
+}
 
-    document.getElementById('pagetitletext').innerHTML = 'Home';
-    setTitle('Home');
+document.getElementById('pagetitletext').innerHTML = 'Home';
+document.getElementById('rightbar').innerHTML = '<a href="/?x=y&sort=new">New</a><a href="/?x=y&sort=best">Best</a><a href="/?x=y&sort=rising">Rising</a><a href="/?x=y&sort=top">Top</a><a onclick="shareit();" id="sharebutton">Share</a>';
 
-    makereq(url);
+setTitle('Home');
+makereq(url);
 
-})();
 </script>
 </body></html>
