@@ -7,9 +7,9 @@ var links = '<a href="subreddit.html?r='+getget('r')+'&sort=new">New</a><a href=
 var substoload = getget('r');
 
 if(checklc('subs', substoload)){
-    links += '<a id="subbtn">Unsubscribe</a>';
+    links += '<a href="#" data-target="'+getget('r')+'" id="subbtn">Unsubscribe</a>';
 } else {
-    links += '<a id="subbtn">Subscribe</a>';
+    links += '<a href="#" data-target="'+getget('r')+'" id="subbtn">Subscribe</a>';
 }
 
 var fill = '';

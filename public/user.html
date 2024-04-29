@@ -8,7 +8,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
      <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta charset="utf-8">
-    <link rel="stylesheet" href="styles.css?v=A4xfPvel" type="text/css">
+    <link rel="stylesheet" href="styles.css?v=op47iFHn" type="text/css">
     <script src="/r/dash.all.min.js"></script>
     </head>
 <body>
@@ -34,69 +34,61 @@
     </div>
     </header>
     <div id="body"></div>
-    <!-- script src="functions.js?v=A4xfPvel" type="module"></script -->
+    <!-- script src="functions.js?v=op47iFHn" type="module"></script -->
 
-    <link rel="stylesheet" href="/r/slide-show/slide-show.css?v=A4xfPvel" />
-    <script type="module" src="/r/slide-show/slide-show.js?v=A4xfPvel"></script>
+    <link rel="stylesheet" href="/r/slide-show/slide-show.css?v=op47iFHn" />
+    <script type="module" src="/r/slide-show/slide-show.js?v=op47iFHn"></script>
 
-    <link rel="stylesheet" href="/r/overflow-toggle/overflow-toggle.css?v=A4xfPvel" />
-    <script type="module" src="/r/overflow-toggle/overflow-toggle.js?v=A4xfPvel"></script>
+    <link rel="stylesheet" href="/r/overflow-toggle/overflow-toggle.css?v=op47iFHn" />
+    <script type="module" src="/r/overflow-toggle/overflow-toggle.js?v=op47iFHn"></script>
 
-<script>
-
- 
-//Loading of posts
- 
-function doit(){
-username = getget('u')
-links = '<a href="userc.html?u='+username+'">Comments</a><a href="user.html?u='+username+'&sort=new">New</a><a href="user.html?u='+username+'&sort=hot">Hot</a><a href="user.html?u='+username+'&sort=top">Top</a><a href="user.html?u='+username+'&sort=top&t=month">Top (month)</a><a href="user.html?u='+username+'&sort=top&t=all">Top (all)</a>';
-if(checklc('subs','u_'+username)){
-links += '<a onclick="unsubscribe(\'u_'+username+'\')" id="subbtn">Unfollow</a>>';
-}
-else {
-links += '<a onclick="subscribe(\'u_'+username+'\')" id="subbtn">follow</a><small style="padding:5px;opacity:0.6;">Only posts posted to user\'s own profile will be displayed in feed.</small>';
-}
-
-document.getElementById('rightbar').innerHTML = links;
-var fill = '';
-/*
-url = getget('url');
-url = url.replace(/amp.reddit.com/g, 'www.reddit.com');
-url = url.replace(/m.reddit.com/g, 'www.reddit.com');
-url = url.replace(/i.reddit.com/g, 'www.reddit.com');
-*/
-
-substoload = getget('u');
-document.getElementById('pagetitletext').innerHTML = getget('u');
+<script type="module">
+import { getget, setTitle, makereq, checklc } from "./functions.js";
 
 
-url='https://www.reddit.com/user/'+substoload+'/submitted';
+    let username = getget('u')
+    let links = '<a href="userc.html?u='+username+'">Comments</a><a href="user.html?u='+username+'&sort=new">New</a><a href="user.html?u='+username+'&sort=hot">Hot</a><a href="user.html?u='+username+'&sort=top">Top</a><a href="user.html?u='+username+'&sort=top&t=month">Top (month)</a><a href="user.html?u='+username+'&sort=top&t=all">Top (all)</a>';
+
+    if(checklc('subs','u_'+username)){
+        links += '<a href="u_'+username+'" id="subbtn">Unfollow</a>>';
+    }
+    else {
+        links += '<a href="u_'+username+'" id="subbtn">Follow</a>';
+    }
+
+    document.getElementById('rightbar').innerHTML = links;
+    var fill = '';
 
 
-console.log(url);
-limit = localStorage.getItem('ppg') || 20;
-url = url+'.json?limit='+limit;
-if(getget('sort') != null){
-console.log(getget('sort'));
-url = url+'&sort='+getget('sort');
-}
-if(getget('t') != null){
-console.log(getget('t'));
-url = url+'&t='+getget('t');
-}
-
-if(getget('after') != null){
-url = url+'&after='+getget('after');
-}
-if(getget('before') != null){
-url = url+'&before='+getget('before');
-}
-
-makereq(url);
-}
+    let substoload = getget('u');
+    document.getElementById('pagetitletext').innerHTML = getget('u');
 
 
-doit();
+    let url='https://www.reddit.com/user/'+substoload+'/submitted';
+    let limit = localStorage.getItem('ppg') || 20;
+    url = url+'.json?limit='+limit;
+
+    if(getget('sort') != null){
+        console.log(getget('sort'));
+        url = url+'&sort='+getget('sort');
+    }
+
+    if(getget('t') != null){
+        console.log(getget('t'));
+        url = url+'&t='+getget('t');
+    }
+
+    if(getget('after') != null){
+        url = url+'&after='+getget('after');
+    }
+
+    if(getget('before') != null){
+        url = url+'&before='+getget('before');
+    }
+
+    makereq(url);
+
+
 </script>
 </style>
 <div class="footer">
