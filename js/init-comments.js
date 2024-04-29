@@ -1,5 +1,5 @@
-import { getget, setTitle, makereq, postbuilder, postsLoadedCallback, collapseComment, cbuilder } from "./functions.min.js";
-import { loadcomments } from './comments.min.js';
+import { getget, setTitle, makereq, postbuilder, postsLoadedCallback, collapseComment } from "./functions.min.js";
+import { loadcomments, cbuilder} from './comments.min.js';
 
 var thisthread;
 var pagenum = 0;

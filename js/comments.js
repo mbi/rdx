@@ -1,5 +1,31 @@
-import { cbuilder } from "./functions.min.js";
+import { timeago } from './utils.min.js';
+import { replaceRedditLinks, htmlDecode } from './html.min.js';
 
+
+export function cbuilder(comment) {
+    let timeagoed = timeago(comment['created_utc'] * 1000);
+    let isop = comment['is_submitter'] == true ? "isop" : "";
+    let ismod = comment['distinguished'] == " moderator" ? "ismod" : "";
+
+    let cret = '<div class="comment ccp'
+        + comment['depth'] + (comment['author'] === 'AutoModerator' ? ' collapsed' : '')
+        + '" id="' + comment['id']
+        + '"><div class="comment_author"><span class="authorttext '
+        + isop + '' + ismod
+        + '"><a class="authorlink" href="user.html?u=' + comment['author']
+        + '">'
+        + comment['author']
+        + '</a></span>  <span class="comment_meta upvotes-icon icon">'
+        + comment['score']
+        + ' &bull; '
+        + timeagoed
+        + ' </span></div><div class="comment_text">'
+        + replaceRedditLinks(htmlDecode(comment['body_html']))
+        + '</div>';
+
+    cret += '</div>';
+    return cret;
+}
 
 export function loadcomments(comments){
     var ret = '<div class="comments-block">';

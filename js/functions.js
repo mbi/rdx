@@ -1,3 +1,6 @@
+import { timeago } from './utils.min.js';
+import { replaceRedditLinks, htmlDecode } from './html.min.js';
+
 var bmr = '';
 // Utility functions [UNIVERSAL]
 
@@ -177,42 +180,7 @@ function observe() {
 }
 
 
-export function cbuilder(comment) {
-    let timeagoed = timeago(comment['created_utc'] * 1000);
-    let isop = comment['is_submitter'] == true ? "isop" : "";
-    let ismod = comment['distinguished'] == " moderator" ? "ismod" : "";
 
-    let cret = '<div class="comment ccp'
-        + comment['depth'] + (comment['author'] === 'AutoModerator' ? ' collapsed' : '')
-        + '" id="' + comment['id']
-        + '"><div class="comment_author"><span class="authorttext '
-        + isop + '' + ismod
-        + '"><a class="authorlink" href="user.html?u=' + comment['author']
-        + '">'
-        + comment['author']
-        + '</a></span>  <span class="comment_meta upvotes-icon icon">'
-        + comment['score']
-        + ' &bull; '
-        + timeagoed
-        + ' </span></div><div class="comment_text">'
-        + replaceRedditLinks(htmlDecode(comment['body_html']))
-        + '</div>';
-
-    cret += '</div>';
-    return cret;
-}
-
-function htmlDecode(input) {
-    var parser = new DOMParser();
-    var decoded = parser.parseFromString(input, 'text/html');
-    return decoded.body.textContent;
-}
-
-function timeago(o) {
-    var t = Math.floor((new Date - o) / 1e3),
-        a = t / 31536e3;
-    return a > 1 ? Math.floor(a) + "y" : (a = t / 2592e3) > 1 ? Math.floor(a) + "mo" : (a = t / 86400) > 1 ? Math.floor(a) + "d" : (a = t / 3600) > 1 ? Math.floor(a) + "h" : (a = t / 60) > 1 ? Math.floor(a) + "m" : Math.floor(t) + "s"
-}
 
 function addlc(to, data) {
     var addarr = JSON.parse(localStorage.getItem(to) || '[]');
@@ -284,16 +252,6 @@ function subscribe(sub) {
     subbtn.innerHTML = 'Unsubscribe';
 }
 
-function replaceRedditLinks(htmlContent) {
-    var replacedText = htmlContent.replace(/href="\/u\/([^"]+)"/g, 'href="user.html?u=$1"').replace(/href="\/r\/([^"]+)"/g, 'href="subreddit.html?r=$1"')
-        .replace(/(href=\"https:\/\/(old.|www.|)reddit\.com\/r\/[^\/]+\/comments\/[^"]+)(\?[^"]+)?/g, function(match, p1, p2) {
-            return 'class="comment-icon icon" href="comments.html?url=' + encodeURIComponent(p1).replace(/href%3D%22/g, '');
-        }).replace(/(href=\"https:\/\/reddit\.com\/r\/[^\/]+\/comments\/[^"]+)(\?[^"]+)?/g, function(match, p1, p2) {
-            return 'class="comment-icon icon" comments.html?url=' + encodeURIComponent(p1 + (p2 || ""));
-        });
-    return replacedText;
-}
-
 
 export function postbuilder(post) {
     var returnfpost = '';
@@ -341,9 +299,7 @@ export function postbuilder(post) {
         if ((post['crosspost_parent_list'] != null && post['crosspost_parent_list'].length > 0) || (typeof post['crosspost_parent_list'] !== 'undefined' && post['crosspost_parent_list'].length > 0)) {
             returnfpost += postbuilder(post['crosspost_parent_list'][0]);
         } else {
-            // if (over18 === 'over18') {
-            //     returnfpost += '<button onclick="allown_sfw()" class="sfwtoggle">Click to Allow this content</button>';
-            // }
+
             if (typeof urli != "undefined" && post['removed_by_category'] == null) {
                 returnfpost += '<div class="urlpreview ' + over18 + '">' + urlpreview(urli, post) + '</div><div style="text-align: right;font-size:12px;"><a href="' + post['url'] + '"><small>Open URL</small></a></div>';
             }
@@ -377,11 +333,6 @@ export function postbuilder(post) {
 
     returnfpost += '</div>';
     return returnfpost;
-}
-
-function allown_sfw() {
-    addlc('a18', 'yes');
-    window.location.reload();
 }
 
 function preloadImage(im_url) {

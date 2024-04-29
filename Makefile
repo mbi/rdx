@@ -6,6 +6,9 @@ endif
 compress:
 	terser js/functions.js --compress --mangle -o public/functions.min.js
 	terser js/comments.js --compress --mangle -o public/comments.min.js
+	terser js/utils.js --compress --mangle -o public/utils.min.js
+	terser js/html.js --compress --mangle -o public/html.min.js
+
 	terser js/init-index.js --compress --mangle -o public/init-index.min.js
 	terser js/init-home.js --compress --mangle -o public/init-home.min.js
 	terser js/init-comments.js --compress --mangle -o public/init-comments.min.js
@@ -24,6 +27,9 @@ build:
 	cp css/styles.css public/styles.min.css
 	cp js/functions.js public/functions.min.js
 	cp js/comments.js public/comments.min.js
+	cp js/utils.js public/utils.min.js
+	cp js/html.js public/html.min.js
+
 	cp js/init-index.js public/init-index.min.js
 	cp js/init-home.js public/init-home.min.js
 	cp js/init-comments.js public/init-comments.min.js
