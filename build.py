@@ -36,22 +36,16 @@ def build(minify=False):
         "overflow-toggle.css",
         "overflow-toggle.js",
     ]:
-        cf = f
-        if minify:
-            cf = f.replace(".css", ".min.css").replace(".js", ".min.js")
-        head_html = head_html.replace(f, f"{cf}?v={cache_buster}")
+        head_html = head_html.replace(f, f"{f}?v={cache_buster}")
 
     for f in glob.glob("html/*.html"):
         print(f"Processing {f}")
         with open(f, "r") as source:
-            html = source.read()
-            html = html.replace("<!--headhtml-->", head_html).replace(
-                "</body>", footer_html
+            html = (
+                source.read()
+                .replace("<!--headhtml-->", head_html)
+                .replace("</body>", footer_html)
             )
-            if minify:
-                html = html.replace("functions.js", "functions.min.js").replace(
-                    "comments.js", "comments.min.js"
-                )
 
             with open(f.replace("html/", "public/"), "w") as dest:
                 dest.write(html)
