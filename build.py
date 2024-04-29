@@ -29,6 +29,7 @@ def build(minify=False):
     cache_buster = get_random_string(8)
     for f in [
         "functions.js",
+        "comments.js",
         "styles.css",
         "slide-show.css",
         "slide-show.js",
@@ -48,7 +49,9 @@ def build(minify=False):
                 "</body>", footer_html
             )
             if minify:
-                html = html.replace("functions.js", "functions.min.js")
+                html = html.replace("functions.js", "functions.min.js").replace(
+                    "comments.js", "comments.min.js"
+                )
 
             with open(f.replace("html/", "public/"), "w") as dest:
                 dest.write(html)
