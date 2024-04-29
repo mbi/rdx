@@ -5,6 +5,7 @@ endif
 
 compress:
 	terser public/functions.js --compress --mangle -o public/functions.min.js
+	terser public/functions.js --compress --mangle -o public/functions.min.js
 	terser public/r/slide-show/slide-show.js --compress --mangle -o public/r/slide-show/slide-show.min.js
 	terser public/r/overflow-toggle/overflow-toggle.js --compress --mangle -o public/r/overflow-toggle/overflow-toggle.min.js
 
