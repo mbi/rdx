@@ -22,34 +22,6 @@ if (JSON.parse(localStorage.getItem("subs")) !== null) {
 }
 
 
-function toggletheme() {
-    const curtheme = localStorage.getItem('tname') || "default";
-    if (curtheme != 'default' && curtheme != 'Default') {
-        document.documentElement.style.setProperty('--bodyc', localStorage.getItem('bodyc'));
-        document.documentElement.style.setProperty('--textc', localStorage.getItem('textc'));
-        document.documentElement.style.setProperty('--linkc', localStorage.getItem('linkc'));
-        document.documentElement.style.setProperty('--greyc', localStorage.getItem('greyc'));
-        document.documentElement.style.setProperty('--lightc', localStorage.getItem('lightc'));
-    } else {
-        document.documentElement.style.setProperty('--bodyc', 'white');
-        document.documentElement.style.setProperty('--textc', 'black');
-        document.documentElement.style.setProperty('--linkc', '#27598c');
-        document.documentElement.style.setProperty('--greyc', '#eee');
-        document.documentElement.style.setProperty('--lightc', '#444');
-    }
-}
-
-function togglefont() {
-    const curfont = localStorage.getItem('fname') || "default";
-    if (curfont != 'default') {
-        const le = document.createElement('link');
-        le.rel = 'stylesheet';
-        le.href = 'https://fonts.googleapis.com/css2?family=' + curfont + '&display=swap';
-        document.head.appendChild(le);
-        document.body.style.fontFamily = curfont + ', sans-serif';
-    }
-}
-
 var curinfi = localStorage.getItem('curinfi') || true;
 if (window.location.href.indexOf("comments.html") == -1) {
     if (curinfi) {
@@ -58,7 +30,6 @@ if (window.location.href.indexOf("comments.html") == -1) {
         document.head.appendChild(style);
     }
 }
-togglefont();
 
 export function toggle(id) {
     var x = document.getElementsByClassName("show");
@@ -74,8 +45,6 @@ export function toggle(id) {
         document.getElementById("subssearchi").focus();
     }
 }
-
-
 
 
 export function  makereq(url) {
@@ -124,7 +93,7 @@ export function  makereq(url) {
 }
 
 var _is_requesting = false;
-function scorllmore() {
+function scrollMore() {
     if (_is_requesting) {
         return;
     }
@@ -193,7 +162,7 @@ function observe() {
                     document.getElementById('sentinel').innerHTML = '<center>Loading more posts..</center>';
                     cantload = true;
                     setTimeout(() => {
-                        scorllmore();
+                        scrollMore();
                         cantload = false;
                     }, 100);
                 }
@@ -228,13 +197,7 @@ export function cbuilder(comment) {
         + ' </span></div><div class="comment_text">'
         + replaceRedditLinks(htmlDecode(comment['body_html']))
         + '</div>';
-    if (localStorage.getItem('refreshToken') != null) {
-        cret += '<div class="comment-reply"><span onclick="replyto(\'t1_' + comment['id'] + '\')">Reply</span>';
-        if (localStorage.getItem('userName') == comment['author']) {
-            cret += '<span onclick="editto(\'t1_' + comment['id'] + '\')">Edit</span><span onclick="deleteto(\'t1_' + comment['id'] + '\')">Delete</span>';
-        }
-        cret += '</div>';
-    }
+
     cret += '</div>';
     return cret;
 }
@@ -1409,12 +1372,7 @@ addEventListener("DOMContentLoaded", (event) => {
         html1 += '<input type="checkbox" id="chk1" name="r" value="' + ther + '" checked><label for="chk1"> Only search r/' + ther + '</label>';
     }
     html1 += '</form>';
-    if (localStorage.getItem('refreshToken') !== null) {
-        const uu = localStorage.getItem('userName');
-        html1 += '<a href="user.html?u=+' + uu + '" class="homelinks">' + uu + '</a>';
-        html1 += '<a href="inbox.html" class="homelinks half">Inbox</a>';
-        html1 += '<a href="login.html" class="homelinks half">Logout</a>';
-    }
+
 
     document.getElementById("leftbar").insertAdjacentHTML("afterBegin", html1);
 
