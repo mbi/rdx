@@ -7,10 +7,10 @@ import { getget, setTitle, makereq, checklc } from "./functions.js";
     let links = '<a href="userc.html?u='+username+'">Comments</a><a href="user.html?u='+username+'&sort=new">New</a><a href="user.html?u='+username+'&sort=hot">Hot</a><a href="user.html?u='+username+'&sort=top">Top</a><a href="user.html?u='+username+'&sort=top&t=month">Top (month)</a><a href="user.html?u='+username+'&sort=top&t=all">Top (all)</a>';
 
     if(checklc('subs','u_'+username)){
-        links += '<a href="u_'+username+'" id="subbtn">Unfollow</a>>';
+        links += '<a href="#" data-target="u_'+username+'" id="subbtn">Unfollow</a>';
     }
     else {
-        links += '<a href="u_'+username+'" id="subbtn">Follow</a>';
+        links += '<a href="#" data-target="u_'+username+'" id="subbtn">Follow</a>';
     }
 
     document.getElementById('rightbar').innerHTML = links;

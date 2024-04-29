@@ -225,12 +225,16 @@ function addlc(to, data) {
     var addarr = JSON.parse(localStorage.getItem(to) || '[]');
     addarr.push(data);
     localStorage.setItem(to, JSON.stringify(addarr));
+
+    console.log('addlc', to, data);
 }
 
 export function checklc(to, cfor) {
     var chkarr = JSON.parse(localStorage.getItem(to) || '[]');
-    return chkarr.includes(cfor);
+    let ret = chkarr.includes(cfor);
+    console.log('checklc', to, cfor, ret);
 
+    return ret;
 }
 
 function removelc(to, cfor) {
@@ -240,6 +244,8 @@ function removelc(to, cfor) {
     })
 
     localStorage.setItem(to, JSON.stringify(addarr));
+
+    console.log('removelc', to, cfor);
 }
 
 function searchsubs(q, event) {
@@ -276,14 +282,12 @@ function searchsubs(q, event) {
 function unsubscribe(sub) {
     removelc('subs', sub);
     subbtn = document.getElementById('subbtn');
-    subbtn.setAttribute("onclick", 'subscribe(\'' + sub + '\')');
     subbtn.innerHTML = 'Subscribe';
 }
 
 function subscribe(sub) {
     addlc('subs', sub);
     subbtn = document.getElementById('subbtn');
-    subbtn.setAttribute("onclick", 'unsubscribe(\'' + sub + '\')');
     subbtn.innerHTML = 'Unsubscribe';
 }
 
@@ -1530,7 +1534,7 @@ addEventListener("DOMContentLoaded", (event) => {
     if(subbtn) {
         subbtn.addEventListener('click', (e) => {
             e.preventDefault();
-            var sub = getget('r');
+            var sub = e.target.dataset.target;
             if(checklc('subs', sub)) {
                 unsubscribe(sub)
             } else {
