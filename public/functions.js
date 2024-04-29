@@ -86,7 +86,6 @@ export function  makereq(url) {
     req.open('GET', url, true);
     req.onload = function() {
         var jsonResponse = req.response;
-        console.log(url);
         var titlesx = url.replace("https://www.reddit.com/r/", "");
         titlesx = titlesx.replace("/.json", "");
         // setTitle('r/' + titlesx.split('?limit')[0]);
@@ -226,13 +225,13 @@ function addlc(to, data) {
     addarr.push(data);
     localStorage.setItem(to, JSON.stringify(addarr));
 
-    console.log('addlc', to, data);
+    // console.log('addlc', to, data);
 }
 
 export function checklc(to, cfor) {
     var chkarr = JSON.parse(localStorage.getItem(to) || '[]');
     let ret = chkarr.includes(cfor);
-    console.log('checklc', to, cfor, ret);
+    // console.log('checklc', to, cfor, ret);
 
     return ret;
 }
@@ -245,7 +244,7 @@ function removelc(to, cfor) {
 
     localStorage.setItem(to, JSON.stringify(addarr));
 
-    console.log('removelc', to, cfor);
+    // console.log('removelc', to, cfor);
 }
 
 function searchsubs(q, event) {
