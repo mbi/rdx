@@ -8,7 +8,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
      <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta charset="utf-8">
-    <link rel="stylesheet" href="styles.css?v=th3qylee" type="text/css">
+    <link rel="stylesheet" href="styles.css?v=ZHSXKYWi" type="text/css">
     <script src="/r/dash.all.min.js"></script>
     </head>
 <body>
@@ -34,63 +34,61 @@
     </div>
     </header>
     <div id="body"></div>
-    <!-- script src="functions.js?v=th3qylee" type="module"></script -->
+    <!-- script src="functions.js?v=ZHSXKYWi" type="module"></script -->
 
-    <link rel="stylesheet" href="/r/slide-show/slide-show.css?v=th3qylee" />
-    <script type="module" src="/r/slide-show/slide-show.js?v=th3qylee"></script>
+    <link rel="stylesheet" href="/r/slide-show/slide-show.css?v=ZHSXKYWi" />
+    <script type="module" src="/r/slide-show/slide-show.js?v=ZHSXKYWi"></script>
 
-    <link rel="stylesheet" href="/r/overflow-toggle/overflow-toggle.css?v=th3qylee" />
-    <script type="module" src="/r/overflow-toggle/overflow-toggle.js?v=th3qylee"></script>
+    <link rel="stylesheet" href="/r/overflow-toggle/overflow-toggle.css?v=ZHSXKYWi" />
+    <script type="module" src="/r/overflow-toggle/overflow-toggle.js?v=ZHSXKYWi"></script>
 
 <script type="module">
 import { getget, setTitle, makereq, checklc } from "./functions.js";
 
 
-    let username = getget('u')
-    let links = '<a href="userc.html?u='+username+'">Comments</a><a href="user.html?u='+username+'&sort=new">New</a><a href="user.html?u='+username+'&sort=hot">Hot</a><a href="user.html?u='+username+'&sort=top">Top</a><a href="user.html?u='+username+'&sort=top&t=month">Top (month)</a><a href="user.html?u='+username+'&sort=top&t=all">Top (all)</a>';
+let username = getget('u')
+let links = '<a href="user.html?u='+username+'&sort=new">New</a><a href="user.html?u='+username+'&sort=hot">Hot</a><a href="user.html?u='+username+'&sort=top">Top</a><a href="user.html?u='+username+'&sort=top&t=month">Top (month)</a><a href="user.html?u='+username+'&sort=top&t=all">Top (all)</a>';
 
-    if(checklc('subs','u_'+username)){
-        links += '<a href="#" data-target="u_'+username+'" id="subbtn">Unfollow</a>';
-    }
-    else {
-        links += '<a href="#" data-target="u_'+username+'" id="subbtn">Follow</a>';
-    }
+if(checklc('subs','u_'+username)){
+    links += '<a href="#" data-target="u_'+username+'" id="subbtn">Unfollow</a>';
+}
+else {
+    links += '<a href="#" data-target="u_'+username+'" id="subbtn">Follow</a>';
+}
 
-    document.getElementById('rightbar').innerHTML = links;
-    var fill = '';
-
-
-    let substoload = getget('u');
-    document.getElementById('pagetitletext').innerHTML = getget('u');
+document.getElementById('rightbar').innerHTML = links;
+var fill = '';
 
 
-    let url='https://www.reddit.com/user/'+substoload+'/submitted';
-    let limit = localStorage.getItem('ppg') || 20;
-    url = url+'.json?limit='+limit;
-
-    if(getget('sort') != null){
-        console.log(getget('sort'));
-        url = url+'&sort='+getget('sort');
-    }
-
-    if(getget('t') != null){
-        console.log(getget('t'));
-        url = url+'&t='+getget('t');
-    }
-
-    if(getget('after') != null){
-        url = url+'&after='+getget('after');
-    }
-
-    if(getget('before') != null){
-        url = url+'&before='+getget('before');
-    }
-
-    makereq(url);
+let substoload = getget('u');
+document.getElementById('pagetitletext').innerHTML = getget('u');
 
 
+let url='https://www.reddit.com/user/'+substoload+'/submitted';
+let limit = localStorage.getItem('ppg') || 20;
+url = url+'.json?limit='+limit;
+
+if(getget('sort') != null){
+    console.log(getget('sort'));
+    url = url+'&sort='+getget('sort');
+}
+
+if(getget('t') != null){
+    console.log(getget('t'));
+    url = url+'&t='+getget('t');
+}
+
+if(getget('after') != null){
+    url = url+'&after='+getget('after');
+}
+
+if(getget('before') != null){
+    url = url+'&before='+getget('before');
+}
+setTitle('u/'+username);
+makereq(url);
 </script>
-</style>
+
 <div class="footer">
 </div>
 <div id="dialog" class="jw-modal">
@@ -108,4 +106,5 @@ import { getget, setTitle, makereq, checklc } from "./functions.js";
     <button id="cmntbtn" onclick="apiAction();">Submit</button>
   </div> <!-- rdx -->
 
-</body></html>
+</body>
+</html>
