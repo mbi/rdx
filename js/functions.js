@@ -1144,6 +1144,12 @@ function openItem() {
     }
 }
 
+function checkVisible(elm) {
+  var rect = elm.getBoundingClientRect();
+  var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+  return !(rect.bottom < 0 || rect.top - viewHeight >= 48);
+}
+
 function activateComment(scrollTo=false) {
     var currentComment = document.querySelector('.current-comment');
     if ( currentComment ) {
@@ -1156,6 +1162,12 @@ function activateComment(scrollTo=false) {
     }
 
 
+    if (currentComment && !checkVisible(currentComment)) {
+        window.scrollTo({
+          top: currentComment.offsetTop - 46,
+          behavior: "smooth",
+        })
+    }
 
 }
 
