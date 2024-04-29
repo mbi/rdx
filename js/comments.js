@@ -1,4 +1,4 @@
-import { cbuilder } from "./functions.js";
+import { cbuilder } from "./functions.min.js";
 
 
 export function loadcomments(comments){
