@@ -6,6 +6,13 @@ endif
 compress:
 	terser js/functions.js --compress --mangle -o public/functions.min.js
 	terser js/comments.js --compress --mangle -o public/comments.min.js
+	terser js/init-index.js --compress --mangle -o public/init-index.min.js
+	terser js/init-home.js --compress --mangle -o public/init-home.min.js
+	terser js/init-comments.js --compress --mangle -o public/init-comments.min.js
+	terser js/init-search.js --compress --mangle -o public/init-search.min.js
+	terser js/init-subreddit.js --compress --mangle -o public/init-subreddit.min.js
+	terser js/init-user.js --compress --mangle -o public/init-user.min.js
+
 	terser public/r/slide-show/slide-show.js --compress --mangle -o public/r/slide-show/slide-show.min.js
 	terser public/r/overflow-toggle/overflow-toggle.js --compress --mangle -o public/r/overflow-toggle/overflow-toggle.min.js
 
@@ -17,6 +24,13 @@ build:
 	cp css/styles.css public/styles.min.css
 	cp js/functions.js public/functions.min.js
 	cp js/comments.js public/comments.min.js
+	cp js/init-index.js public/init-index.min.js
+	cp js/init-home.js public/init-home.min.js
+	cp js/init-comments.js public/init-comments.min.js
+	cp js/init-search.js public/init-search.min.js
+	cp js/init-subreddit.js public/init-subreddit.min.js
+	cp js/init-user.js public/init-user.min.js
+
 	python build.py
 
 build-min: compress

@@ -27,9 +27,8 @@ def build(minify=False):
     footer_html = open("html/fragments/footer.html", "r").read()
 
     cache_buster = get_random_string(8)
+
     for f in [
-        "functions.js",
-        "comments.js",
         "styles.css",
         "slide-show.css",
         "slide-show.js",

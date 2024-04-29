@@ -11,10 +11,10 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta charset="utf-8">
     <link rel="stylesheet" href="styles.min.css" type="text/css">
-    <link rel="stylesheet" href="/r/slide-show/slide-show.css?v=vr0NWFqk" />
-    <link rel="stylesheet" href="/r/overflow-toggle/overflow-toggle.css?v=vr0NWFqk" />
-    <script type="module" src="/r/slide-show/slide-show.js?v=vr0NWFqk"></script>
-    <script type="module" src="/r/overflow-toggle/overflow-toggle.js?v=vr0NWFqk"></script>
+    <link rel="stylesheet" href="/r/slide-show/slide-show.css?v=FiBgJ2yN" />
+    <link rel="stylesheet" href="/r/overflow-toggle/overflow-toggle.css?v=FiBgJ2yN" />
+    <script type="module" src="/r/slide-show/slide-show.js?v=FiBgJ2yN"></script>
+    <script type="module" src="/r/overflow-toggle/overflow-toggle.js?v=FiBgJ2yN"></script>
     <script src="/r/dash.all.min.js"></script>
 </head>
 <body>
@@ -41,52 +41,7 @@
     </header>
     <div id="body"></div>
 
-<script type="module">
-
-import { getget, setTitle, makereq, checklc } from "./functions.min.js";
-
-var links = '<a href="subreddit.html?r='+getget('r')+'&sort=new">New</a><a href="subreddit.html?r='+getget('r')+'&sort=best">Best</a><a href="subreddit.html?r='+getget('r')+'&sort=rising">Rising</a><a href="subreddit.html?r='+getget('r')+'&sort=top">Top</a><a href="subreddit.html?r='+getget('r')+'&sort=top&t=week">Top (week)</a><a href="subreddit.html?r='+getget('r')+'&sort=top&t=month">Top (month)</a><a href="subreddit.html?r='+getget('r')+'&sort=top&t=year">Top (year)</a><a href="subreddit.html?r='+getget('r')+'&sort=top&t=all">Top (all)</a><a onclick="shareit();" id="sharebutton">Share</a>';
-var substoload = getget('r');
-
-if(checklc('subs', substoload)){
-    links += '<a href="#" data-target="'+getget('r')+'" id="subbtn">Unsubscribe</a>';
-} else {
-    links += '<a href="#" data-target="'+getget('r')+'" id="subbtn">Subscribe</a>';
-}
-
-var fill = '';
-
-
-
-
-var url='https://www.reddit.com/r/'+substoload+'/';
-if(getget('sort') != null){
-    url = url+''+getget('sort')+'';
-}
-
-
-var limit = localStorage.getItem('ppg') || 20;
-url = url+'.json?limit='+limit;
-
-if(getget('t') != null){
-    url = url+'&t='+getget('t');
-}
-
-if(getget('after') != null){
-    url = url+'&after='+getget('after');
-}
-if(getget('before') != null){
-    url = url+'&before='+getget('before');
-}
-
-document.getElementById('pagetitletext').innerHTML = getget('r');
-document.getElementById('rightbar').innerHTML = links;
-setTitle('r/' + substoload);
-
-makereq(url);
-
-</script>
-
+<script type="module" src="init-subreddit.min.js"></script>
 <div class="footer">
 </div>
 <div id="dialog" class="jw-modal">

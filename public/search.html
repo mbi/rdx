@@ -11,10 +11,10 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta charset="utf-8">
     <link rel="stylesheet" href="styles.min.css" type="text/css">
-    <link rel="stylesheet" href="/r/slide-show/slide-show.css?v=vr0NWFqk" />
-    <link rel="stylesheet" href="/r/overflow-toggle/overflow-toggle.css?v=vr0NWFqk" />
-    <script type="module" src="/r/slide-show/slide-show.js?v=vr0NWFqk"></script>
-    <script type="module" src="/r/overflow-toggle/overflow-toggle.js?v=vr0NWFqk"></script>
+    <link rel="stylesheet" href="/r/slide-show/slide-show.css?v=FiBgJ2yN" />
+    <link rel="stylesheet" href="/r/overflow-toggle/overflow-toggle.css?v=FiBgJ2yN" />
+    <script type="module" src="/r/slide-show/slide-show.js?v=FiBgJ2yN"></script>
+    <script type="module" src="/r/overflow-toggle/overflow-toggle.js?v=FiBgJ2yN"></script>
     <script src="/r/dash.all.min.js"></script>
 </head>
 <body>
@@ -41,69 +41,7 @@
     </header>
     <div id="body"></div>
 
-<script type="module">
-import { getget, setTitle, makereq } from "./functions.min.js";
-
-let query = getget('q')
-
-if(getget('r') != null){
-    console.log(getget('r'));
-    query = query+'&r='+getget('r');
-}
-
-if(getget('u') != null){
-    console.log(getget('r'));
-    query = query+'&u='+getget('u');
-}
-
-
-document.getElementById('rightbar').innerHTML = '<a href="search.html?q='+query+'&sort=new">New</a><a href="search.html?q='+query+'&sort=hot">Hot</a><a href="search.html?q='+query+'&sort=top">Top</a><a href="search.html?q='+query+'&sort=top&t=month">Top (month)</a><a href="search.html?q='+query+'&sort=top&t=year">Top (year)</a><a href="search.html?q='+query+'&sort=top&t=all">Top (all)</a>';
-
-var fill = '';
-
-
-let substoload = getget('q');
-document.getElementById('pagetitletext').innerHTML = getget('q');
-
-
-let url = 'https://www.reddit.com/';
-
-
-if(getget('r') != null){
-    url = url+'r/'+getget('r')+'/search.json?q='+substoload+'&restrict_sr=on';
-} else if(getget('u') != null){
-    url = url+'search.json?q=author:'+getget('u')+' '+substoload+'&restrict_sr=on';
-} else {
-    url = url+'search.json?q='+substoload+'';
-}
-
-let limit = localStorage.getItem('ppg') || 20;
-url = url+'&limit='+limit;
-
-if(getget('sort') != null){
-    console.log(getget('sort'));
-    url = url+'&sort='+getget('sort');
-}
-
-if(getget('t') != null){
-    console.log(getget('t'));
-    url = url+'&t='+getget('t');
-}
-url = url+'&include_over_18=on';
-
-if(getget('after') != null){
-    url = url+'&after='+getget('after');
-}
-
-if(getget('before') != null){
-    url = url+'&before='+getget('before');
-}
-
-makereq(url);
-setTitle(query);
-
-
-</script>
+<script type="module" src="init-search.min.js"></script>
 <div class="footer">
 </div>
 <div id="dialog" class="jw-modal">
