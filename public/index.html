@@ -8,7 +8,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
      <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta charset="utf-8">
-    <link rel="stylesheet" href="styles.min.css?v=osV7anOT" type="text/css">
+    <link rel="stylesheet" href="styles.min.css?v=EphOVYFN" type="text/css">
     <script src="/r/dash.all.min.js"></script>
     </head>
 <body>
@@ -34,22 +34,18 @@
     </div>
     </header>
     <div id="body"></div>
-    <!-- script src="functions.min.js?v=osV7anOT" type="module"></script -->
+    <!-- script src="functions.min.js?v=EphOVYFN" type="module"></script -->
 
-    <link rel="stylesheet" href="/r/slide-show/slide-show.min.css?v=osV7anOT" />
-    <script type="module" src="/r/slide-show/slide-show.min.js?v=osV7anOT"></script>
+    <link rel="stylesheet" href="/r/slide-show/slide-show.min.css?v=EphOVYFN" />
+    <script type="module" src="/r/slide-show/slide-show.min.js?v=EphOVYFN"></script>
 
-    <link rel="stylesheet" href="/r/overflow-toggle/overflow-toggle.min.css?v=osV7anOT" />
-    <script type="module" src="/r/overflow-toggle/overflow-toggle.min.js?v=osV7anOT"></script>
+    <link rel="stylesheet" href="/r/overflow-toggle/overflow-toggle.min.css?v=EphOVYFN" />
+    <script type="module" src="/r/overflow-toggle/overflow-toggle.min.js?v=EphOVYFN"></script>
 
 <script type="module">
 import { getget, setTitle, makereq } from "./functions.min.js";
 
-var links = '<a href="/?x=y&sort=new">New</a><a href="/?x=y&sort=best">Best</a><a href="/?x=y&sort=rising">Rising</a><a href="/?x=y&sort=top">Top</a><a onclick="shareit();" id="sharebutton">Share</a>';
-
-
-document.getElementById('rightbar').innerHTML = links;
-var fill = '';
+document.getElementById('rightbar').innerHTML = '<a href="/?x=y&sort=new">New</a><a href="/?x=y&sort=best">Best</a><a href="/?x=y&sort=rising">Rising</a><a href="/?x=y&sort=top">Top</a><a onclick="shareit();" id="sharebutton">Share</a>';
 
 var substoload = "all";
 document.getElementById('pagetitletext').innerHTML = 'rdx';
