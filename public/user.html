@@ -1,16 +1,22 @@
-<!DOCTYPE html><html><head>
+<!doctype html>
+<html>
+<head>
     <title>RDX for Reddit -  Apollo For Reddit Inspired Web Viewer</title>
     <meta name="description" content="rdx for reddit is a fast, lightweight mobile Web Viewer for Reddit based on Apollo. Mobile friendly reader for Reddit. Browse Reddit without Ads."/>
     <link rel="shortcut icon" href="favicon.ico">
-  <link rel="icon" href="favicon.png">
+    <link rel="icon" href="favicon.png">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="rdx" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
      <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta charset="utf-8">
     <link rel="stylesheet" href="styles.min.css" type="text/css">
+    <link rel="stylesheet" href="/r/slide-show/slide-show.css?v=iqb8TMkY" />
+    <link rel="stylesheet" href="/r/overflow-toggle/overflow-toggle.css?v=iqb8TMkY" />
+    <script type="module" src="/r/slide-show/slide-show.js?v=iqb8TMkY"></script>
+    <script type="module" src="/r/overflow-toggle/overflow-toggle.js?v=iqb8TMkY"></script>
     <script src="/r/dash.all.min.js"></script>
-    </head>
+</head>
 <body>
     <header id="header">
         <div id="pagetitle">
@@ -19,28 +25,21 @@
             <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" id="icon-target" style=""><path fill="currentColor" d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"></path></svg></span>
             <span id="menu"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="#fff" role="img" aria-label="Sort and other options"><path d="M411.155-260.001V-320h137.306v59.999H411.155Zm-155-190v-59.998H703.46v59.998H256.155ZM140.001-640v-59.999h679.998V-640H140.001Z"/></svg></span>
         </div>
-    <div id="menus">
-        <div id="subssearch" class="hidden">
-            <input type="text" id="subssearchi" name="qury" autocomplete="off">
-            <div id="subslist"></div>
-        </div>
-        <div id="leftbar" class="hidden">
-            <div class="list">
-                <a href="index.html" class="homelinks halfit">/r/all</a><a href="home.html" class="homelinks halfit">Home</a><a href="saved.html" class="homelinks halfit">Saved</a><a href="settings.html" class="homelinks halfit">Settings</a>
-                <div id="subscribed"></div>
+        <div id="menus">
+            <div id="subssearch" class="hidden">
+                <input type="text" id="subssearchi" name="qury" autocomplete="off">
+                <div id="subslist"></div>
             </div>
+            <div id="leftbar" class="hidden">
+                <div class="list">
+                    <a href="index.html" class="homelinks halfit">/r/all</a><a href="home.html" class="homelinks halfit">Home</a><a href="saved.html" class="homelinks halfit">Saved</a><a href="settings.html" class="homelinks halfit">Settings</a>
+                    <div id="subscribed"></div>
+                </div>
+            </div>
+            <div id="rightbar" class="hidden"></div>
         </div>
-        <div id="rightbar" class="hidden"></div>
-    </div>
     </header>
     <div id="body"></div>
-    <!-- script src="functions.js?v=3pAYdezD" type="module"></script -->
-
-    <link rel="stylesheet" href="/r/slide-show/slide-show.css?v=3pAYdezD" />
-    <script type="module" src="/r/slide-show/slide-show.js?v=3pAYdezD"></script>
-
-    <link rel="stylesheet" href="/r/overflow-toggle/overflow-toggle.css?v=3pAYdezD" />
-    <script type="module" src="/r/overflow-toggle/overflow-toggle.js?v=3pAYdezD"></script>
 
 <script type="module">
 import { getget, setTitle, makereq, checklc } from "./functions.min.js";
