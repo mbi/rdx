@@ -47,6 +47,8 @@ def build(minify=False):
             html = html.replace("<!--headhtml-->", head_html).replace(
                 "</body>", footer_html
             )
+            if minify:
+                html = html.replace("functions.js", "functions.min.js")
 
             with open(f.replace("html/", "public/"), "w") as dest:
                 dest.write(html)
