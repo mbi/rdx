@@ -270,6 +270,8 @@ a.viewmore {
 
 .postc.gallery img {
     max-width: 100%;
+    object-fit: contain;
+    width: auto !important;
 
 }
 
@@ -1170,6 +1172,13 @@ body>#body {
 
 body.comments .urlpreview + div[style] {
   display: block;
+}
+
+slide-show::part(fullscreen-button) {
+    width: 24px;
+    height: 24px;
+    top: -32px;
+  position: absolute;
 }
 
 
