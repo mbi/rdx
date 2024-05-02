@@ -1174,12 +1174,6 @@ body.comments .urlpreview + div[style] {
   display: block;
 }
 
-slide-show::part(fullscreen-button) {
-    width: 24px;
-    height: 24px;
-    top: -32px;
-  position: absolute;
-}
 
 
 slide-show::part(prev-button),

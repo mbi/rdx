@@ -426,7 +426,7 @@ function urlpreview(urli, postjson) {
         let g_timgs = '';
         let g_mimg = '';
 
-        returnpost += '<slide-show controls="pagination navigation fullscreen" loop>';
+        returnpost += '<slide-show controls="pagination navigation" loop>';
 
         for (var singlept in pjmdsorted) {
             if (pjmdsorted[singlept]['status'] != 'failed') {
@@ -438,7 +438,7 @@ function urlpreview(urli, postjson) {
                 }
                 var singletmlink = pjmdsorted[singlept]['p']['0']['u'];
 
-                returnpost += '<img draggable="false" src="' + singleptlink + '" />';
+                returnpost += '<img style="width:100%;height:auto" draggable="false" src="' + singleptlink + '" />';
 
             }
         }
