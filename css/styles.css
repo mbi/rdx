@@ -270,9 +270,6 @@ a.viewmore {
 
 .postc.gallery img {
     max-width: 100%;
-    object-fit: contain;
-    width: auto !important;
-
 }
 
 .gallery_thumbs {
