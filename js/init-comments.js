@@ -58,6 +58,34 @@ function opencmenu(cid){
     }
 }
 
+
+
+export function saveItem(e) {
+    if (e.innerHTML == 'Saved') {
+        window.location.href = 'saved.html';
+        return false;
+    }
+    const u = window.location.href;
+    const t = document.title;
+    const s = document.querySelector('.post_author a').innerText;
+    const savedLinks = JSON.parse(localStorage.getItem('savedlinks')) || [];
+    savedLinks.push({
+        u,
+        t,
+        s
+    });
+    localStorage.setItem('savedlinks', JSON.stringify(savedLinks));
+    e.innerHTML = 'Saved';
+}
+
+document.addEventListener('click', (e) => {
+    if(e.target.id === 'savebutton') {
+        e.preventDefault();
+        saveItem(e.target);
+    }
+})
+
+
 document.body.classList.add('comments')
 
 
@@ -69,7 +97,14 @@ url = url.replace(/https:\/\/reddit.com/g, 'https://www.reddit.com');
 url = url.replace(/amp.reddit.com/g, 'www.reddit.com');
 url = url.replace(/m.reddit.com/g, 'www.reddit.com');
 url = url.replace(/i.reddit.com/g, 'www.reddit.com');
-var links = '<a href="comments.html?url='+url+'&sort=new">New</a><a href="comments.html?url='+url+'&sort=best">Best</a><a href="comments.html?url='+url+'&sort=top">Top</a><a href="comments.html?url='+url+'&sort=controversial">Controversial</a><a href="comments.html?url='+url+'&sort=old">Old</a><a href="comments.html?url='+url+'&sort=qa">QnA</a><a onclick="saveit(this)" id="sharebutton" style="border-top: 5px solid var(--greyc);">Save</a><a onclick="shareit();" id="sharebutton">Share</a>';
+var links = '<a href="comments.html?url='+url+'&sort=new">New</a>'
+    +'<a href="comments.html?url='+url+'&sort=best">Best</a>'
+    +'<a href="comments.html?url='+url+'&sort=top">Top</a>'
+    +'<a href="comments.html?url='+url+'&sort=controversial">Controversial</a>'
+    +'<a href="comments.html?url='+url+'&sort=old">Old</a>'
+    +'<a href="comments.html?url='+url+'&sort=qa">QnA</a>'
+    +'<a href="#" id="savebutton" style="border-top: 5px solid var(--greyc); cursor:pointer">Save</a>';
+
 document.getElementById('rightbar').innerHTML = links;
 url = url+'.json?limit=500';
 

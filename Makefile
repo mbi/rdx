@@ -15,6 +15,7 @@ compress:
 	terser js/init-search.js --compress --mangle -o public/init-search.min.js
 	terser js/init-subreddit.js --compress --mangle -o public/init-subreddit.min.js
 	terser js/init-user.js --compress --mangle -o public/init-user.min.js
+	terser js/init-saved.js --compress --mangle -o public/init-saved.min.js
 
 	terser public/r/slide-show/slide-show.js --compress --mangle -o public/r/slide-show/slide-show.min.js
 	terser public/r/overflow-toggle/overflow-toggle.js --compress --mangle -o public/r/overflow-toggle/overflow-toggle.min.js
@@ -34,6 +35,7 @@ build:
 	cp js/init-home.js public/init-home.min.js
 	cp js/init-comments.js public/init-comments.min.js
 	cp js/init-search.js public/init-search.min.js
+	cp js/init-saved.js public/init-saved.min.js
 	cp js/init-subreddit.js public/init-subreddit.min.js
 	cp js/init-user.js public/init-user.min.js
 
