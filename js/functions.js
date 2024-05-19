@@ -267,6 +267,7 @@ export function postbuilder(post) {
     }
     var ismod = (post['distinguished'] == "moderator") ? " moderator" : " ";
     returnfpost += '<div class="post ' + mode + '" id="' + post['id'] + '">';
+
     if (mode == "comp") {
         thumbnail = post['thumbnail'];
         if (thumbnail != "self" && thumbnail != "spoiler" && thumbnail != "default" && thumbnail != "" && thumbnail != "nsfw") {
@@ -295,6 +296,9 @@ export function postbuilder(post) {
         }
         var urli = post['url_overridden_by_dest'];
 
+        if (post['url'] && post['url'].includes('reddit.com/gallery')) {
+            urli = post['url'];
+        }
 
         if ((post['crosspost_parent_list'] != null && post['crosspost_parent_list'].length > 0) || (typeof post['crosspost_parent_list'] !== 'undefined' && post['crosspost_parent_list'].length > 0)) {
             returnfpost += postbuilder(post['crosspost_parent_list'][0]);
@@ -429,7 +433,7 @@ function urlpreview(urli, postjson) {
         returnpost += '<slide-show controls="pagination navigation" loop>';
 
         for (var singlept in pjmdsorted) {
-            if (pjmdsorted[singlept]['status'] != 'failed') {
+            if (pjmdsorted[singlept]['status'] != 'failed' && pjmdsorted[singlept]['status'] != 'unprocessed') {
                 var singleptlink = pjmdsorted[singlept]['s']['u'];
                 if (typeof singleptlink == "undefined") {
                     singleptlink = pjmdsorted[singlept]['s']['gif'];
