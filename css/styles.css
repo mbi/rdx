@@ -700,6 +700,10 @@ a.lazy-video:hover {
     opacity: 1;
 }
 
+.urlpreview > .comment-icon > img {
+    max-width: 100%;
+}
+
 .comment_text img {
     max-width: 99%;
 }
