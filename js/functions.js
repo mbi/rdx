@@ -51,6 +51,7 @@ export function toggle(id) {
 
 
 export function  makereq(url) {
+    url = url.replace(/www.reddit.com/g, 'old.reddit.com');
     var fill = '';
     var req = new XMLHttpRequest();
     var post_data;
@@ -58,7 +59,7 @@ export function  makereq(url) {
     req.open('GET', url, true);
     req.onload = function() {
         var jsonResponse = req.response;
-        var titlesx = url.replace("https://www.reddit.com/r/", "");
+        var titlesx = url.replace("https://old.reddit.com/r/", "");
         titlesx = titlesx.replace("/.json", "");
         // setTitle('r/' + titlesx.split('?limit')[0]);
         var posts = jsonResponse['data']['children'].filter(
@@ -89,8 +90,9 @@ export function  makereq(url) {
 
         postsLoadedCallback(true);
     };
-    req.onerror = function() {
+    req.onerror = function(e) {
         document.getElementById('body').innerHTML = '<center style="padding:15px;">Can\'t load content!<br><small>There can be multiple reasons for this, your browser\'s aggresive privacy settings may be blocking the one call to reddit.com RDX makes. This happens usually when you use a VPM/Proxy and/or a privacy focused browser like Firefox.<br> Play around with privacy/tracking options or change your browser. If it still doesn\'t work click the feedback link and send me some info.</small></center>';
+        document.getElementById('body').innerHTML += '<code style="padding:15px; margin-top: 1rem; border: 1px solid>' +  e.target.status +'</code>';
     };
     req.send(null);
 }
@@ -104,7 +106,7 @@ function scrollMore() {
 
     var post_data;
 
-    const url = nexturl;
+    const url = nexturl.replace(/www.reddit.com/g, 'old.reddit.com');
     let fill = '';
     if (nexturl != '') {
         console.log(nexturl);
@@ -145,8 +147,10 @@ function scrollMore() {
     };
     req.onerror = function() {
         document.getElementById('sxpy').innerHTML += '<center style="padding:15px;">Can\'t load content! Refresh the page or try again later.</center>';
+        document.getElementById('body').innerHTML += '<code style="padding:15px; margin-top: 1rem; border: 1px solid>' +  e.target.status +'</code>';
         nexturl = '';
         _is_requesting = false;
+
     };
     req.send(null);
 }
@@ -227,7 +231,7 @@ function searchsubs(q, event) {
         }
     }
     xhr.responseType = 'json';
-    xhr.open('GET', 'https://www.reddit.com//api/subreddit_autocomplete/.json?query=' + q + '&include_profiles=false&include_over_18=true', true)
+    xhr.open('GET', 'https://old.reddit.com//api/subreddit_autocomplete/.json?query=' + q + '&include_profiles=false&include_over_18=true', true)
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.send();
     if (q.length > 1) {
@@ -319,7 +323,7 @@ export function postbuilder(post) {
 
     returnfpost =  returnfpost
             + '<div class="post_meta"><div class="flex-left">'
-            +'<a class="comments-icon icon" href="comments.html?url=https://www.reddit.com' + post['permalink'] + '">'
+            +'<a class="comments-icon icon" href="comments.html?url=https://old.reddit.com' + post['permalink'] + '">'
             + post['num_comments'] + '</a>'
             + '<span class="upvotes-icon icon">' + post['score'] + '</span>'
             + '<a class="ext-url-icon icon" href="' +  post['url'] +'"></a>';
