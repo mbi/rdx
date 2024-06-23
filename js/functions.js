@@ -597,9 +597,9 @@ function urlpreview(urli, postjson) {
 
 
 function pollbuilder(postjson) {
-    returnpoll = '<div class="poll">';
-    for (popt in postjson['poll_data']['options']) {
-        vote_count = postjson['poll_data']['options'][popt]['vote_count'];
+    let returnpoll = '<div class="poll">';
+    for (var popt in postjson['poll_data']['options']) {
+        let vote_count = postjson['poll_data']['options'][popt]['vote_count'];
         "undefined" == typeof vote_count && (vote_count = " ");
         returnpoll += '<div class="polloption"><span class="polloptiontext">' + postjson['poll_data']['options'][popt]['text'] + '</span> <span  class="votecount">' + vote_count + '</span>';
         if (vote_count != ' ') {
