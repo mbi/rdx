@@ -1015,11 +1015,16 @@ function setupUnloadVideo(vid) {
 }
 
 
+function is_fullscreen() {
+    return !!document.fullscreenElement;
+}
+
+
 
 function setupPauseVideo(vid) {
 
     const intersectionObserver = new IntersectionObserver((entries) => {
-      if (entries[0].intersectionRatio <= 0) {
+      if (entries[0].intersectionRatio <= 0 && !is_fullscreen()) {
         vid.pause();
       };
     });
