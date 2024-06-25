@@ -1024,7 +1024,7 @@ function is_fullscreen() {
 function setupPauseVideo(vid) {
 
     const intersectionObserver = new IntersectionObserver((entries) => {
-      if (entries[0].intersectionRatio <= 0 && !is_fullscreen()) {
+      if (entries[0].intersectionRatio <= 0) {
         vid.pause();
       };
     });
