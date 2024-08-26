@@ -1375,3 +1375,8 @@ body.jw-modal-open {
     /* body overflow is hidden to hide main scrollbar when modal window is open */
     overflow: hidden;
 }
+
+#subslist a:hover,
+#subslist a.selected {
+    background-color: var(--greyc);
+}

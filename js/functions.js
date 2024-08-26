@@ -11,6 +11,8 @@ var activeCommentIdx = 0;
 var nexturl = '';
 var nextseturl = '';
 
+var selectedSeachResult = null;
+
 if (JSON.parse(localStorage.getItem("subs")) !== null) {
     var subslisted = '';
     var subslistedarray = JSON.parse(localStorage.getItem("subs"));
@@ -217,31 +219,82 @@ function searchsubs(q, event) {
     if (bmr) {
         bmr.abort();
     }
-    var xhr = new XMLHttpRequest();
-    bmr = xhr;
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status == 200) {
-            subslist = xhr.response;
-            var fillsubs = '';
-            for (var singlesub in subslist['subreddits']) {
-                //console.log(subslist[singlesub]);
-                fillsubs += '<a href="subreddit.html?r=' + subslist['subreddits'][singlesub]['name'] + '">' + subslist['subreddits'][singlesub]['name'] + '</a>';
+
+    var key = event.keyCode || event.charCode;
+    
+    let sublist = document.getElementById('subslist');
+
+    if (key !== 38 && key !== 40) {
+        var xhr = new XMLHttpRequest();
+        bmr = xhr;
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status == 200) {
+                var resp = xhr.response;
+                var fillsubs = '';
+                for (var singlesub in resp['subreddits']) {
+                    //console.log(subslist[singlesub]);
+                    fillsubs += '<a href="subreddit.html?r=' + resp['subreddits'][singlesub]['name'] + '">' + resp['subreddits'][singlesub]['name'] + '</a>';
+                }
+                sublist.innerHTML = fillsubs;
+
+                selectedSeachResult = null;
             }
-            document.getElementById('subslist').innerHTML = fillsubs;
         }
+        xhr.responseType = 'json';
+        xhr.open('GET', 'https://old.reddit.com//api/subreddit_autocomplete/.json?query=' + q + '&include_profiles=false&include_over_18=true', true)
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.send();
     }
-    xhr.responseType = 'json';
-    xhr.open('GET', 'https://old.reddit.com//api/subreddit_autocomplete/.json?query=' + q + '&include_profiles=false&include_over_18=true', true)
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhr.send();
+
     if (q.length > 1) {
-        var key = event.keyCode || event.charCode;
-        if (key == 13) {
-            if (typeof subslist['subreddits'] !== undefined) {
-                window.location = 'subreddit.html?r=' + subslist['subreddits'][0]['name'] + '';
+        if (key === 13) { // enter
+            window.location = 'subreddit.html?r=' +document.getElementById('subssearchi').value + '';
+            
+        } else if (key === 38) { // arrow up
+
+            if (subslist.querySelectorAll('a').length === 0) {
+                return;
             }
+            
+            if (typeof selectedSeachResult === 'number') {
+                selectedSeachResult--;
+            } else {
+                selectedSeachResult = selectedSeachResult = subslist.querySelectorAll('a').length - 1;
+            }
+
+            if(selectedSeachResult < 0) {
+                selectedSeachResult = selectedSeachResult = subslist.querySelectorAll('a').length - 1;
+            }
+
+            subslist.querySelectorAll('a').forEach((a) => { 
+                a.classList.remove('selected');
+            })
+            subslist.querySelectorAll('a')[selectedSeachResult].classList.add('selected');
+            document.getElementById('subssearchi').value = subslist.querySelectorAll('a')[selectedSeachResult].innerText;
+        } else if (key === 40) { // arrow down
+
+            if (subslist.querySelectorAll('a').length === 0) {
+                return;
+            }
+
+            if (typeof selectedSeachResult === 'number') {
+                selectedSeachResult++;
+            } else {
+                selectedSeachResult = 0;
+            }
+            if(selectedSeachResult > subslist.querySelectorAll('a').length - 1) {
+                selectedSeachResult = 0;
+            }
+
+            subslist.querySelectorAll('a').forEach((a) => { 
+                a.classList.remove('selected');
+            })
+            subslist.querySelectorAll('a')[selectedSeachResult].classList.add('selected');
+            document.getElementById('subssearchi').value = subslist.querySelectorAll('a')[selectedSeachResult].innerText;
         }
     }
+
+
 }
 
 function unsubscribe(sub) {
