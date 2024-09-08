@@ -6,7 +6,7 @@ import {
     gestureToMatrix,
     getOrigin,
     applyMatrix
-} from '/r/ok-gesture.js';
+} from './ok-gesture.min.js';
 
 
 var bmr = '';

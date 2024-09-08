@@ -8,6 +8,7 @@ compress:
 	terser js/comments.js --compress --mangle -o public/comments.min.js
 	terser js/utils.js --compress --mangle -o public/utils.min.js
 	terser js/html.js --compress --mangle -o public/html.min.js
+	terser js/ok-gesture.js --compress --mangle -o public/ok-gesture.min.js
 
 	terser js/init-index.js --compress --mangle -o public/init-index.min.js
 	terser js/init-home.js --compress --mangle -o public/init-home.min.js
