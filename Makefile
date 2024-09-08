@@ -18,6 +18,15 @@ compress:
 	terser js/init-user.js --compress --mangle -o public/init-user.min.js
 	terser js/init-saved.js --compress --mangle -o public/init-saved.min.js
 
+	CB=`strings /dev/urandom | grep -o '[[:alnum:]]' | head -n 8 | tr -d '\n'`
+	sed -i 's/CACHEBUSTER/'"${CB}"'/g' public/init-index.min.js
+	sed -i 's/CACHEBUSTER/'"${CB}"'/g' public/init-home.min.js
+	sed -i 's/CACHEBUSTER/'"${CB}"'/g' public/init-comments.min.js
+	sed -i 's/CACHEBUSTER/'"${CB}"'/g' public/init-search.min.js
+	sed -i 's/CACHEBUSTER/'"${CB}"'/g' public/init-subreddit.min.js
+	sed -i 's/CACHEBUSTER/'"${CB}"'/g' public/init-user.min.js
+	sed -i 's/CACHEBUSTER/'"${CB}"'/g' public/init-saved.min.js
+
 	terser public/r/slide-show/slide-show.js --compress --mangle -o public/r/slide-show/slide-show.min.js
 	terser public/r/overflow-toggle/overflow-toggle.js --compress --mangle -o public/r/overflow-toggle/overflow-toggle.min.js
 

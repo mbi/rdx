@@ -1,4 +1,4 @@
-import { getget, setTitle, makereq, checklc } from "./functions.min.js";
+import { getget, setTitle, makereq, checklc } from "./functions.min.js?v=CACHEBUSTER";
 
 
 let username = getget('u')

@@ -1,4 +1,4 @@
-import { getget, setTitle, makereq } from "./functions.min.js";
+import { getget, setTitle, makereq } from "./functions.min.js?v=CACHEBUSTER";
 
 let query = getget('q')
 

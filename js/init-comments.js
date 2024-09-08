@@ -1,4 +1,4 @@
-import { getget, setTitle, makereq, postbuilder, postsLoadedCallback, collapseComment } from "./functions.min.js";
+import { getget, setTitle, makereq, postbuilder, postsLoadedCallback, collapseComment } from "./functions.min.js?v=CACHEBUSTER";
 import { loadcomments, cbuilder} from './comments.min.js';
 
 var thisthread;
