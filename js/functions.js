@@ -1,6 +1,14 @@
 import { timeago } from './utils.min.js';
 import { replaceRedditLinks, htmlDecode } from './html.min.js';
 
+import {
+    okzoomer,
+    gestureToMatrix,
+    getOrigin,
+    applyMatrix
+} from '/r/ok-gesture.js';
+
+
 var bmr = '';
 // Utility functions [UNIVERSAL]
 
@@ -221,7 +229,7 @@ function searchsubs(q, event) {
     }
 
     var key = event.keyCode || event.charCode;
-    
+
     let sublist = document.getElementById('subslist');
 
     if (key !== 38 && key !== 40) {
@@ -249,13 +257,13 @@ function searchsubs(q, event) {
     if (q.length > 1) {
         if (key === 13) { // enter
             window.location = 'subreddit.html?r=' +document.getElementById('subssearchi').value + '';
-            
+
         } else if (key === 38) { // arrow up
 
             if (subslist.querySelectorAll('a').length === 0) {
                 return;
             }
-            
+
             if (typeof selectedSeachResult === 'number') {
                 selectedSeachResult--;
             } else {
@@ -266,7 +274,7 @@ function searchsubs(q, event) {
                 selectedSeachResult = selectedSeachResult = subslist.querySelectorAll('a').length - 1;
             }
 
-            subslist.querySelectorAll('a').forEach((a) => { 
+            subslist.querySelectorAll('a').forEach((a) => {
                 a.classList.remove('selected');
             })
             subslist.querySelectorAll('a')[selectedSeachResult].classList.add('selected');
@@ -286,7 +294,7 @@ function searchsubs(q, event) {
                 selectedSeachResult = 0;
             }
 
-            subslist.querySelectorAll('a').forEach((a) => { 
+            subslist.querySelectorAll('a').forEach((a) => {
                 a.classList.remove('selected');
             })
             subslist.querySelectorAll('a')[selectedSeachResult].classList.add('selected');
@@ -1223,18 +1231,63 @@ const _closeModalHandler = function(e) {
     }
 }
 
+function initGestures(el) {
+    if (!window.DOMMatrix) {
+        if (window.WebKitCSSMatrix) {
+            window.DOMMatrix = window.WebKitCSSMatrix;
+        } else {
+            throw new Error("Couldn't find a DOM Matrix implementation");
+        }
+    }
+
+    let origin;
+    let initial_ctm = new DOMMatrix();
+    el.style.transformOrigin = '0 0';
+
+    okzoomer(document.querySelector('#dialog'), {
+        startGesture(gesture) {
+            /*
+                Clear the element's transform so we can
+                measure its original position wrt. the screen.
+
+                (We don't need to restore it because it gets
+                overwritten by `applyMatrix()` anyways.)
+             */
+            el.style.transform = '';
+            origin = getOrigin(el, gesture);
+            applyMatrix(
+                el,
+                gestureToMatrix(gesture, origin).multiply(initial_ctm)
+            );
+        },
+        doGesture(gesture) {
+            applyMatrix(
+                el,
+                gestureToMatrix(gesture, origin).multiply(initial_ctm)
+            );
+        },
+        endGesture(gesture) {
+            initial_ctm = gestureToMatrix(gesture, origin).multiply(initial_ctm);
+            applyMatrix(el, initial_ctm);
+        }
+    });
+}
+
 function postModal(post) {
     if (document.body.offsetWidth < 480) {
         return;
     }
 
-    let dialog = document.getElementById('dialog');
+    let dialog = document.querySelector('#dialog');
     if (post.querySelector('.singleimage img')) {
         var img = post.querySelector('.singleimage img');
         dialog.querySelector('.jw-dialog-innner').appendChild(img.cloneNode(true));
         dialog.classList.add('open');
         document.body.classList.add('jw-modal-open');
         document.addEventListener('click', _closeModalHandler);
+
+
+        initGestures(document.querySelector('#dialog .jw-dialog-innner img'));
     }
 }
 

@@ -8,6 +8,8 @@
     --whitec: #fff;
     --border-radius: 6px;
     --current-item-marker: #f1f0f6;
+
+    --content-width: 37.5rem;
 }
 
 body {
@@ -163,7 +165,7 @@ p {
 
 div#body {
     margin: 0 auto;
-    max-width: 500px;
+    max-width: var(--content-width);
     min-height: 100vh;
 }
 
@@ -361,7 +363,7 @@ div#subssearch {
     left: 0;
     right: 0;
     width: calc(100% - 20px);
-    max-width: 500px;
+    max-width: var(--content-width);
     margin: 0 auto;
     background: white;
     background: var(--bodyc);
@@ -470,7 +472,7 @@ div#rightbar {
     position: absolute;
     right: 0;
     width: 50%;
-    max-width: 500px;
+    max-width: var(--content-width);
     margin: 0 auto;
     background: white;
     background: var(--bodyc);
@@ -676,7 +678,7 @@ span.menubars:after {
     border-radius: var(--border-radius);
     font-size: 16px;
     outline: none;
-    max-width: 600px;
+    max-width: var(--content-width);
     color: var(--textc);
     float: left;
 }
@@ -999,7 +1001,7 @@ span#taptoopenmenu {
 
 .infotext {
     margin: 0 auto;
-    max-width: 500px;
+    max-width: var(--content-width);
     padding: 15px;
 }
 
@@ -1152,10 +1154,10 @@ body>#body {
     padding-top: 40px;
 }
 
-@media (min-width: 500px) {
+@media (min-width: 37.5rem) {
     body>#header {
-        max-width: 500px;
-        left: calc(50vw - 250px);
+        max-width: var(--content-width);
+        left: calc(50vw - var(--content-width) / 2);
     }
 
 }
