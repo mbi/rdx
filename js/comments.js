@@ -1,6 +1,6 @@
 import { timeago } from './utils.min.js';
 import { replaceRedditLinks, htmlDecode } from './html.min.js';
-
+import { getget } from "./functions.min.js?v=CACHEBUSTER";
 
 export function cbuilder(comment) {
     let timeagoed = timeago(comment['created_utc'] * 1000);
@@ -84,7 +84,11 @@ function handlerepliesm(repliesc){
 
     for(let replyx in repliesls) {
         if(repliesls[replyx]['kind'] == "more"){
-            ret += '<div class="comment ccp'+ repliesls[replyx]['data']['depth'] +'"><div class="comment_author"><a href="?url=https://www.reddit.com'+ repliesls[replyx]['data']['permalink'] +' " >View other replies</a></div></div>';
+            ret += '<div class="comment ccp'
+                + repliesls[replyx]['data']['depth']
+                +'"><div class="comment_author"><a href="?url=https://www.reddit.com'
+                + repliesls[replyx]['data']['permalink']
+                +' " >View other replies</a></div></div>';
         }
         else {
             ret += cbuilder(repliesls[replyx]['data']);
@@ -105,7 +109,10 @@ function handlereplies(replies){
     for(let reply in repliesl) {
         //console.log("yy" + reply);
         if(repliesl[reply]['kind'] == "more"){
-            ret += '<div class="comment ccp'+ repliesl[reply]['data']['depth'] +'"><div class="comment_author"><a href="?url=https://www.reddit.com'+ repliesl[reply]['data']['permalink'] +' " >View other replies</a></div></div>';
+            let url = getget('url');
+            ret += '<a class="viewmore" href="?url='
+                + url + repliesl[reply]['data']['id']
+                +'/">View more replies</a>';
         } else {
             ret += cbuilder(repliesl[reply]['data']);
             var repliesz  = repliesl[reply]['data']['replies'];
