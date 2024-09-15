@@ -7,7 +7,7 @@
     --lightc: #444;
     --whitec: #fff;
     --border-radius: 6px;
-    --current-item-marker: var(--greyc);
+    --current-item-marker: var(--mid-grey);
 
     --content-width: 37.5rem;
 }
