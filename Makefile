@@ -18,14 +18,17 @@ compress:
 	terser js/init-user.js --compress --mangle -o public/init-user.min.js
 	terser js/init-saved.js --compress --mangle -o public/init-saved.min.js
 
-	find public -name \*.js -o -name \*.html -exec sed -i 's/CACHEBUSTER/'`strings /dev/urandom | grep -o '[[:alnum:]]' | head -n 8 | tr -d '\n'`'/g' {} \;
-
 	terser public/r/slide-show/slide-show.js --compress --mangle -o public/r/slide-show/slide-show.min.js
 	terser public/r/overflow-toggle/overflow-toggle.js --compress --mangle -o public/r/overflow-toggle/overflow-toggle.min.js
 
 	cleancss -o public/styles.min.css css/styles.css
 	cleancss -o public/r/slide-show/slide-show.min.css public/r/slide-show/slide-show.css
 	cleancss -o public/r/overflow-toggle/overflow-toggle.min.css public/r/overflow-toggle/overflow-toggle.css
+
+cachebust:
+	find public '(' -name \*.js -o -name \*.html ')' \
+		-exec sed -i 's/CACHEBUSTER/'`strings /dev/urandom | grep -o '[[:alnum:]]' | head -n 8 | tr -d '\n'`'/g' {} \;
+
 
 build:
 	cp css/styles.css public/styles.min.css
@@ -44,8 +47,10 @@ build:
 
 	python build.py
 
-build-min: compress
+python-build:
 	python build.py --minify
+
+build-min: compress python-build cachebust
 
 serve: build
 	cd public && python -m http.server 8000
@@ -59,5 +64,5 @@ build-deps:
 	npm install clean-css-cli -g
 	npm install terser -g
 
-deploy: build-min commit
+deploy: build-min commit cachebust
 	 ssh -A ${DEPLOY_HOST} ${DEPLOY_CMD}
