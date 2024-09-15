@@ -1070,7 +1070,7 @@ function setupUnloadVideo(vid) {
       };
     });
     setTimeout(() => {
-        console.log('setupUnloadVideo', vid.id);
+        // console.log('setupUnloadVideo', vid.id);
         intersectionObserver.observe(vid);
     }, 1000);
 }
@@ -1303,7 +1303,7 @@ function closeModal() {
 
 
 export function postsLoadedCallback(is_initial=true) {
-    console.log('postsLoadedCallback', is_initial);
+    // console.log('postsLoadedCallback', is_initial);
     activatePost(false);
 
     if (document.body.classList.contains('comments')) {
