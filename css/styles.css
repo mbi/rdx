@@ -130,7 +130,7 @@ p {
 
 .comment.ccp0 {
     border-left: 2px solid transparent;
-    border-top: 2px solid var(--greyc);
+   
 }
 
 
@@ -176,10 +176,14 @@ a.viewmore {
     text-align: right;
     color: #333;
     color: var(--lightc);
-    font-size: 14px;
-    margin-bottom: 3px;
-    margin-top: -10px;
+    font-size: 12px;
+    margin-bottom: 6px;
     padding-right: 6px;
+    text-decoration: none;
+}
+
+a.viewmore + .comment {
+    border-top: 3px solid var(--greyc);
 }
 
 
@@ -894,7 +898,7 @@ div#subscribed {
 .md {
     line-height: 1.2;
     font-size: 16px;
-    text-align: justify;
+/*    text-align: justify;*/
 }
 
 div#subscribed a {
