@@ -6,14 +6,14 @@
     --mid-grey: #aaa;
     --lightc: #444;
     --whitec: #fff;
+    --current-item-marker: #aaaaaa69;
     --border-radius: 6px;
-    --current-item-marker: var(--mid-grey);
-
     --content-width: 37.5rem;
 }
-
+html {
+    font-size: 100%;
+}
 body {
-    font-size: 18px;
     font-family: segoe ui, arial, sans-serif;
     margin: 0 auto;
     background: #white;
@@ -225,7 +225,7 @@ a.viewmore + .comment {
 }
 
 .post_author {
-    font-size: 14px;
+    font-size: 13px;
     color: #555;
     color: var(--lightc);
     overflow: auto;
@@ -511,7 +511,7 @@ iframe.gifframe {
 }
 
 .post_meta {
-    font-size: 14px;
+    font-size: 13px;
     color: #444;
     color: var(--lightc);
     padding: 5px 2px 0px;
@@ -1259,6 +1259,7 @@ overflow-toggle[open]::part(button) {
 }
 .comments-icon::before {
     vertical-align: -1px;
+    height: 12px;
     background-image:url('speech-bubble.svg');
 }
 

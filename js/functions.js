@@ -370,7 +370,8 @@ export function postbuilder(post) {
         } else {
 
             if (typeof urli != "undefined" && post['removed_by_category'] == null) {
-                returnfpost += '<div class="urlpreview ' + over18 + '">' + urlpreview(urli, post) + '</div><div style="text-align: right;font-size:12px;"><a href="' + post['url'] + '"><small>Open URL</small></a></div>';
+                returnfpost += '<div class="urlpreview ' + over18 + '">' + urlpreview(urli, post) + '</div>';
+                //returnfpost += '<div style="text-align: right;font-size:12px;"><a href="' + post['url'] + '"><small>Open URL</small></a></div>';
             }
             if (post['removed_by_category'] != null) {
                 returnfpost += 'Removed by ' + post['removed_by_category'];
