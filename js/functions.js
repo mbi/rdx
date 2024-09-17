@@ -1,12 +1,12 @@
-import { timeago } from './utils.min.js';
-import { replaceRedditLinks, htmlDecode } from './html.min.js';
+import { timeago } from './utils.min.js?v=CACHEBUSTER';
+import { replaceRedditLinks, htmlDecode } from './html.min.js?v=CACHEBUSTER';
 
 import {
     okzoomer,
     gestureToMatrix,
     getOrigin,
     applyMatrix
-} from './ok-gesture.min.js';
+} from './ok-gesture.min.js?v=CACHEBUSTER';
 
 
 var bmr = '';

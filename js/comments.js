@@ -1,5 +1,5 @@
-import { timeago } from './utils.min.js';
-import { replaceRedditLinks, htmlDecode } from './html.min.js';
+import { timeago } from './utils.min.js?v=CACHEBUSTER';
+import { replaceRedditLinks, htmlDecode } from './html.min.js?v=CACHEBUSTER';
 import { getget } from "./functions.min.js?v=CACHEBUSTER";
 
 export function cbuilder(comment) {
