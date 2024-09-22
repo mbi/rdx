@@ -130,7 +130,7 @@ p {
 
 .comment.ccp0 {
     border-left: 2px solid transparent;
-   
+
 }
 
 
@@ -225,7 +225,7 @@ a.viewmore + .comment {
 }
 
 .post_author {
-    font-size: 13px;
+    font-size: 14px;
     color: #555;
     color: var(--lightc);
     overflow: auto;
@@ -511,7 +511,7 @@ iframe.gifframe {
 }
 
 .post_meta {
-    font-size: 13px;
+    font-size: 14px;
     color: #444;
     color: var(--lightc);
     padding: 5px 2px 0px;
