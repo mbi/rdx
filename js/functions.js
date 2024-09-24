@@ -485,7 +485,7 @@ function urlpreview(urli, postjson) {
         let pjmd = postjson['media_metadata'];
         let pjgd = postjson['gallery_data'];
         const pjmdsorted = {};
-        if (pjgd) {
+        if (pjgd && pjmd) {
             pjgd.items.forEach((item, index) => {
                 const mediaId = item.media_id;
                 if (pjmd.hasOwnProperty(mediaId)) {
