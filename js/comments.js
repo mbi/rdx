@@ -13,19 +13,17 @@ export function cbuilder(comment) {
     let media_html = null;
     if(comment.media_metadata) {
         media_html = '';
-        Object.keys(comment.media_metadata).forEach((k) => {
+        for (let k in comment.media_metadata) {
             let v = comment.media_metadata[k];
-
-            if(v && v.m && v.m.indexOf('image') === 0 && v.s.u) {
+            if(v?.m?.indexOf('image') === 0 && v?.s?.u) {
                 body_html += '<img style="max-width:'+ v.s.x +'px" class="comment-image" src="' + v.s.u + '" />';
             }
-        });
-
+        };
 
     } else if (comment.body.indexOf('https://youtu.be') === 0) {
-        var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;  
-        var match = comment.body.match(regExp);  
-        if (match && match[7].length == 11) {    
+        var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+        var match = comment.body.match(regExp);
+        if (match && match[7].length == 11) {
             media_html = '<div class="video-frame-wrapper">'
             +'<iframe class="comment-video" frameborder="0" '
             +'src="https://www.youtube.com/embed/'+ match[7] +'">'
