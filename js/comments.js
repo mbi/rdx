@@ -7,6 +7,20 @@ export function cbuilder(comment) {
     let isop = comment['is_submitter'] == true ? "isop" : "";
     let ismod = comment['distinguished'] == " moderator" ? "ismod" : "";
 
+    let body_html = htmlDecode(comment['body_html']);
+
+    /* Replace image posts */
+    if(comment.media_metadata) {
+        body_html = '';
+        Object.keys(comment.media_metadata).forEach((k) => {
+            let v = comment.media_metadata[k];
+
+            if(v && v.m && v.m.indexOf('image') === 0 && v.s.u) {
+                body_html += '<img style="max-width:'+ v.s.x +'px" class="comment-image" src="' + v.s.u + '" />';
+            }
+        })
+    }
+
     let cret = '<div class="comment ccp'
         + comment['depth'] + (comment['author'] === 'AutoModerator' ? ' collapsed' : '')
         + '" id="' + comment['id']
@@ -20,7 +34,7 @@ export function cbuilder(comment) {
         + ' &bull; '
         + timeagoed
         + ' </span></div><div class="comment_text">'
-        + replaceRedditLinks(htmlDecode(comment['body_html']))
+        + replaceRedditLinks(body_html)
         + '</div>';
 
     cret += '</div>';

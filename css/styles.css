@@ -44,6 +44,11 @@ a {
     background: var(--greyc);
 }
 
+.comment-image {
+    width: 100%;
+    height: auto;
+}
+
 .comment_text { margin-top: 4px }
 .postc.selftext {
     word-break: break-word;
