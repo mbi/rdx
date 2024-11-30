@@ -12,11 +12,18 @@ export function cbuilder(comment) {
     /* Replace image posts */
     let media_html = null;
     if(comment.media_metadata) {
+        // console.log(comment.media_metadata)
         media_html = '';
         for (let k in comment.media_metadata) {
             let v = comment.media_metadata[k];
             if(v?.m?.indexOf('image') === 0 && v?.s?.u) {
-                body_html += '<img style="max-width:'+ v.s.x +'px" class="comment-image" src="' + v.s.u + '" />';
+                let link = '<a href="' + v.s.u + '">' + v.s.u + '</a>';
+                if (body_html.indexOf(link)) {
+                    body_html = body_html.replace(
+                        link,
+                        '<img style="max-width:'+ v.s.x +'px" class="comment-image" src="' + v.s.u + '" />'
+                    );
+                }
             }
         };
 
