@@ -47,6 +47,7 @@ a {
 .comment-image {
     width: 100%;
     height: auto;
+    cursor: pointer;
 }
 
 .comment_text { margin-top: 4px }

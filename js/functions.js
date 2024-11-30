@@ -1286,10 +1286,40 @@ function postModal(post) {
         dialog.classList.add('open');
         document.body.classList.add('jw-modal-open');
         document.addEventListener('click', _closeModalHandler);
-
+        document.addEventListener('keydown', (e) => {
+            if(e.key === 'Escape') {
+                _closeModalHandler(e);
+            }
+        });
 
         initGestures(document.querySelector('#dialog .jw-dialog-innner img'));
     }
+}
+
+function commentModal(img) {
+    if (document.body.offsetWidth < 480) {
+        return;
+    }
+
+    let dialog = document.querySelector('#dialog');
+    let img_clone = img.cloneNode(true);
+    let dialog_inner = dialog.querySelector('.jw-dialog-innner');
+    img_clone.style.maxWidth = 'none';
+    dialog_inner.querySelectorAll('img').forEach((existing_img) => {
+        dialog_inner.removeChild(existing_img);
+    });
+    dialog_inner.appendChild(img_clone);
+    dialog.classList.add('open');
+    document.body.classList.add('jw-modal-open');
+    document.addEventListener('click', _closeModalHandler);
+    document.addEventListener('keydown', (e) => {
+        if(e.key === 'Escape') {
+            _closeModalHandler(e);
+        }
+    });
+
+    initGestures(document.querySelector('#dialog .jw-dialog-innner img'));
+
 }
 
 function closeModal() {
@@ -1466,6 +1496,9 @@ addEventListener("DOMContentLoaded", (event) => {
                 postModal(post);
             }
 
+        } else if (e.target.closest('.comment-image')) {
+            var img = e.target.closest('.comment-image');
+            commentModal(img);
         }
     });
 
@@ -1497,6 +1530,10 @@ addEventListener("DOMContentLoaded", (event) => {
                 break;
 
             case 'Escape':
+                if (document.body.classList.contains('jw-modal-open')) {
+                    return;
+                }
+
             case 'ArrowLeft':
                 e.preventDefault();
                 document.body.classList.contains('comments') ? collapseCurrentComment() : closeModal();
