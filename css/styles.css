@@ -1239,8 +1239,8 @@ slide-show::part(controls) {
 
 overflow-toggle::part(button) {
     font-size: 14px;
-    height: 25px;
-    width: 25px;
+    height: 32px;
+    width: 32px;
     line-height: 0;
     padding: 0;
     margin-bottom: 0.5rem;
