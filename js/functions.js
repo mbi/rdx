@@ -239,11 +239,14 @@ function searchsubs(q, event) {
             if (xhr.readyState === 4 && xhr.status == 200) {
                 var resp = xhr.response;
                 var fillsubs = '';
-                for (var singlesub in resp['subreddits']) {
+                let subs = resp['subreddits'].filter((sub) => sub.numSubscribers);
+                subs.sort((a, b) => {
+                    return b.numSubscribers - a.numSubscribers
+                })
+                for (var singlesub in subs) {
                     //console.log(subslist[singlesub]);
-                    let icon = resp['subreddits'][singlesub]['icon'];
-                    icon = icon ? icon : resp['subreddits'][singlesub]['communityIcon'];
-                    fillsubs += '<a class="sub-result" style="background-image:url(' + icon + ')" href="subreddit.html?r=' + resp['subreddits'][singlesub]['name'] + '">' + resp['subreddits'][singlesub]['name'] + '</a>';
+                    let icon = subs[singlesub]['icon'] || subs[singlesub]['communityIcon'] || '/favicon.png';
+                    fillsubs += '<a class="sub-result" style="background-image:url(' + icon + ')" href="subreddit.html?r=' + subs[singlesub]['name'] + '">' + subs[singlesub]['name'] + '</a>';
                 }
                 sublist.innerHTML = fillsubs;
 
