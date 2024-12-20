@@ -241,7 +241,9 @@ function searchsubs(q, event) {
                 var fillsubs = '';
                 for (var singlesub in resp['subreddits']) {
                     //console.log(subslist[singlesub]);
-                    fillsubs += '<a href="subreddit.html?r=' + resp['subreddits'][singlesub]['name'] + '">' + resp['subreddits'][singlesub]['name'] + '</a>';
+                    let icon = resp['subreddits'][singlesub]['icon'];
+                    icon = icon ? icon : resp['subreddits'][singlesub]['communityIcon'];
+                    fillsubs += '<a class="sub-result" style="background-image:url(' + icon + ')" href="subreddit.html?r=' + resp['subreddits'][singlesub]['name'] + '">' + resp['subreddits'][singlesub]['name'] + '</a>';
                 }
                 sublist.innerHTML = fillsubs;
 
@@ -249,7 +251,7 @@ function searchsubs(q, event) {
             }
         }
         xhr.responseType = 'json';
-        xhr.open('GET', 'https://old.reddit.com//api/subreddit_autocomplete/.json?query=' + q + '&include_profiles=false&include_over_18=true', true)
+        xhr.open('GET', 'https://old.reddit.com/api/subreddit_autocomplete/.json?query=' + q + '&include_profiles=false&include_over_18=true', true)
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.send();
     }

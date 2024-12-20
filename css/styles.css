@@ -397,6 +397,11 @@ div#subslist a {
     color: var(--textc);
     font-size: 16px;
     padding-left: 2%;
+
+    background-size: auto 90%;
+    background-repeat: no-repeat;
+    padding-left: 49px;
+    background-position: 0 2px;
 }
 
 input#subssearchi {
