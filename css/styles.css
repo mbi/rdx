@@ -16,7 +16,6 @@ html {
 body {
     font-family: segoe ui, arial, sans-serif;
     margin: 0 auto;
-    background: #white;
     background: var(--greyc);
     color: var(--textc);
 }
@@ -112,7 +111,7 @@ blockquote::before {
   font-size: 2.5em;
   color: var(--mid-grey);
   font-style: italic;
-  background: white;
+  background: var(--whitec);
   height: 30px;
   line-height: 1;
 }
@@ -243,7 +242,7 @@ a.viewmore + .comment {
     text-decoration: none;
     font-size: 16px;
     color: #27598c;
-    color: black;
+    color: var(--textc);
     word-break: break-word;
     font-weight: 600;
     display: block;
@@ -806,7 +805,7 @@ button.sfwtoggle {
 }
 
 div#popitup {
-    background: black;
+    background: var(--textc);
     background: var(--greyc);
     position: fixed;
     left: 0;
@@ -1031,7 +1030,7 @@ span#taptoopenmenu {
 }
 
 div#newgallery {
-    background: black;
+    background: var(--textc);
     position: fixed;
     left: 0;
     right: 0;
@@ -1267,7 +1266,7 @@ overflow-toggle::part(content)::after {
     display: block;
     width: calc(100% - 2rem);
     height: 1.75rem;
-    background: linear-gradient(180deg, rgba(255,255,255, 0) 0%, rgba(255,255,255,1) 100%);
+    background: linear-gradient(180deg, var(--whitec) 0%, rgba(255,255,255,1) 100%);
 }
 overflow-toggle[open]::part(content)::after {
     content: unset;
@@ -1415,3 +1414,36 @@ body.jw-modal-open {
 #subslist a.selected {
     background-color: var(--greyc);
 }
+
+
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bodyc: black;
+        --textc: #eee;
+        --linkc: white;
+        --greyc: #222;
+        --whitec: #333;
+        --lightc: white;
+
+        /*
+        --mid-grey: #aaa;
+        --current-item-marker: #aaaaaa69;
+        */
+    }
+
+    overflow-toggle::part(content)::after{
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, var(--whitec) 100%)
+    }
+
+    .ext-url-icon::before,
+    .upvotes-icon::before,
+    .comments-icon::before {
+        filter: invert();
+    }
+
+    blockquote::before {
+
+
+}
+
