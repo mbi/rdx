@@ -1324,7 +1324,7 @@ overflow-toggle[open]::part(button) {
     height: 100px;
     top: calc(50% - 50px);
     left: calc(50% - 50px);
-    background-image:url('play-button.svg');
+    background-image:url('play-button.svg?v=2');
     background-repeat: no-repeat;
     background-size: contain;
     transition: opacity 0.25s;
