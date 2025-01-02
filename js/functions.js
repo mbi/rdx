@@ -437,13 +437,17 @@ function galleryopen(theid) {
 function previewImage(postjson) {
     var ret_url;
     try {
-        var ret = postjson.preview.images[0].resolutions[0];
-        postjson.preview.images[0].resolutions.forEach( (obj) => {
+        if(postjson?.preview?.images[0]?.resolutions?.length) {
+            var ret = postjson.preview.images[0].resolutions[0];
+            postjson.preview.images[0].resolutions.forEach( (obj) => {
             if (obj.width && obj.width >= ret.width && obj.width <= 640) {
-                ret = obj;
-            }
-        })
-        ret_url = ret.url;
+                    ret = obj;
+                }
+            })
+            ret_url = ret.url;
+        } else if (postjson.preview.images[0].source && postjson.preview.images[0].source.url) {
+            ret_url = postjson.preview.images[0].source.url
+        }
     } catch(err) {
         ret_url  = postjson["thumbnail"];
     }
@@ -646,6 +650,8 @@ function urlpreview(urli, postjson) {
         returnpost += '</template>';
         returnpost += '</div>';
     } else {
+
+        console.log(postjson)
 
         var thumbnailforit = previewImage(postjson) || '';
         if (thumbnailforit) {
