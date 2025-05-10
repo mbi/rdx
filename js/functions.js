@@ -102,7 +102,9 @@ export function  makereq(url) {
     };
     req.onerror = function(e) {
         document.getElementById('body').innerHTML = '<center style="padding:15px;">Can\'t load content!<br><small>There can be multiple reasons for this, your browser\'s aggresive privacy settings may be blocking the one call to reddit.com RDX makes. This happens usually when you use a VPM/Proxy and/or a privacy focused browser like Firefox.<br> Play around with privacy/tracking options or change your browser. If it still doesn\'t work click the feedback link and send me some info.</small></center>';
-        document.getElementById('body').innerHTML += '<code style="padding:15px; margin-top: 1rem; border: 1px solid>' +  e.target.status +'</code>';
+        document.getElementById('body').innerHTML += '<code style="padding:15px; margin-top: 1rem; border: 1px solid>' +  req.statusText +'</code>';
+        document.getElementById('body').innerHTML += '<code style="padding:15px; margin-top: 1rem; border: 1px solid>' +  req.status +'</code>';
+
     };
     req.send(null);
 }
