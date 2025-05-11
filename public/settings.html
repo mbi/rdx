@@ -34,8 +34,12 @@ b,li{display:block;padding:5px;margin:5px;}
      <b>Enable Compact mode : <input type="checkbox" id="compbox" onchange="compchng();"></b>
 
       <b>Export Subscriptions:</b>
+      <li><button onclick="exportData()">Export Data</button></li>
+
       <li>
-    <button onclick="exportData()">Export Data</button></li>
+        <label for="base-url">Base URL</label>
+        <input type="text" id="base-url" value="" onblur="save_base_url();" />
+      </li>
 
     <b>Import Subscriptions:</b>
     <li>Upload a rdx_subs.json file to import your rdx subscriptions.</li>
@@ -86,6 +90,13 @@ const curinfi = true; // localStorage.getItem('curinfi') === "true";
 document.getElementById("infibox").checked = curinfi;
 function checkinfi(){
 localStorage.setItem('curinfi',document.getElementById("infibox").checked);
+}
+
+const base_url = localStorage.getItem('base_url') || 'old.reddit.org';
+document.getElementById("base-url").value = base_url;
+
+function save_base_url() {
+    localStorage.setItem('base_url', document.getElementById("base-url").value);
 }
 
 
