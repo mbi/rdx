@@ -21,6 +21,11 @@ var nextseturl = '';
 
 var selectedSeachResult = null;
 
+const BASE_URL =  localStorage.getItem('base_url') || 'old.reddit.com';
+if (localStorage.getItem('base_url') === null) {
+    localStorage.setItem('base_url', BASE_URL);
+}
+
 if (JSON.parse(localStorage.getItem("subs")) !== null) {
     var subslisted = '';
     var subslistedarray = JSON.parse(localStorage.getItem("subs"));
@@ -61,7 +66,7 @@ export function toggle(id) {
 
 
 export function  makereq(url) {
-    url = url.replace(/www.reddit.com/g, 'old.reddit.com');
+    url = url.replace(/www.reddit.com/g, BASE_URL);
     var fill = '';
     var req = new XMLHttpRequest();
     var post_data;
@@ -69,7 +74,7 @@ export function  makereq(url) {
     req.open('GET', url, true);
     req.onload = function() {
         var jsonResponse = req.response;
-        var titlesx = url.replace("https://old.reddit.com/r/", "");
+        var titlesx = url.replace("https://"+BASE_URL+"/r/", "");
         titlesx = titlesx.replace("/.json", "");
         // setTitle('r/' + titlesx.split('?limit')[0]);
         var posts = jsonResponse['data']['children'].filter(
@@ -119,7 +124,7 @@ function scrollMore() {
 
     var post_data;
 
-    const url = nexturl.replace(/www.reddit.com/g, 'old.reddit.com');
+    const url = nexturl.replace(/www.reddit.com/g, BASE_URL);
     let fill = '';
     if (nexturl != '') {
         console.log(nexturl);
@@ -257,7 +262,7 @@ function searchsubs(q, event) {
             }
         }
         xhr.responseType = 'json';
-        xhr.open('GET', 'https://old.reddit.com/api/subreddit_autocomplete/.json?query=' + q + '&include_profiles=false&include_over_18=true', true)
+        xhr.open('GET', 'https://'+BASE_URL+'/api/subreddit_autocomplete/.json?query=' + q + '&include_profiles=false&include_over_18=true', true)
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.send();
     }
@@ -393,7 +398,7 @@ export function postbuilder(post) {
 
     returnfpost =  returnfpost
             + '<div class="post_meta"><div class="flex-left">'
-            +'<a class="comments-icon icon" href="comments.html?url=https://old.reddit.com' + post['permalink'] + '">'
+            +'<a class="comments-icon icon" href="comments.html?url=https://' + BASE_URL + post['permalink'] + '">'
             + post['num_comments'] + '</a>'
             + '<span class="upvotes-icon icon">' + post['score'] + '</span>'
             + '<a class="ext-url-icon icon" href="' +  post['url'] +'"></a>';
