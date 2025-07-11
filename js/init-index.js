@@ -1,4 +1,4 @@
-import { getget, setTitle, makereq } from "./functions.min.js?v=CACHEBUSTER";
+import {getget, makereq, setTitle} from "./functions.min.js?v=CACHEBUSTER";
 
 document.getElementById('rightbar').innerHTML = '<a href="/?x=y&sort=new">New</a><a href="/?x=y&sort=best">Best</a><a href="/?x=y&sort=rising">Rising</a><a href="/?x=y&sort=top">Top</a><a onclick="shareit();" id="sharebutton">Share</a>';
 

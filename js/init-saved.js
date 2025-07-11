@@ -1,3 +1,4 @@
+import "./functions.min.js?v=CACHEBUSTER";
 
 function displaySavedItem() {
     const savedLinks = JSON.parse(localStorage.getItem('savedlinks')) || [];
