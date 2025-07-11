@@ -1,4 +1,4 @@
-import { getget, setTitle, makereq, postbuilder, postsLoadedCallback, collapseComment } from "./functions.min.js?v=CACHEBUSTER";
+import { getget, setTitle, makereq, postbuilder, postsLoadedCallback, collapseComment, shareit } from "./functions.min.js?v=CACHEBUSTER";
 import { loadcomments, cbuilder} from './comments.min.js?v=CACHEBUSTER';
 
 var thisthread;
@@ -103,9 +103,11 @@ var links = '<a href="comments.html?url='+url+'&sort=new">New</a>'
     +'<a href="comments.html?url='+url+'&sort=controversial">Controversial</a>'
     +'<a href="comments.html?url='+url+'&sort=old">Old</a>'
     +'<a href="comments.html?url='+url+'&sort=qa">QnA</a>'
-    +'<a href="#" id="savebutton" style="border-top: 5px solid var(--greyc); cursor:pointer">Save</a>';
+    +'<a href="#" id="savebutton" style="border-top: 5px solid var(--greyc); cursor:pointer">Save</a>'
+    +'<a href="#" id="sharebutton" style=" cursor:pointer">Share</a>';
 
 document.getElementById('rightbar').innerHTML = links;
+document.getElementById('sharebutton').addEventListener('click', (e) => { shareit(); })
 url = url+'.json?limit=500';
 
 if(getget('sort') != null){

@@ -1,182 +1,106 @@
-<!DOCTYPE html><html><head>
-    <title>Settings - rdx for reddit </title>
-    <meta name="description" content="settings page of rdx for Reddit."/>
+<!doctype html>
+<html>
+<head>
+    <title>RDX</title>
+    <meta name="description" content="rdx for reddit is a fast, lightweight mobile Web Viewer for Reddit based on Apollo. Mobile friendly reader for Reddit. Browse Reddit without Ads."/>
     <link rel="shortcut icon" href="favicon.ico">
-  <link rel="icon" href="favicon.png">
-      <link rel="manifest" href="/manifest.json" />
- <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="icon" href="favicon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="rdx" />
-    <meta   name="apple-mobile-web-app-status-bar-style" content="default" />
-     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta charset="utf-8">
-    <link rel="stylesheet" href="styles.min.css" type="text/css">
-    <style type="text/css">
-        #body {
-            padding: 15px;
-        }
-        b,li{display:block;padding:5px;margin:5px;}
-    </style>
+    <link rel="stylesheet" href="styles.min.css?v=CACHEBUSTER" type="text/css">
+    <link rel="stylesheet" href="./r/slide-show/slide-show.css?v=CACHEBUSTER" />
+    <link rel="stylesheet" href="./r/overflow-toggle/overflow-toggle.css?v=CACHEBUSTER" />
+    <script type="module" src="./r/slide-show/slide-show.js?v=CACHEBUSTER"></script>
+    <script type="module" src="./r/overflow-toggle/overflow-toggle.js?v=CACHEBUSTER"></script>
+    <script src="./r/dash.all.min.js?v=CACHEBUSTER"></script>
 </head>
-
 <body>
     <header id="header">
         <div id="pagetitle">
-            <span id="pagetitletext">Settings</span>
+            <span id="plus"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="#fff" role="img" aria-label="Menu"><path d="M140.001-254.616v-59.999h679.998v59.999H140.001Zm0-195.385v-59.998h679.998v59.998H140.001Zm0-195.384v-59.999h679.998v59.999H140.001Z"></path></svg></span>
+            <span id="taptoopenmenu"><span id="pagetitletext">Loading...</span>
+            <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" id="icon-target" style=""><path fill="currentColor" d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"></path></svg></span>
+            <span id="menu"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="#fff" role="img" aria-label="Sort and other options"><path d="M411.155-260.001V-320h137.306v59.999H411.155Zm-155-190v-59.998H703.46v59.998H256.155ZM140.001-640v-59.999h679.998V-640H140.001Z"/></svg></span>
+        </div>
+        <div id="menus">
+            <div id="subssearch" class="hidden">
+                <input type="text" id="subssearchi" name="qury" autocomplete="off">
+                <div id="subslist"></div>
+            </div>
+            <div id="leftbar" class="hidden">
+                <div class="list">
+                    <a href="index.html" class="homelinks halfit">/r/all</a><a href="home.html" class="homelinks halfit">Home</a><a href="saved.html" class="homelinks halfit">Saved</a><a href="settings.html" class="homelinks halfit">Settings</a>
+                    <div id="subscribed"></div>
+                </div>
+            </div>
+            <div id="rightbar" class="hidden"></div>
         </div>
     </header>
-    <div id="body">
+    
 
-      <b>Posts per page</b>
-      <li>
-      <input id="ppg" type="range" min="10" max="60" step="5" onchange="changedppg();"/> <span id="outppg">20</span>
-      </li>
-      <b>Enable Infinite Scrolling (beta): <input type="checkbox" id="infibox" onchange="checkinfi();"></b>
-     <b>Enable Compact mode : <input type="checkbox" id="compbox" onchange="compchng();"></b>
+<div id="settings">
+    <div class="post">
 
-      <b>Export Subscriptions:</b>
-      <li><button onclick="exportData()">Export Data</button></li>
+        <h4>Export Subscriptions:</h4>
+        <p>
+            <button id="export-data">Export Data</button>
+        </p>
 
-      <li>
-        <label for="base-url">Base URL</label>
-        <input type="text" id="base-url" value="" onblur="save_base_url();" />
-      </li>
+        <p>
+            <label for="base-url">Base URL</label>
+            <input type="text" id="base-url" value="" onblur="save_base_url();"/>
+        </p>
 
-    <b>Import Subscriptions:</b>
-    <li>Upload a rdx_subs.json file to import your rdx subscriptions.</li>
-   <li> <input type="file" id="importInput" accept=".json"><br><br>
-    <button onclick="importData()">Upload & Import</button>
-    </li>
+        <h4>Import Subscriptions:</h4>
+        <p>Upload a rdx_subs.json file to import your rdx subscriptions.</p>
+        <p><input type="file" id="importInput" accept=".json"><br><br>
+            <button id="import-data">Upload & Import</button>
+        </p>
 
-    <b>How to import subscriptions from Reddit?</b>
-    <li style="line-height:150%;">1. Go to <a href="https://old.reddit.com/subreddits">https://old.reddit.com/subreddits</a>. <br>2. Add this link (bookmarklet) <a href="javascript:(function(){const subnames=document.querySelector('.subscription-box a').href.split('/r/')[1].split('+');const jsonData=JSON.stringify(subnames,null,2);const blob=new Blob([jsonData],{type:'application/json'});const downloadLink=Object.assign(document.createElement('a'),{href:URL.createObjectURL(blob),download:'rdx_subs.json'});document.body.appendChild(downloadLink).click()&&document.body.removeChild(downloadLink);})();">rdx importer</a> to your bookmarks bar and press it while on you are on the reddit page mentioned above.<br>
-    <small>If you are unable to add the bookmark through the link, go to Bookmarks on your web browser, Add new bookmark, in the title field fill "rdx importer" and in the url field copy and paste the below text:
-    <textarea>javascript:(function(){const subnames=document.querySelector('.subscription-box a').href.split("/r/")[1].split("+");const jsonData=JSON.stringify(subnames,null,2);const blob=new Blob([jsonData],{type:'application/json'});const downloadLink=Object.assign(document.createElement('a'),{href:URL.createObjectURL(blob),download:'rdx_subs.json'});document.body.appendChild(downloadLink).click()&&document.body.removeChild(downloadLink);})();</textarea><br>
-    Now go to the reddit <a href="https://old.reddit.com/subreddits">https://old.reddit.com/subreddits</a> and in the search filed of the browser search for "rdx import" and press the link that shows up in suggestions.
-    </small><br>
-    3. It will download a file called rdx_subs.json, upload the file on this page to import your subs.
-    </li>
+        <h4>How to import subscriptions from Reddit?</h4>
+        <p style="line-height:150%;">1. Go to <a
+                href="https://old.reddit.com/subreddits">https://old.reddit.com/subreddits</a>. <br>2. Add this link
+            (bookmarklet) <a
+                    href="javascript:(function(){const subnames=document.querySelector('.subscription-box a').href.split('/r/')[1].split('+');const jsonData=JSON.stringify(subnames,null,2);const blob=new Blob([jsonData],{type:'application/json'});const downloadLink=Object.assign(document.createElement('a'),{href:URL.createObjectURL(blob),download:'rdx_subs.json'});document.body.appendChild(downloadLink).click()&&document.body.removeChild(downloadLink);})();">rdx
+                importer</a> to your bookmarks bar and press it while on you are on the reddit page mentioned above.<br>
+            <small>If you are unable to add the bookmark through the link, go to Bookmarks on your web browser, Add new
+                bookmark, in the title field fill "rdx importer" and in the url field copy and paste the below text:
+                <textarea>javascript:(function(){const subnames=document.querySelector('.subscription-box a').href.split("/r/")[1].split("+");const jsonData=JSON.stringify(subnames,null,2);const blob=new Blob([jsonData],{type:'application/json'});const downloadLink=Object.assign(document.createElement('a'),{href:URL.createObjectURL(blob),download:'rdx_subs.json'});document.body.appendChild(downloadLink).click()&&document.body.removeChild(downloadLink);})();</textarea><br>
+                Now go to the reddit <a href="https://old.reddit.com/subreddits">https://old.reddit.com/subreddits</a> and
+                in the search filed of the browser search for "rdx import" and press the link that shows up in suggestions.
+            </small><br>
+            3. It will download a file called rdx_subs.json, upload the file on this page to import your subs.
+        </p>
 
-    <li><hr /><a href="index.html">Back to home</a></li>
+
+        <div id="body">&nbsp;</div>
     </div>
-    <script>
-
-function toggletheme(){
-    const t=localStorage.getItem('tname')||"default";
-    if(t!='default'){
-        for(let e of ['bodyc','textc','linkc','greyc','lightc'])
-            document.documentElement.style.setProperty('--'+e,localStorage.getItem(e))
-    } else{
-        for(let e of ['bodyc','textc','linkc','greyc','lightc'])
-            document.documentElement.style.setProperty('--'+e,['white','black','#27598c','#eee','#444'][['bodyc','textc','linkc','greyc','lightc'].indexOf(e)])
+</div>
+<script type="module" src="init-settings.min.js?v=CACHEBUSTER"></script>
+<style>
+    #menu {
+        display: none;
     }
-}
+    #taptoopenmenu {visibility: hidden;}
+</style>
+<div class="footer">
+</div>
+<div id="dialog" class="jw-modal">
+  <div class="jw-modal-body">
+    <div class="jw-dialog-innner"></div>
+    <a href="#" class="close-modal-button" title="close"></a>
+  </div>
+</div>
+  <div id="popitup" style="display:none;">
+    <span onclick="document.getElementById('popitup').style.display='none'">Cancel</span>
+    <div id="helptext"></div>
+    <textarea class="cmntarea" id="commentText" placeholder="Write a reply!" required></textarea>
+    <input id="cmtid" value="" type="hidden"/>
+    <input id="actype" value="" type="hidden"/>
+    <button id="cmntbtn" onclick="apiAction();">Submit</button>
+  </div> <!-- rdx -->
 
-function togglefont(){
-    const f=localStorage.getItem('fname')||"default";
-    if(f!='default'){
-        const l=document.createElement('link');
-        l.rel='stylesheet';
-        l.href='https://fonts.googleapis.com/css2?family='+f+'&display=swap';
-        document.head.appendChild(l);
-        document.body.style.fontFamily=f+',sans-serif';
-    } else {
-        document.body.style.fontFamily='sans-serif'
-    }
-}
-
-togglefont();
-toggletheme();
-
-var curcomp = localStorage.getItem('curmode') || "original";
-if(curcomp == "comp") {
-    document.getElementById("compbox").checked = true;
-}
-
-
-function compchng() {
-    if(document.getElementById("compbox").checked) {
-        localStorage.setItem('curmode','comp');
-    } else {
-        localStorage.setItem('curmode','original');
-    }
-}
-
-var curpp = localStorage.getItem('ppg') || 20;
-document.getElementById('outppg').innerHTML = curpp;
-document.getElementById('ppg').value = curpp;
-
-function changedppg() {
-    localStorage.setItem('ppg',document.getElementById('ppg').value);
-    document.getElementById('outppg').innerHTML = document.getElementById('ppg').value + " (saved)";
-}
-
-const curinfi = true; // localStorage.getItem('curinfi') === "true";
-document.getElementById("infibox").checked = curinfi;
-
-function checkinfi(){
-    localStorage.setItem('curinfi',document.getElementById("infibox").checked);
-}
-
-const base_url = localStorage.getItem('base_url') || 'old.reddit.org';
-document.getElementById("base-url").value = base_url;
-
-function save_base_url() {
-    localStorage.setItem('base_url', document.getElementById("base-url").value);
-}
-
-
-function exportData() {
-    const subs = localStorage.getItem('subs');
-    if (subs) {
-        const data = JSON.parse(subs);
-        const jsonData = JSON.stringify(data, null, 2);
-        const blob = new Blob([jsonData], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'rdx_subs.json';
-        a.click();
-        URL.revokeObjectURL(url);
-    } else {
-        alert('Please subscribe to some subs before exporting!');
-    }
-}
-
-// Function to update localStorage with new data
-function updateLocalStorage(data) {
-    localStorage.setItem('subs', JSON.stringify(data));
-}
-
-// Function to display the stored data
-function displayStoredData() {
-  //  const subsData = exportData();
-    document.getElementById('storedData').textContent = JSON.stringify(subsData, null, 2);
-}
-
-// Function to import data from a JSON file
-function importData() {
-    const fileInput = document.getElementById('importInput');
-    const file = fileInput.files[0];
-    if (file) {
-        const reader = new FileReader();
-
-        reader.onload = function (event) {
-            try {
-                const importedData = JSON.parse(event.target.result);
-
-
-                updateLocalStorage(importedData);
-               // displayStoredData();
-                alert('Data imported successfully.');
-            } catch (error) {
-                alert(error+'Error importing data. Make sure the file is valid JSON.');
-            }
-        };
-
-        reader.readAsText(file);
-    }
-}
-</script>
-</body>
-</html>
-
+</body></html>

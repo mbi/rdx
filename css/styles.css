@@ -169,10 +169,19 @@ p {
     border-left: 2px solid #a662c9aa;
 }
 
-div#body {
+div#body,
+div#settings{
     margin: 0 auto;
     max-width: var(--content-width);
     min-height: 100vh;
+}
+
+div#settings {
+    background: var(--whitec);
+    padding: 10px;
+}
+div#settings li {
+    list-style: none;
 }
 
 a.viewmore {
@@ -1152,6 +1161,7 @@ span.authorttext.isop:after {
         z-index: 1000;
     }
 
+    div#settings,
     div#body {
         margin-top: 43px;
     }
@@ -1165,6 +1175,7 @@ body>#header {
     z-index: 3;
 }
 
+body>#settings,
 body>#body {
     padding-top: 40px;
 }

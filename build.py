@@ -35,6 +35,9 @@ def build(minify=False):
                 .replace("</body>", footer_html)
             )
 
+            if f == 'html/settings.html':
+                html = html.replace('<div id="body"></div>', '')
+
             with open(f.replace("html/", "public/"), "w") as dest:
                 dest.write(html)
 

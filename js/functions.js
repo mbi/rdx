@@ -789,7 +789,7 @@ function runhsl() {
 }
 
 
-function shareit() {
+export function shareit() {
     if (navigator.share) {
         const t = window.location.href;
         const n = document.title;

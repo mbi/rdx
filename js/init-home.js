@@ -1,4 +1,4 @@
-import { getget, setTitle, makereq } from "./functions.min.js?v=CACHEBUSTER";
+import { getget, setTitle, makereq, shareit } from "./functions.min.js?v=CACHEBUSTER";
 
 var fill = '';
 
@@ -36,7 +36,6 @@ if(getget('before') != null){
 }
 
 document.getElementById('pagetitletext').innerHTML = 'Home';
-document.getElementById('rightbar').innerHTML = '<a href="/?x=y&sort=new">New</a><a href="/?x=y&sort=best">Best</a><a href="/?x=y&sort=rising">Rising</a><a href="/?x=y&sort=top">Top</a><a onclick="shareit();" id="sharebutton">Share</a>';
-
+document.getElementById('rightbar').innerHTML = '<a href="/?x=y&sort=new">New</a><a href="/?x=y&sort=best">Best</a><a href="/?x=y&sort=rising">Rising</a><a href="/?x=y&sort=top">Top</a>';
 setTitle('Home');
 makereq(url);

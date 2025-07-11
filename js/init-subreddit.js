@@ -1,7 +1,7 @@
 
 import { getget, setTitle, makereq, checklc } from "./functions.min.js?v=CACHEBUSTER";
 
-var links = '<a href="subreddit.html?r='+getget('r')+'&sort=new">New</a><a href="subreddit.html?r='+getget('r')+'&sort=best">Best</a><a href="subreddit.html?r='+getget('r')+'&sort=rising">Rising</a><a href="subreddit.html?r='+getget('r')+'&sort=top">Top</a><a href="subreddit.html?r='+getget('r')+'&sort=top&t=week">Top (week)</a><a href="subreddit.html?r='+getget('r')+'&sort=top&t=month">Top (month)</a><a href="subreddit.html?r='+getget('r')+'&sort=top&t=year">Top (year)</a><a href="subreddit.html?r='+getget('r')+'&sort=top&t=all">Top (all)</a><a onclick="shareit();" id="sharebutton">Share</a>';
+var links = '<a href="subreddit.html?r='+getget('r')+'&sort=new">New</a><a href="subreddit.html?r='+getget('r')+'&sort=best">Best</a><a href="subreddit.html?r='+getget('r')+'&sort=rising">Rising</a><a href="subreddit.html?r='+getget('r')+'&sort=top">Top</a><a href="subreddit.html?r='+getget('r')+'&sort=top&t=week">Top (week)</a><a href="subreddit.html?r='+getget('r')+'&sort=top&t=month">Top (month)</a><a href="subreddit.html?r='+getget('r')+'&sort=top&t=year">Top (year)</a><a href="subreddit.html?r='+getget('r')+'&sort=top&t=all">Top (all)</a>';
 var substoload = getget('r');
 
 if(checklc('subs', substoload)){
