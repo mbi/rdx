@@ -1,4 +1,5 @@
 import "./functions.min.js?v=CACHEBUSTER";
+import {getSubs} from "./functions";
 
 
 const base_url = localStorage.getItem('base_url') || 'old.reddit.org';
@@ -10,7 +11,7 @@ function save_base_url() {
 
 
 function exportData() {
-    const subs = localStorage.getItem('subs');
+    const subs = getSubs();
     if (subs) {
         const data = JSON.parse(subs);
         const jsonData = JSON.stringify(data, null, 2);

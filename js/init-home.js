@@ -1,13 +1,13 @@
-import { getget, setTitle, makereq, shareit } from "./functions.min.js?v=CACHEBUSTER";
+import { getget, setTitle, makereq, shareit, getSubs } from "./functions.min.js?v=CACHEBUSTER";
 
 var fill = '';
 
 var substoload;
 
-if(JSON.parse(localStorage.getItem("subs")) == null || JSON.parse(localStorage.getItem("subs")).length == 0){
+if(getSubs().length === 0){
     substoload = "all";
 } else {
-    var subsarray= JSON.parse(localStorage.getItem("subs"));
+    var subsarray= getSubs();
     substoload = subsarray.join("+");
 }
 

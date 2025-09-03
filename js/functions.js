@@ -26,12 +26,84 @@ if (localStorage.getItem('base_url') === null) {
     localStorage.setItem('base_url', BASE_URL);
 }
 
-if (JSON.parse(localStorage.getItem("subs")) !== null) {
+
+export function getSubs() {
+    if (localStorage.getItem("subs") !== null) {
+        var subslistedarray = JSON.parse(localStorage.getItem("subs"));
+        subslistedarray.sort(function(a, b) {
+            return a.toLowerCase().localeCompare(b.toLowerCase());
+        });
+        return subslistedarray;
+    }
+
+    return [
+        "tearsofthekingdom",
+        "GasStationJamboree",
+        "taskmaster",
+        "SBCs",
+        "toolgifs",
+        "AbsurdistVideos",
+        "ThisLooksFun",
+        "BattleBotsRaw",
+        "Damnthatsinteresting",
+        "ArtStationsFinest",
+        "OldSchoolCool",
+        "Satisfyingasfuck",
+        "archlinux",
+        "oglaf",
+        "SublimeText",
+        "books",
+        "explainlikeimfive",
+        "gifs",
+        "todayilearned",
+        "nethack",
+        "django",
+        "printSF",
+        "dystopianbooks",
+        "behindthegifs",
+        "nealstephenson",
+        "woahdude",
+        "videos",
+        "MadeMeSmile",
+        "Lausanne",
+        "vaud",
+        "Syncthing",
+        "ReversedGIFS",
+        "theocho",
+        "WTF",
+        "gifsthatkeepongiving",
+        "ftlgame",
+        "linux",
+        "BetterEveryLoop",
+        "interestingasfuck",
+        "Documentaries",
+        "pics",
+        "comics",
+        "softwaregore",
+        "nextfuckinglevel",
+        "wtfamazon",
+        "Python",
+        "glastonbury",
+        "linux_devices",
+        "television",
+        "apolloapp",
+        "NintendoSwitch",
+        "space",
+        "technology",
+        "specializedtools",
+        "panelshow",
+        "Art",
+        "worldnews",
+        "DjangoCMS",
+        "HumanTippyTaps",
+        "ProgrammerHumor",
+        "Breath_of_the_Wild"
+    ]
+}
+
+if (getSubs()) {
     var subslisted = '';
-    var subslistedarray = JSON.parse(localStorage.getItem("subs"));
-    subslistedarray.sort(function(a, b) {
-        return a.toLowerCase().localeCompare(b.toLowerCase());
-    });
+    var subslistedarray = getSubs();
 
     for (var x in subslistedarray) {
         subslisted += '<a href="subreddit.html?r=' + subslistedarray[x] + '" class="homelinks">' + subslistedarray[x] + '</a>';
