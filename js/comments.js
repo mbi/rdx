@@ -92,17 +92,23 @@ export function loadcomments(comments){
 }
 
 
-function handlerepliesmn(repliesca){
+function handlerepliesmn(repliesca) {
     var ret = '';
     let replieslsa = repliesca['data']['children'];
-    for(let replyxy in replieslsa) {
-        if(replieslsa[replyxy]['kind'] == "more"){
-            ret += '<div class="comment ccp'+ replieslsa[replyxy]['data']['depth'] +'"><div class="comment_author"><a href="?url=https://www.reddit.com'+ replieslsa[replyxy]['data']['permalink'] +' " >View other replies</a></div></div>';
+    for (let replyxy in replieslsa) {
+        if (replieslsa[replyxy]['kind'] === "more") {
+            if(replieslsa[replyxy]['data']['permalink']) {
+                ret += '<div class="comment ccp' + replieslsa[replyxy]['data']['depth'] + '">' +
+                    '<div class="comment_author">' +
+                    '<a href="?url=https://www.reddit.com' + replieslsa[replyxy]['data']['permalink'] + ' " >' +
+                    'View other replies</a>' +
+                    '</div></div>';
+            }
         } else {
             ret += cbuilder(replieslsa[replyxy]['data']);
-            var replieshha  = replieslsa[replyxy]['data']['replies'];
-            if(typeof replieshha === 'object' && replieshha !== null){
-                ret+= '<a class="viewmore" href="?url=https://www.reddit.com'+replieslsa[replyxy]['data']['permalink']+'" >view more replies</a>';
+            var replieshha = replieslsa[replyxy]['data']['replies'];
+            if (typeof replieshha === 'object' && replieshha !== null) {
+                ret += '<a class="viewmore" href="?url=https://www.reddit.com' + replieslsa[replyxy]['data']['permalink'] + '" >view more replies</a>';
             }
         }
     }
@@ -118,12 +124,15 @@ function handlerepliesm(repliesc){
     var ret = '';
 
     for(let replyx in repliesls) {
-        if(repliesls[replyx]['kind'] == "more"){
-            ret += '<div class="comment ccp'
-                + repliesls[replyx]['data']['depth']
-                +'"><div class="comment_author"><a href="?url=https://www.reddit.com'
-                + repliesls[replyx]['data']['permalink']
-                +' " >View other replies</a></div></div>';
+        if(repliesls[replyx]['kind'] === "more" ){
+            if(repliesls[replyx]['data']['permalink']) {
+                ret += '<div class="comment ccp'
+                    + repliesls[replyx]['data']['depth']
+                    +'"><div class="comment_author"><a href="?url=https://www.reddit.com'
+                    + repliesls[replyx]['data']['permalink']
+                    +' " >View other replies</a></div></div>';
+
+            }
         }
         else {
             ret += cbuilder(repliesls[replyx]['data']);

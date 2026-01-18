@@ -51,7 +51,7 @@ export function getSubs() {
         "Satisfyingasfuck",
         "archlinux",
         "oglaf",
-        "SublimeText",
+        //"SublimeText",
         "books",
         "explainlikeimfive",
         "gifs",
