@@ -40,7 +40,7 @@ export function cbuilder(comment) {
         if (match && match[1]) {
             media_html = '<div class="video-frame-wrapper">'
             +'<iframe class="comment-video" frameborder="0" '
-            +'src="https://www.youtube.com/embed/'+ match[1] +'">'
+            +'src="https://www.youtube-nocookie.com/embed/'+ match[1] +'">'
             +'</iframe></div>';
         }
     }
