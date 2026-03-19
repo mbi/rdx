@@ -593,7 +593,7 @@ function urlpreview(urli, postjson) {
                 if (typeof singleptlink == "undefined") {
                     singleptlink = pjmdsorted[singlept]['s']['gif'];
                 } else {
-                    singleptlink = singleptlink.replace("preivew.redd", "i.redd");
+                    singleptlink = singleptlink.replace("preview.redd", "i.redd");
                 }
                 var singletmlink = pjmdsorted[singlept]['p']['0']['u'];
 

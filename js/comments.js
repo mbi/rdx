@@ -12,14 +12,13 @@ export function cbuilder(comment) {
     /* Replace image posts */
     let media_html = null;
     if(comment.media_metadata) {
-        // console.log(comment.media_metadata)
         media_html = '';
         for (let k in comment.media_metadata) {
             let v = comment.media_metadata[k];
             if(v?.m?.indexOf('image') === 0) {
                 let subtype = v.m.replace('image/', '');
                 for(let st in v.s) {
-                    if (st === subtype) {
+                    if (st === subtype || st === 'u' && v.s.u.indexOf(subtype) !== -1) {
                         let url = v.s[st];
                         let link = '<a href="' + url + '">' + url + '</a>';
                         if (body_html.indexOf(link)) {
