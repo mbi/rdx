@@ -36,12 +36,12 @@ export function cbuilder(comment) {
     } else if (comment.body.indexOf('youtu.be/') > -1 || comment.body.indexOf('youtube.com/') > -1) {
 
         let match = comment.body.match(/.*\?v=([^$]{11}).*/);
-        console.log(comment.body, match);
+        //console.log(comment.body, match);
         if (match && match[1]) {
             media_html = '<div class="video-frame-wrapper">'
             +'<iframe class="comment-video" frameborder="0" '
-            + 'referrerpolicy="strict-origin-when-cross-origin" '
-            +'src="https://www.youtube-nocookie.com/embed/'+ match[1] +'">'
+            +'referrerpolicy="strict-origin-when-cross-origin" '
+            +'src="https://rdx.mbi.me/ytp.html?v='+ match[1] +'">'
             +'</iframe></div>';
         }
     }
