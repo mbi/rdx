@@ -16,13 +16,19 @@ export function cbuilder(comment) {
         media_html = '';
         for (let k in comment.media_metadata) {
             let v = comment.media_metadata[k];
-            if(v?.m?.indexOf('image') === 0 && v?.s?.u) {
-                let link = '<a href="' + v.s.u + '">' + v.s.u + '</a>';
-                if (body_html.indexOf(link)) {
-                    body_html = body_html.replace(
-                        link,
-                        '<img style="max-width:'+ v.s.x +'px" class="comment-image" src="' + v.s.u + '" />'
-                    );
+            if(v?.m?.indexOf('image') === 0) {
+                let subtype = v.m.replace('image/', '');
+                for(let st in v.s) {
+                    if (st === subtype) {
+                        let url = v.s[st];
+                        let link = '<a href="' + url + '">' + url + '</a>';
+                        if (body_html.indexOf(link)) {
+                            body_html = body_html.replace(
+                                link,
+                                '<img style="max-width:'+ v.s.x +'px" class="comment-image" src="' + url + '" />'
+                            );
+                        }
+                    }
                 }
             }
         };

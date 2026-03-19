@@ -6,14 +6,12 @@ export function replaceRedditLinks(htmlContent) {
             return 'class="comment-icon icon" comments.html?url=' + encodeURIComponent(p1 + (p2 || ""));
         });
 
-    console.log('replaceRedditLinks  before', replacedText);
-    replacedText = replacedText.replace(/<a href="https:\/\/giphy\.com\/gifs\/([^"]+)"[^>]*>.*?<\/a>/g,
+        replacedText = replacedText.replace(/<a href="https:\/\/giphy\.com\/gifs\/([^"]+)"[^>]*>.*?<\/a>/g,
         (match, id) => `
             <div style="width:100%;height:0;padding-bottom:56%;position:relative;">
                 <iframe src="https://giphy.com/embed/${id}" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
             </div>`
     );
-    console.log('replaceRedditLinks  after', replacedText);
 
     return replacedText;
 }
