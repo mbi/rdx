@@ -33,19 +33,20 @@ export function cbuilder(comment) {
             }
         };
 
-    } else if (comment.body.indexOf('https://youtu.be') === 0) {
-        var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
-        var match = comment.body.match(regExp);
-        if (match && match[7].length == 11) {
+    } else if (comment.body.indexOf('youtu.be/') > -1 || comment.body.indexOf('youtube.com/') > -1) {
+
+        let match = comment.body.match(/.*\?v=([^$]{11}).*/);
+        console.log(comment.body, match);
+        if (match && match[1]) {
             media_html = '<div class="video-frame-wrapper">'
             +'<iframe class="comment-video" frameborder="0" '
-            +'src="https://www.youtube.com/embed/'+ match[7] +'">'
+            +'src="https://www.youtube.com/embed/'+ match[1] +'">'
             +'</iframe></div>';
         }
     }
 
     if(media_html) {
-        body_html = media_html;
+        body_html += media_html;
     }
 
     let cret = '<div class="comment ccp'
