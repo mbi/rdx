@@ -3,12 +3,10 @@ import { getget, setTitle, makereq } from "./functions.min.js?v=CACHEBUSTER";
 let query = getget('q')
 
 if(getget('r') != null){
-    console.log(getget('r'));
     query = query+'&r='+getget('r');
 }
 
 if(getget('u') != null){
-    console.log(getget('r'));
     query = query+'&u='+getget('u');
 }
 
@@ -37,12 +35,10 @@ let limit = localStorage.getItem('ppg') || 20;
 url = url+'&limit='+limit;
 
 if(getget('sort') != null){
-    console.log(getget('sort'));
     url = url+'&sort='+getget('sort');
 }
 
 if(getget('t') != null){
-    console.log(getget('t'));
     url = url+'&t='+getget('t');
 }
 url = url+'&include_over_18=on';

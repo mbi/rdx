@@ -51,7 +51,6 @@ export function getSubs() {
         "Satisfyingasfuck",
         "archlinux",
         "oglaf",
-        //"SublimeText",
         "books",
         "explainlikeimfive",
         "gifs",
@@ -198,8 +197,7 @@ function scrollMore() {
 
     const url = nexturl.replace(/www.reddit.com/g, BASE_URL);
     let fill = '';
-    if (nexturl != '') {
-        console.log(nexturl);
+    if (nexturl !== '') {
     } else {
         return false;
     }
@@ -478,40 +476,13 @@ export function postbuilder(post) {
     returnfpost += '</div><div class="post_author flex-right"><a href="subreddit.html?r=' + post["subreddit"] + '">' + post["subreddit_name_prefixed"] + '</a> <a class="small-hidden" href="user.html?u=' + post["author"] + '">' + post["author"] + '</a> ' + timeagoed + '</div>';
 
 
-    if (localStorage.getItem('refreshToken') !== null && window.location.href.includes('comments.html')) {
-        returnfpost += ' &bull; <span onclick="replyto(\'t3_' + post['id'] + '\')">Reply</span>';
-    }
     returnfpost += '</div>';
-    if (mode == "comp") {
+    if (mode === "comp") {
         returnfpost += '</div>';
     }
 
     returnfpost += '</div>';
     return returnfpost;
-}
-
-function preloadImage(im_url) {
-    let container = document.createElement('div');
-    container.innerHTML = `<img src="${im_url}" />`;
-
-    document.body.appendChild(container);
-    setTimeout(function() {
-        document.body.removeChild(container);
-    }, 1);
-}
-
-function closegal() {
-    document.getElementById('newgallery').outerHTML = '';
-}
-
-function galleryopen(theid) {
-    const jdiv = document.createElement('div');
-    jdiv.id = 'newgallery';
-    document.getElementsByTagName('body')[0].appendChild(jdiv);
-    jdiv.innerHTML = '<span id="closegal" onclick="closegal();">Close</span>';
-    document.querySelectorAll('[data-id="' + theid + '"]').forEach(el => {
-        jdiv.innerHTML += '<div class="displayimg"><img src="' + el.getAttribute('data-msrc') + '"></div>';
-    });
 }
 
 function previewImage(postjson) {
@@ -730,9 +701,6 @@ function urlpreview(urli, postjson) {
         returnpost += '</template>';
         returnpost += '</div>';
     } else {
-
-        console.log(postjson)
-
         var thumbnailforit = previewImage(postjson) || '';
         if (thumbnailforit) {
             returnpost += '<a href="' + urli + '" class="postc singleimage url">';
@@ -870,9 +838,9 @@ export function shareit() {
             url: t
         };
         navigator.share(e).then(() => {
-            console.log("Shared successfully")
+            //console.log("Shared successfully")
         }).catch(e => {
-            console.error("Error sharing:", e)
+            // console.error("Error sharing:", e)
         })
     } else {
         const t = window.location.href,
@@ -884,272 +852,6 @@ export function shareit() {
 
 
 
-
-
-function replyto(cmtid) {
-    document.getElementById('popitup').style.display = 'block';
-    document.getElementById('cmtid').value = cmtid;
-    document.getElementById('actype').value = "c";
-    let ebId = cmtid.replace(/^(t1_|t3_)/, '');
-    if (document.getElementById(ebId).className != "post") {
-        document.getElementById('helptext').textContent = 'Reply to: ' + document.getElementById(ebId).querySelector('.comment_text').textContent;
-
-    } else {
-        document.getElementById('helptext').textContent = 'Reply to:' + document.getElementById(ebId).querySelector('.post_link a').textContent;
-
-    }
-    document.getElementById('commentText').focus();
-}
-
-function editto(cmtid) {
-    document.getElementById('popitup').style.display = 'block';
-    document.getElementById('cmtid').value = cmtid;
-    let ebId = cmtid.replace(/^(t1_|t3_)/, '');
-    document.getElementById('commentText').value = document.getElementById(ebId).querySelector('.comment_text').textContent;
-    document.getElementById('actype').value = "e";
-    document.getElementById('helptext').textContent = 'Editing: ' + document.getElementById(ebId).querySelector('.comment_text').textContent;
-    document.getElementById('commentText').focus();
-}
-
-function deleteto(cmtid) {
-    const confirmation = confirm("Are you sure you want to delete this?");
-    if (confirmation) {
-        document.getElementById('cmtid').value = cmtid;
-        document.getElementById('actype').value = "d";
-        apiAction();
-    }
-}
-
-function inboxto() {
-    document.getElementById('actype').value = "i";
-    apiAction();
-}
-
-function apiAction() {
-    const accessToken = localStorage.getItem('accessToken');
-    const expiresIn = localStorage.getItem('expiresIn');
-    const refreshToken = localStorage.getItem('refreshToken');
-    const clientId = localStorage.getItem('clientId');
-    const clientSecret = localStorage.getItem('clientSecret');
-    const redirectUri = 'https://rdx.overdevs.com/login.html';
-    const actionType = document.getElementById('actype').value;
-
-
-    if (accessToken && expiresIn) {
-        const currentTimestamp = Date.now();
-        const expiresAt = parseInt(expiresIn);
-        if (currentTimestamp < expiresAt) {
-            if (actionType == "c") {
-                submitComment(accessToken);
-            } else if (actionType == "e") {
-                editComment(accessToken);
-            } else if (actionType == "d") {
-                delComment(accessToken);
-            } else if (actionType == "i") {
-                getInbox(accessToken);
-            } else {}
-        } else {
-            // Access token has expired, renew it using refreshToken
-            const tokenUrl = 'https://www.reddit.com/api/v1/access_token';
-            fetch(tokenUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        'Authorization': `Basic ${btoa(`${clientId}:${clientSecret}`)}`,
-                    },
-                    body: `grant_type=refresh_token&refresh_token=${refreshToken}`,
-                })
-                .then(response => response.json())
-                .then(tokenData => {
-                    const newAccessToken = tokenData.access_token;
-                    const newRefreshToken = tokenData.refresh_token;
-                    const expiresIn = tokenData.expires_in; // Expires in seconds
-                    const expirationTimestamp = currentTimestamp + (expiresIn * 1000);
-                    localStorage.setItem('accessToken', newAccessToken);
-                    localStorage.setItem('refreshToken', newRefreshToken);
-                    localStorage.setItem('expiresIn', expirationTimestamp.toString());
-                    if (actionType == "c") {
-                        submitComment(accessToken);
-                    } else if (actionType == "e") {
-                        editComment(accessToken);
-                    } else if (actionType == "d") {
-                        delComment(accessToken);
-                    } else if (actionType == "i") {
-                        getInbox(accessToken);
-                    } else {}
-                })
-                .catch(error => {
-                    document.getElementById('cmntbtn').disabled = false;
-                    document.getElementById('cmntbtn').innerHTML = 'Submit';
-                    alert('Error refreshing token:', error);
-                });
-        }
-    } else {
-        window.location.href = 'login.html';
-    }
-}
-
-function submitComment(accessToken) {
-    document.getElementById('cmntbtn').disabled = true;
-    document.getElementById('cmntbtn').innerHTML = 'Submitting...';
-    const thingId = document.getElementById('cmtid').value;
-    const commentText = document.getElementById('commentText').value;
-    const commentUrl = 'https://oauth.reddit.com/api/comment';
-    fetch(commentUrl, {
-            method: 'POST',
-            headers: {
-                'Authorization': `bearer ${accessToken}`,
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: `api_type=json&text=${encodeURIComponent(commentText)}&thing_id=${thingId}`,
-        })
-        .then(response => response.json())
-        .then(commentData => {
-            if (commentData.errors && commentData.errors.length > 0) {
-                document.getElementById('cmntbtn').disabled = false;
-                document.getElementById('cmntbtn').innerHTML = 'Submit';
-                alert('Error submitting comment:' + commentData.errors);
-            } else {
-                document.getElementById('cmntbtn').disabled = false;
-                document.getElementById('cmntbtn').innerHTML = 'Submit';
-                document.getElementById('popitup').style.display = 'none';
-                document.getElementById('commentText').value = '';
-                let ebId = thingId.replace(/^(t1_|t3_)/, '');
-                let ccclass = "ccp0";
-                if (document.getElementById(ebId).className != "post") {
-                    let ccNumber = document.getElementById(ebId).className.match(/ccp\d+/)[0].replace("ccp", "");
-                    ccNumber = Math.floor(ccNumber) + 1;
-                    ccclass = "ccp" + ccNumber;
-                }
-                document.getElementById(ebId).insertAdjacentHTML('afterEnd', '<div class="comment ' + ccclass + '"><div class="comment_author"><span class="authorttext ">You</span>  <span class="comment_meta">1 votes • Just now </span></div><div class="comment_text">' + commentText + '</div></div>');
-            }
-        })
-        .catch(error => {
-            document.getElementById('cmntbtn').disabled = false;
-            document.getElementById('cmntbtn').value = 'Submit';
-            alert('Error submitting comment:' + error);
-        });
-}
-
-function editComment(accessToken) {
-    document.getElementById('cmntbtn').disabled = true;
-    document.getElementById('cmntbtn').innerHTML = 'Submitting...';
-    const thingId = document.getElementById('cmtid').value;
-    const commentText = document.getElementById('commentText').value;
-    const commentUrl = 'https://oauth.reddit.com/api/editusertext';
-    fetch(commentUrl, {
-            method: 'POST',
-            headers: {
-                'Authorization': `bearer ${accessToken}`,
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: `api_type=json&text=${encodeURIComponent(commentText)}&thing_id=${thingId}`,
-        })
-        .then(response => response.json())
-        .then(commentData => {
-            if (commentData.errors && commentData.errors.length > 0) {
-                document.getElementById('cmntbtn').disabled = false;
-                document.getElementById('cmntbtn').innerHTML = 'Submit';
-                alert('Error editing comment:' + commentData.errors);
-            } else {
-                document.getElementById('cmntbtn').disabled = false;
-                document.getElementById('cmntbtn').value = 'Submit';
-                document.getElementById('popitup').style.display = 'none';
-                document.getElementById('commentText').value = '';
-                let ebId = thingId.replace(/^(t1_|t3_)/, '');
-                document.getElementById(ebId).querySelector('.comment_text').textContent = commentText;
-            }
-        })
-        .catch(error => {
-            document.getElementById('cmntbtn').disabled = false;
-            document.getElementById('cmntbtn').innerHTML = 'Submit';
-            alert('Error editing comment:' + error);
-        });
-}
-
-function delComment(accessToken) {
-    const thingId = document.getElementById('cmtid').value;
-    const commentUrl = 'https://oauth.reddit.com/api/del';
-    fetch(commentUrl, {
-            method: 'POST',
-            headers: {
-                'Authorization': `bearer ${accessToken}`,
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: `id=${thingId}`,
-        })
-        .then(response => response.json())
-        .then(commentData => {
-            if (commentData.errors && commentData.errors.length > 0) {
-
-                alert('Error deleting comment:' + commentData.errors);
-            } else {
-
-                let ebId = thingId.replace(/^(t1_|t3_)/, '');
-                document.getElementById(ebId).style.display = 'none';
-            }
-        })
-        .catch(error => {
-            alert('Error deleting comment:' + error);
-        });
-}
-
-function getInbox(accessToken) {
-    const inboxUrl = 'https://oauth.reddit.com/message/inbox';
-
-    fetch(inboxUrl, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${accessToken}`
-            },
-        })
-        .then(response => response.json())
-        .then(inboxData => {
-            if (inboxData.error) {
-                console.error('Error fetching inbox messages:', inboxData.error);
-            } else {
-                const inboxMessages = inboxData.data.children;
-                console.log(inboxMessages);
-
-                let html = '';
-
-                inboxMessages.forEach((item) => {
-                    const {
-                        kind,
-                        inboxMessages: {
-                            author,
-                            created_utc,
-                            subject,
-                            link_title,
-                            body_html,
-                            tname,
-                            context
-                        }
-                    } = item;
-                    const date = new Date(created_utc * 1000);
-                    const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} - ${date.getHours()}:${date.getMinutes()}`;
-
-                    if (kind === 't1') {
-                        html += `<div class="inboxmsgwrap"><div class="ibxmeta"><span class="ibxauthor"><a href="user.html?u=${author}">u/${author}</a> &bull;  <span class="ibxtime">${formattedDate}</span></span></div>`;
-                        html += `<div class="ibxsub">${subject}</div>`;
-                        html += `<div class="ibxlink"><a href="comments.html?url=https://www.reddit.com${context}">${link_title}</a></div>`;
-                        html += `<div class="ibxmsg">${body_html}</div>`;
-                        html += `<div class="ibxactions"><button onclick="replyto('${tname}')">Reply</button></div></div>`;
-                    } else if (kind === 't4') {
-                        html += `<div class="inboxmsgwrap"><div class="ibxmeta"><span class="ibxauthor"><a href="user.html?u=${author}">u/${author}</a> &bull;  <span class="ibxtime">${formattedDate}</span></span></div>`;
-                        html += `<div class="ibxsub">${subject}</div>`;
-                        html += `<div class="ibxmsg">${body_html}</div></div>`;
-                        html += `<div class="ibxactions"><button onclick="replyto('${tname}')">Reply</button></div></div>`;
-
-                    }
-                });
-                document.getElementById('inboxbody').innerHTML = html;
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching inbox messages:', error);
-        });
-}
 
 function setupUnloadVideo(vid) {
     const intersectionObserver = new IntersectionObserver((entries) => {

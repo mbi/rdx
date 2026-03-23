@@ -29,7 +29,6 @@ if(getget('sort') != null){
 }
 
 if(getget('t') != null){
-    console.log(getget('t'));
     url = url+'&t='+getget('t');
 }
 
