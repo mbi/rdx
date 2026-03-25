@@ -10,6 +10,11 @@
     --border-radius: 6px;
     --content-width: 37.5rem;
 }
+
+body.wide {
+    --content-width: 56.5rem;
+}
+
 html {
     font-size: 100%;
 }
@@ -174,6 +179,7 @@ div#settings{
     margin: 0 auto;
     max-width: var(--content-width);
     min-height: 100vh;
+    transition: all 0.2s;
 }
 
 div#settings {
@@ -908,6 +914,20 @@ span#menu {
     margin-top: -10px;
 }
 
+
+span#toggle-width {
+    display:none;
+}
+@media all and (min-width: 800px) {
+    span#toggle-width {
+        display: block;
+        position: absolute;
+        right: 38px;
+        padding: 5px 11px 5px 14px;
+        float: right;
+        top: 3px;
+    }
+}
 div#subscribed {
     border-top: 3px solid var(--greyc);
     max-height: 50vh;
