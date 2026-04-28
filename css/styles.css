@@ -1372,6 +1372,10 @@ a.lazy-video:hover::before {
 }
 
 
+iframe.giphy-embed {
+    pointer-events: none;
+}
+
 
 /* MODAL STYLES
 -------------------------------*/
@@ -1473,8 +1477,7 @@ body.jw-modal-open {
         filter: invert();
     }
 
-    blockquote::before {
-
-
 }
+
+
 
