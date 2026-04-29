@@ -961,11 +961,11 @@ function openItem() {
     }
 
     if (currentPost.querySelector('.singleimage img')) {
+        // on mobile, just open the post detail
         if (document.body.classList.contains('jw-modal-open')) {
             closeModal();
         } else {
             postModal(currentPost);
-
         }
         return;
     }
@@ -1069,6 +1069,10 @@ function initGestures(el) {
 
 function postModal(post) {
     if (document.body.offsetWidth < 480) {
+        const a = post.querySelector('.post_link a');
+        if(a !== null) {
+            window.location.href = a.href;
+        }
         return;
     }
 
