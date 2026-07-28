@@ -1,5 +1,4 @@
-import "./functions.min.js?v=CACHEBUSTER";
-import {getSubs} from "./functions";
+import {getSubs} from "./functions.min.js?v=CACHEBUSTER";
 
 
 const base_url = localStorage.getItem('base_url') || 'old.reddit.org';
@@ -7,8 +6,9 @@ document.getElementById("base-url").value = base_url;
 
 function save_base_url() {
     localStorage.setItem('base_url', document.getElementById("base-url").value);
+    console.log('base url saved to ', localStorage.getItem('base_url'));
 }
-
+document.getElementById("base-url").addEventListener("blur", save_base_url);
 
 function exportData() {
     const subs = getSubs();

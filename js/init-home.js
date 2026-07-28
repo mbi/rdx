@@ -1,38 +1,37 @@
-import { getget, setTitle, makereq, shareit, getSubs } from "./functions.min.js?v=CACHEBUSTER";
+import {getget, getSubs, makereq, setTitle} from "./functions.min.js?v=CACHEBUSTER";
 
 var fill = '';
 
 var substoload;
 
-if(getSubs().length === 0){
+if (getSubs().length === 0) {
     substoload = "all";
 } else {
-    var subsarray= getSubs();
+    var subsarray = getSubs();
     substoload = subsarray.join("+");
 }
 
 document.getElementById('pagetitletext').innerHTML = 'rdx';
 
 
-var url='https://www.reddit.com/r/'+substoload+'/';
-if(getget('sort') != null){
-    url = url+''+getget('sort')+'';
+var url = 'https://www.reddit.com/r/' + substoload + '/';
+if (getget('sort') != null) {
+    url = url + '' + getget('sort') + '';
 }
-
 
 
 var limit = localStorage.getItem('ppg') || 20;
-url = url+'.json?limit='+limit;
-if(getget('t') != null){
+url = url + '.json?limit=' + limit;
+if (getget('t') != null) {
     console.log(getget('t'));
-    url = url+'&t='+getget('t');
+    url = url + '&t=' + getget('t');
 }
 
-if(getget('after') != null){
-    url = url+'&after='+getget('after');
+if (getget('after') != null) {
+    url = url + '&after=' + getget('after');
 }
-if(getget('before') != null){
-    url = url+'&before='+getget('before');
+if (getget('before') != null) {
+    url = url + '&before=' + getget('before');
 }
 
 document.getElementById('pagetitletext').innerHTML = 'Home';
