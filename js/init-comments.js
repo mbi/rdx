@@ -1,4 +1,4 @@
-import { getget, setTitle, makereq, postbuilder, postsLoadedCallback, collapseComment, shareit } from "./functions.min.js?v=CACHEBUSTER";
+import { getget, setTitle, makereq, postbuilder, postsLoadedCallback, collapseComment, shareit, APISCHEME } from "./functions.min.js?v=CACHEBUSTER";
 import { loadcomments, cbuilder} from './comments.min.js?v=CACHEBUSTER';
 
 var thisthread;
@@ -32,7 +32,7 @@ function loadmore(cids){
     req.responseType = 'json';
     urljson = urljson.replace(/,\s*$/, "");
 
-    req.open('GET','https://www.reddit.com/r/'+thisthread['subreddit']+'/api/morechildren.json?api_type=json&&link_id='+thisthread['name']+'&limit=500&r=AskReddit&children='+urljson, true);
+    req.open('GET',APISCHEME+'www.reddit.com/r/'+thisthread['subreddit']+'/api/morechildren.json?api_type=json&&link_id='+thisthread['name']+'&limit=500&r=AskReddit&children='+urljson, true);
     req.onload  = function() {
         var jsonResponse = req.response;
         //thisthread = jsonResponse[0]['data']['children'][0]['data'];
@@ -116,11 +116,16 @@ if(getget('sort') != null){
 }
 url = url+'&'+roqs;
 
+url = url.replace(/^https:\/\//, APISCHEME);
 var req = new XMLHttpRequest();
 req.responseType = 'json';
 req.open('GET', url, true);
 req.onload  = function() {
     var jsonResponse = req.response;
+    if (!jsonResponse || !jsonResponse[0]) {
+        document.getElementById('body').innerHTML = '<center style="padding:15px;">Reddit API error: HTTP ' + req.status + '<br><small>' + (req.status === 403 ? 'Reddit is blocking this request. Try re-logging in via the settings page.' : '') + '</small></center>';
+        return;
+    }
     thisthread = jsonResponse[0]['data']['children'][0]['data'];
     document.getElementById('body').innerHTML += postbuilder(thisthread);
     document.getElementById('pagetitletext').innerHTML = thisthread['subreddit'];

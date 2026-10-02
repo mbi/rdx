@@ -26,6 +26,12 @@ if (localStorage.getItem('base_url') === null) {
     localStorage.setItem('base_url', BASE_URL);
 }
 
+// The rdxn iOS wrapper loads this UI from file:// and registers an rdx://
+// scheme handler that performs reddit requests natively, attaching the
+// user's reddit session cookies. Reddit blocks cross-site https XHR from
+// the file:// page since Oct 2026. Normal web deploys keep https.
+export const APISCHEME = window.location.protocol === 'file:' ? 'rdx://' : 'https://';
+
 
 export function getSubs() {
     if (localStorage.getItem("subs") !== null) {
@@ -138,6 +144,7 @@ export function toggle(id) {
 
 export function  makereq(url) {
     url = url.replace(/www.reddit.com/g, BASE_URL);
+    url = url.replace(/^https:\/\//, APISCHEME);
     var fill = '';
     var req = new XMLHttpRequest();
     var post_data;
@@ -145,6 +152,11 @@ export function  makereq(url) {
     req.open('GET', url, true);
     req.onload = function() {
         var jsonResponse = req.response;
+        if (!jsonResponse || !jsonResponse['data']) {
+            document.getElementById('body').innerHTML = '<center style="padding:15px;">Reddit API error: HTTP ' + req.status + '<br><small>' + (req.status === 403 ? 'Reddit is blocking this request. Try re-logging in via the settings page.' : '') + '</small></center>';
+            postsLoadedCallback(true);
+            return;
+        }
         var titlesx = url.replace("https://"+BASE_URL+"/r/", "");
         titlesx = titlesx.replace("/.json", "");
         // setTitle('r/' + titlesx.split('?limit')[0]);
@@ -195,7 +207,7 @@ function scrollMore() {
 
     var post_data;
 
-    const url = nexturl.replace(/www.reddit.com/g, BASE_URL);
+    const url = nexturl.replace(/www.reddit.com/g, BASE_URL).replace(/^https:\/\//, APISCHEME);
     let fill = '';
     if (nexturl !== '') {
     } else {
@@ -206,6 +218,11 @@ function scrollMore() {
     req.open('GET', url, true);
     req.onload = function() {
         var jsonResponse = req.response;
+        if (!jsonResponse || !jsonResponse['data']) {
+            document.getElementById('sxpy').insertAdjacentHTML('beforeend', '<center style="padding:15px;">Reddit API error: HTTP ' + req.status + '</center>');
+            _is_requesting = false;
+            return;
+        }
         var posts = jsonResponse['data']['children'].filter(
             (post) => seenPostIds.indexOf(post.id) === -1
         );
@@ -332,7 +349,7 @@ function searchsubs(q, event) {
             }
         }
         xhr.responseType = 'json';
-        xhr.open('GET', 'https://'+BASE_URL+'/api/subreddit_autocomplete/.json?query=' + q + '&include_profiles=false&include_over_18=true', true)
+        xhr.open('GET', APISCHEME+BASE_URL+'/api/subreddit_autocomplete/.json?query=' + q + '&include_profiles=false&include_over_18=true', true)
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.send();
     }
