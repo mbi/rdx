@@ -9,6 +9,7 @@
     --current-item-marker: #aaaaaa69;
     --border-radius: 6px;
     --content-width: 37.5rem;
+    --basefs: 16px;
 }
 
 body.wide {
@@ -20,6 +21,7 @@ html {
 }
 body {
     font-family: segoe ui, arial, sans-serif;
+    font-size: var(--basefs);
     margin: 0 auto;
     background: var(--greyc);
     color: var(--textc);
@@ -29,6 +31,13 @@ a {
     color: #444;
     color: var(--lightc);
 
+}
+
+input,
+button,
+select,
+textarea {
+    font-size: var(--basefs);
 }
 
 .comment {
@@ -57,7 +66,7 @@ a {
 .comment_text { margin-top: 4px }
 .postc.selftext {
     word-break: break-word;
-    font-size: 15px;
+    font-size: calc(var(--basefs) * 0.9375);
     max-height: none;
     overflow: hidden;
     box-shadow: inset 0 -15px 5px -7px #ddd;
@@ -66,7 +75,7 @@ a {
 }
 .cmenu {
     text-align: right;
-    font-size: 15px;
+    font-size: calc(var(--basefs) * 0.9375);
     margin: 0 auto;
     position: absolute;
     right: 50px;
@@ -100,7 +109,7 @@ h2 {
 }
 
 blockquote {
-    font-size: 16px;
+    font-size: calc(var(--basefs) * 1);
     padding-left: 10px;
     margin-left: 4px;
     margin-right: 10px;
@@ -127,7 +136,7 @@ p {
 }
 
 .comment_author {
-    font-size: 14px;
+    font-size: calc(var(--basefs) * 0.875);
     overflow: hidden;
     margin-bottom: 2px;
 }
@@ -152,25 +161,25 @@ p {
 
 .comment.ccp2 {
     margin-left: 35px;
-    font-size: 17px;
+    font-size: calc(var(--basefs) * 1.0625);
     border-left: 2px solid #d82c2b33;
 }
 
 .comment.ccp3 {
     margin-left: 59px;
-    font-size: 16px;
+    font-size: calc(var(--basefs) * 1);
     border-left: 2px solid #d82c2b77;
 }
 
 .comment.ccp4 {
     margin-left: 75px;
-    font-size: 15px;
+    font-size: calc(var(--basefs) * 0.9375);
     border-left: 2px solid #d82c2b99;
 }
 
 .comment.ccp5 {
     margin-left: 89px;
-    font-size: 14px;
+    font-size: calc(var(--basefs) * 0.875);
     border-left: 2px solid #a662c9aa;
 }
 
@@ -196,7 +205,7 @@ a.viewmore {
     text-align: right;
     color: #333;
     color: var(--lightc);
-    font-size: 12px;
+    font-size: calc(var(--basefs) * 0.75);
     margin-bottom: 6px;
     padding-right: 6px;
     text-decoration: none;
@@ -213,7 +222,7 @@ a.viewmore + .comment {
 
 .rdxt_selftext {
     padding: 10px;
-    font-size: 17px;
+    font-size: calc(var(--basefs) * 1.0625);
     word-break: break-word;
 }
 
@@ -245,7 +254,7 @@ a.viewmore + .comment {
 }
 
 .post_author {
-    font-size: 14px;
+    font-size: calc(var(--basefs) * 0.875);
     color: #555;
     color: var(--lightc);
     overflow: auto;
@@ -255,7 +264,7 @@ a.viewmore + .comment {
 
 .post_link a {
     text-decoration: none;
-    font-size: 16px;
+    font-size: calc(var(--basefs) * 1);
     color: #27598c;
     color: var(--textc);
     word-break: break-word;
@@ -284,7 +293,7 @@ a.viewmore + .comment {
 
 .postc.selftext {
     word-break: break-word;
-    font-size: 15px;
+    font-size: calc(var(--basefs) * 0.9375);
     overflow: hidden;
 /*    max-height: 100px;
     overflow: hidden;
@@ -332,7 +341,7 @@ a.viewmore + .comment {
     overflow: hidden;
     text-overflow: ellipsis;
     border-radius: var(--border-radius);
-    font-size: 14px;
+    font-size: calc(var(--basefs) * 0.875);
 }
 
 .postc.selftext a {
@@ -409,7 +418,7 @@ div#subslist a {
     text-decoration: none;
     color: #444;
     color: var(--textc);
-    font-size: 16px;
+    font-size: calc(var(--basefs) * 1);
     padding-left: 2%;
 
     background-size: 32px auto;
@@ -443,7 +452,7 @@ span.polloptiontext {
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: 14px;
+    font-size: calc(var(--basefs) * 0.875);
     display: inline-block;
 }
 
@@ -451,7 +460,7 @@ span.votecount {
     width: 17%;
     display: inline-block;
     text-align: right;
-    font-size: 13px;
+    font-size: calc(var(--basefs) * 0.8125);
 }
 
 .polloption {
@@ -468,7 +477,7 @@ span.votecount {
 }
 
 .totalvotes {
-    font-size: 16px;
+    font-size: calc(var(--basefs) * 1);
     padding: 5px 0;
 }
 
@@ -524,7 +533,7 @@ div#rightbar a {
     text-decoration: none;
     color: #444;
     color: var(--lightc);
-    font-size: 16px;
+    font-size: calc(var(--basefs) * 1);
     padding-left: 2%;
 }
 
@@ -536,7 +545,7 @@ iframe.gifframe {
 }
 
 .post_meta {
-    font-size: 14px;
+    font-size: calc(var(--basefs) * 0.875);
     color: #444;
     color: var(--lightc);
     padding: 5px 2px 0px;
@@ -576,7 +585,7 @@ a.homelinks {
     text-decoration: none;
     color: #444;
     color: var(--lightc);
-    font-size: 16px;
+    font-size: calc(var(--basefs) * 1);
 }
 
 a.homelinks.half {
@@ -617,7 +626,7 @@ a.wholethumb {
     overflow: hidden;
     text-overflow: ellipsis;
     border-radius: var(--border-radius);
-    font-size: 14px;
+    font-size: calc(var(--basefs) * 0.875);
 }
 
 .postc.thumblink {
@@ -681,7 +690,7 @@ span.menubars:before {
 .post_link.sticky:before {
     content: "PINNED";
     background: var(--greyc);
-    font-size: 13px;
+    font-size: calc(var(--basefs) * 0.8125);
     padding: 5px;
     color: var(--lightc);
     float: right;
@@ -702,11 +711,11 @@ span.menubars:after {
 .search input[type="search"] {
     display: block;
     background: var(--greyc);
-    width: calc(100% - 76px);
+    width: calc(100% - 3.2em - 28px);
     padding: 4px;
     border: 1px solid var(--lightc);
     border-radius: var(--border-radius);
-    font-size: 16px;
+    font-size: calc(var(--basefs) * 1);
     outline: none;
     max-width: var(--content-width);
     color: var(--textc);
@@ -714,7 +723,7 @@ span.menubars:after {
 }
 
 .search label {
-    font-size: 13px;
+    font-size: calc(var(--basefs) * 0.8125);
 }
 
 .comment_text p {
@@ -746,11 +755,10 @@ a.lazy-video:hover {
 
 
 .search input[type="submit"] {
-    font-size: 12px;
     background: var(--lightc);
     padding: 5px 10px;
     border-radius: var(--border-radius);
-    font-size: 14px;
+    font-size: calc(var(--basefs) * 0.875);
     margin-left: 5px;
     color: var(--bodyc);
     border: 1px solid var(--textc);
@@ -764,7 +772,7 @@ input#chk1 {
 
 span.horimenu {
     float: right;
-    font-size: 23px;
+    font-size: calc(var(--basefs) * 1.4375);
     line-height: 0px;
     letter-spacing: 1px;
     margin-right: 5px;
@@ -846,7 +854,7 @@ textarea#commentText {
     height: 75px;
     clear: both;
     outline: none;
-    font-size: 17px;
+    font-size: calc(var(--basefs) * 1.0625);
 }
 
 button#cmntbtn {
@@ -863,13 +871,13 @@ button#cmntbtn {
     width: 90%;
     margin: 0 auto 25px;
     max-width: 400px;
-    font-size: 17px;
+    font-size: calc(var(--basefs) * 1.0625);
 }
 
 #helptext {
     clear: both;
     margin: 10px 15px;
-    font-size: 12px;
+    font-size: calc(var(--basefs) * 0.75);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -888,7 +896,7 @@ div#cthemew a {
     color: var(--linkc);
     padding: 10px;
     display: inline-block;
-    font-size: 17px;
+    font-size: calc(var(--basefs) * 1.0625);
 }
 
 span.comment_meta {
@@ -936,7 +944,7 @@ div#subscribed {
 
 .md {
     line-height: 1.2;
-    font-size: 16px;
+    font-size: calc(var(--basefs) * 1);
 /*    text-align: justify;*/
 }
 
@@ -970,12 +978,12 @@ button.load-more-comments {
     cursor: pointer;
     width: 123px;
     margin-bottom: 10px;
-    font-size: 17px;
+    font-size: calc(var(--basefs) * 1.0625);
 }
 
 .comment-reply span {
     color: var(--lightc);
-    font-size: 14px;
+    font-size: calc(var(--basefs) * 0.875);
     text-transform: lowedrcase;
     padding: 3px 7px;
     margin-bottom: -5px;
@@ -1051,11 +1059,11 @@ span#taptoopenmenu {
 
 .infotext h1,
 .infotext h2 {
-    font-size: 15px;
+    font-size: calc(var(--basefs) * 0.9375);
 }
 
 .infotext p {
-    font-size: 14px;
+    font-size: calc(var(--basefs) * 0.875);
 }
 
 div#newgallery {
@@ -1104,7 +1112,7 @@ span#closegal {
     right: 0;
     border-radius: 10px;
     opacity: 0.95;
-    font-size: 14px;
+    font-size: calc(var(--basefs) * 0.875);
     cursor: pointer;
     left: 5px;
     right: auto;
@@ -1137,7 +1145,7 @@ span.authorttext.isop:after {
     color: var(--greyc);
     border-radius: 5px;
     padding: 1px 5px;
-    font-size: 11px;
+    font-size: calc(var(--basefs) * 0.6875);
 }
 
 .rop {
@@ -1158,7 +1166,7 @@ span.authorttext.isop:after {
 
 
 .rop .post_link a {
-    font-size: 16px;
+    font-size: calc(var(--basefs) * 1);
 }
 
 .rop .post_link {
@@ -1273,7 +1281,7 @@ slide-show::part(controls) {
 }
 
 overflow-toggle::part(button) {
-    font-size: 1rem;
+    font-size: calc(var(--basefs) * 1);
     height: 2rem;
     width: 2rem;
     line-height: 0;

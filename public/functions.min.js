@@ -117,6 +117,9 @@ if (getSubs()) {
 }
 
 
+var basefs = localStorage.getItem('basefs') || '16px';
+document.documentElement.style.setProperty('--basefs', basefs);
+
 var curinfi = localStorage.getItem('curinfi') || true;
 if (window.location.href.indexOf("comments.html") == -1) {
     if (curinfi) {

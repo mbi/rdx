@@ -10,6 +10,20 @@ function save_base_url() {
 }
 document.getElementById("base-url").addEventListener("blur", save_base_url);
 
+const basefsInput = document.getElementById("basefs");
+basefsInput.value = parseInt(localStorage.getItem('basefs'), 10) || 16;
+
+function save_basefs() {
+    let v = parseInt(basefsInput.value, 10);
+    if (!v || v < 8 || v > 40) {
+        v = 16;
+    }
+    basefsInput.value = v;
+    localStorage.setItem('basefs', v + 'px');
+    document.documentElement.style.setProperty('--basefs', v + 'px');
+}
+basefsInput.addEventListener("blur", save_basefs);
+
 function exportData() {
     const subs = getSubs();
     if (subs) {
