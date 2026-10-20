@@ -12,7 +12,9 @@ import {
 var bmr = '';
 // Utility functions [UNIVERSAL]
 
-var seenPostIds = [];
+// Post ids already rendered on this page load; listings overlap across
+// pages (voting/new posts shifts the `after` window), so skip repeats.
+var seenPostIds = new Set();
 var activePostIdx = 0;
 var activeCommentIdx = 0;
 
@@ -164,12 +166,12 @@ export function  makereq(url) {
         titlesx = titlesx.replace("/.json", "");
         // setTitle('r/' + titlesx.split('?limit')[0]);
         var posts = jsonResponse['data']['children'].filter(
-            (post) => seenPostIds.indexOf(post.id) === -1
+            (post) => !seenPostIds.has(post.data.id)
         );
         for (var item in posts) {
             post_data = posts[item]['data'];
             fill += postbuilder(post_data);
-            seenPostIds.push(post_data.id);
+            seenPostIds.add(post_data.id);
         }
 
         fill += '<div class="navigate">';
@@ -227,12 +229,12 @@ function scrollMore() {
             return;
         }
         var posts = jsonResponse['data']['children'].filter(
-            (post) => seenPostIds.indexOf(post.id) === -1
+            (post) => !seenPostIds.has(post.data.id)
         );
         for (var item in posts) {
             post_data = posts[item]['data'];
             fill += postbuilder(post_data);
-            seenPostIds.push(post_data.id);
+            seenPostIds.add(post_data.id);
         }
         var curpage = window.location.href.replace(/\&after.*/, '');
         if (jsonResponse['data']['after'] != null) {
